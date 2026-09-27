@@ -3,6 +3,8 @@
 実行（PowerShell）:
   $env:ANTHROPIC_API_KEY = "..."; & "D:\\Users\\usor\\miniconda3\\envs\\myenv311\\python.exe" count_tokens.py
   特定の版だけ測る: ... count_tokens.py L_merge N_prose
+  ファイルの中身を測る: ... count_tokens.py (Get-ChildItem behavior_outputs\*.txt)
+  （引数が既存のファイルならその中身を、そうでなければ VERSIONS の版名として扱う）
 
 count_tokens の呼び出しは無料。モデルは claude-opus-5-5 のトークナイザで数える。
 メッセージの包装分を差し引くため、"x" 1文字の結果から 1 を引いた値を基準にしている。
@@ -54,5 +56,10 @@ def count(text):
 names = sys.argv[1:] or list(VERSIONS)
 base = count("x") - 1  # message wrapper overhead
 for name in names:
-    text = VERSIONS[name]
-    print(f"{name:12s} {count(text) - base:4d} tokens  {len(text):4d} chars")
+    if os.path.isfile(name):
+        with open(name, encoding="utf-8") as f:
+            text = f.read().strip()
+        name = os.path.basename(name)
+    else:
+        text = VERSIONS[name]
+    print(f"{name:28s} {count(text) - base:4d} tokens  {len(text):4d} chars")
