@@ -55,7 +55,7 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 2. ~~P_en をさらに短くする~~ → Q1_short・Q2_min を作って試験済み（results.md §13）。トークン数も測定済み。Q1_short を本命にした。Q2_min は入力込みでは最少だが、T4 で `@` を誤読するので非推奨。
    （旧メモ） 94トークン。`MiL mode:` の要否、`IF`・`@` の定義（入力側で使わないなら削れる）などを試す。Sonnet 向けに L2_ifeq の「コード1行で返す」傾向を取り込めるかも見る。
 3. ~~P_ja を Q1_short と同じ方針で短くする~~ → R1_ja・R2_ja を試験済み（results.md §15）。トークン数も測定済み。文字数では R1_ja が最少、トークンでは Q1_short が最少のまま。
-4. **Opus・Sonnet 向けの記号寄りの版 S1_plain・S2_sym のトークン数を測る**（results.md §16、試験済み）：`count_tokens.py S1_plain S2_sym (Get-ChildItem behavior_outputs\S\*.txt)`。文字数では P_en・Q1_short より返答が長かった。
+4. ~~Opus・Sonnet 向けの記号寄りの版を試す~~ → S1_plain・S2_sym を試験・測定済み（results.md §16）。指示文は最短（75〜79）だが出力が長く、入出力の合計では P_en が最少のまま。
 4. **記号の多い指示文が「明確さを強制」するかを確かめる。** 作者の @AM09_21 氏は「トークン削減には使えないが、明確さを強制できる」と述べている。実験案は [clarity_experiment.md](clarity_experiment.md)（未実施）。まず課題1つで小さく試す。
 4. **英文の指示をさらに短くする。** Haiku 向けの N_prose（104）を、出力の短さを保ったまま削れるか試す。
 4. **「文脈」を会話内に限る案。** Sonnet は T2 で、質問を返したあと答えを待たずにリポジトリを探し、推測でファイルを書き換えることがある（指示なしでも起きる）。`del(recoverable_from_this_conversation)` などで減るかを試す。
