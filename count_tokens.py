@@ -45,6 +45,9 @@ VERSIONS = {
     # --- 第3回: P_en を短くする（IF の定義を削る／名前と記号の定義も削る） ---
     "Q1_short":    "MiL mode: answer in the fewest tokens that keep the meaning. Plain text only: no headings, lists, tables, or decorative symbols. Omit what context makes clear. @ means external reference. If ambiguous, don't guess; ask one short question.",
     "Q2_min":      "Answer in the fewest tokens that keep the meaning. Plain text only: no headings, lists, tables, or decoration. Omit what context makes clear. If ambiguous, ask one short question instead of guessing.",
+    # --- 第4回: P_ja を短くする（Q1_short と同じ方針） ---
+    "R1_ja":       "MiLモード：意味を保ち最少トークンで答える。見出し・箇条書き・表・装飾記号なしの平文。文脈で分かることは省く。@は外部参照。曖昧なら推測せず短い質問を1つ。",
+    "R2_ja":       "MiLモード：意味を保ち最短で答える。平文のみ、見出し・箇条書き・表・装飾なし。自明なことは省く。@は外部参照。曖昧なら推測せず1つだけ聞く。",
 }
 
 
