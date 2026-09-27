@@ -50,6 +50,7 @@ VERSIONS = {
     "R2_ja":       "MiLモード：意味を保ち最短で答える。平文のみ、見出し・箇条書き・表・装飾なし。自明なことは省く。@は外部参照。曖昧なら推測せず1つだけ聞く。",
     # --- 第5回: Opus・Sonnet 向け（Haiku を対象外にして記号に寄せる） ---
     "S0_orig":     "MiL;out(m):=argmin_tok{s:⟦s⟧=m};style:=plain,¬markdown,¬decorative_symbols;del(recoverable);@:=ext;¬infer;amb→ask_1_short_q",
+    "S1_plain":    "MiL;out:=shortest_tokens_same_meaning;plain_text:no_headings,lists,tables,decorative_symbols;del(recoverable_from_context);@=external_ref;amb->no_guess,ask_1_short_q",
     "S2_sym":      "MiL;out:=min_tokens,same_meaning;plain_text,¬markdown,¬decorative_symbols;del(recoverable_from_context);@:=external_ref;amb→¬guess,ask_1_short_q",
 }
 
