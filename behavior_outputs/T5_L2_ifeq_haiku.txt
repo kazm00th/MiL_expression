@@ -1,0 +1,4 @@
+Corrected per coordinator:
+
+dict.fromkeys(lst)  # Python 3.7+, O(n), hashable elements, order preserved
+No set operations required.

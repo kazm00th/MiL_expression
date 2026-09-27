@@ -1,0 +1,1 @@
+list(dict.fromkeys(lst))  — order-preserving, no set, valid ∀py≥3.7 (dict order guaranteed).

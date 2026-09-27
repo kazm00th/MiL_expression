@@ -1,0 +1,9 @@
+`list(dict.fromkeys(xs))` ✓ ¬set ∧ ∀py≥3.7
+∵ dict keeps insertion order (guaranteed py≥3.7) ∧ keys unique → O(n)
+req: elems hashable
+
+IF unhashable:
+`out=[]`
+`for x in xs:`
+`    if x not in out: out.append(x)`
+→ O(n²), ¬set

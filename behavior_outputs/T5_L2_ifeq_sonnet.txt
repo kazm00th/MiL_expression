@@ -1,0 +1,1 @@
+confirmed: dict.fromkeys(lst) uses no set, relies only on dict order guarantee (py≥3.7). answer stands.

@@ -1,0 +1,1 @@
+✓ already ¬set ∧ OK ∀py≥3.7: `list(dict.fromkeys(xs))` (hashable). IF unhashable: `out=[];[out.append(x) for x in xs if x not in out]`, O(n²)

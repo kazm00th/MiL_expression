@@ -1,0 +1,7 @@
+**Dedup list, keep order (no set, py≥3.7):**
+
+```python
+list(dict.fromkeys(lst))
+```
+
+Uses dict internals, maintains insertion order, O(n). Standard approach for py3.7+.

@@ -1,0 +1,27 @@
+This version uses no set and works on any Python from 3.7 up.
+
+The main approach doesn't need a set. Dicts keep their keys in insertion order from 3.7 onward:
+
+```python
+out = list(dict.fromkeys(lst))   # [3, 1, 3, 2, 1] -> [3, 1, 2]
+```
+
+To dedupe by a key without a set, use a dict to hold the first item seen for each key:
+
+```python
+d = {}
+for x in lst:
+    d.setdefault(key(x), x)
+out = list(d.values())
+```
+
+If the items aren't hashable, loop and append only the items not already in the output. It's O(n²), so it's slow on long lists:
+
+```python
+out = []
+for x in lst:
+    if x not in out:
+        out.append(x)
+```
+
+All three keep the first occurrence of each item.

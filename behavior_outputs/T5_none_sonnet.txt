@@ -1,0 +1,34 @@
+Revised per constraint (no `set` usage; must work for all Python >= 3.7):
+
+Primary approach — already set-free, relies on dict preserving insertion order (guaranteed from 3.7+):
+
+```python
+def dedup(seq):
+    return list(dict.fromkeys(seq))
+```
+
+For unhashable elements (lists/dicts), the seen-list approach was already set-free:
+
+```python
+def dedup(seq):
+    seen = []
+    result = []
+    for x in seq:
+        if x not in seen:
+            seen.append(x)
+            result.append(x)
+    return result
+```
+
+Streaming/generator version — originally used a `set` for the seen-check; replaced with a dict to satisfy the no-`set` constraint while keeping O(1) lookup and 3.7+ ordering guarantees:
+
+```python
+def dedup(seq):
+    seen = {}
+    for x in seq:
+        if x not in seen:
+            seen[x] = True
+            yield x
+```
+
+All three are compatible with Python 3.7 and later, and none use the `set` type.

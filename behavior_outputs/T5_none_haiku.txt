@@ -1,0 +1,34 @@
+# Python List Deduplication Without `set` (Python 3.7+)
+
+The user asked: "py:list→dedup∧keep_order;how?"
+
+The coordinator clarified the constraint: avoid `set`, Python 3.7+
+
+## Solutions (No `set` Required):
+
+### 1. **`dict.fromkeys()` (Best Option)**
+```python
+result = list(dict.fromkeys(my_list))
+```
+- **Complexity**: O(n)
+- **Why it works**: Dictionaries maintain insertion order in Python 3.7+
+- **Recommended**: Yes — most efficient, no explicit `set` usage
+
+### 2. **List Comprehension with `index()`**
+```python
+result = [x for i, x in enumerate(my_list) if my_list.index(x) == i]
+```
+- **Complexity**: O(n²)
+- **Advantage**: Readable, preserves order
+- **Disadvantage**: Slower for large lists
+
+### 3. **List Comprehension with Slicing**
+```python
+result = [x for i, x in enumerate(my_list) if x not in my_list[:i]]
+```
+- **Complexity**: O(n²)
+- **Advantage**: Intuitive logic
+- **Disadvantage**: Creates slices repeatedly
+
+## Recommendation
+Use **`dict.fromkeys()`** — O(n) time, works with Python 3.7+, no explicit `set` construction, and most concise.
