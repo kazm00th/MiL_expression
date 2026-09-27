@@ -486,7 +486,7 @@ T1〜T5 はコードで答える課題だったので、答え全体が説明に
 | ファイル | 内容 |
 |---|---|
 | [results.md](results.md) | 全測定と全テストの記録（§1〜§18） |
-| [SUMMARY.md](SUMMARY.md) | 結果の要約、全29版の一覧とテスト状況（§8） |
+| [SUMMARY.md](SUMMARY.md) | 結果の要約、全32版の一覧とテスト状況（§8）、追加の実験（§9〜§11） |
 | [HANDOFF.md](HANDOFF.md) | 引継ぎ資料、テストを走らせるときの注意 |
 | [background.md](background.md) | 元の MiL の意味、圧縮手法の整理、記号とトークンの話 |
 | [reading_test_prompt.md](reading_test_prompt.md) | 読解テストのプロンプトと判定基準 |
