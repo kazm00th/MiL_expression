@@ -1,0 +1,11 @@
+problem:=self-contra: winning_method∋summarize(@use)⇒claim(summarize→info_loss→obsolete) false; real_Δ=timing(lazy>eager)∧cond(query-specific>generic), ¬summarization_per_se removed.
+
++n=1_study→overgeneralize[AI_summary_unneeded]; task/domain-specific result stretched to general claim.
+
++continual_learning non_sequitur: gain≈0∀tried(Δw_methods) ⇏ Δw_unnecessary_forever; new_result∈method_space(context/retrieval-mgmt)≠refutation of Δweights need — just shows that space(¬Δw) was underexplored, consistent w/ "yet method_space→many improvable."
+
++cost/scale ignored: raw_log@use ⇒ tokens↑,latency↑ per call, bounded by ctx_window as log grows; precomputed_summary trades that for one-time info_loss. tradeoff not weighed, just declared won 2×.
+
++false_dichotomy: keep(raw_log) ∧ SKILLs/docs are not mutually exclusive — could combine (raw_log for fidelity + curated docs for cheap/fast recall). Study shows raw+on-demand-summary beats precomputed-summary-only; doesn't show docs/SKILLs must be discarded.
+
+net: the post's leap "docs=obsolete" isn't supported — the study's actual lesson is WHEN/HOW to summarize (on-demand, task-conditioned) beats WHEN/HOW summarized upfront (static, generic), not summarization-vs-none.

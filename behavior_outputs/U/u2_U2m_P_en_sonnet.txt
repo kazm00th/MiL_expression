@@ -1,0 +1,3 @@
+SQLite: single server, 30 users, low concurrency, simple backup(file copy), no separate DB admin needed.
+PostgreSQL: choose IF need concurrent writes scaling, remote/multi-app access, replication, or future growth beyond one server.
+Default: SQLite for this scale.

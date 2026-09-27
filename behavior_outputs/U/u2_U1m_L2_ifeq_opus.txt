@@ -1,0 +1,13 @@
+core∵ ✓: early irreversible summary=lossy; keep(raw)+late query-conditioned summary > precompressed. "method_space unexplored → gain≈0 ⇏ Δweights needed" ✓.
+
+problems:
+1. "AI_summary unneeded" ✗ → summarize@use is still an AI summary; what changed is *when* (late, conditioned on the task), not whether summaries are needed.
+2. "SKILLs/docs obsolete" ✗ → info loss only IF raw is deleted. summary+ptr(raw) = cache/index, not a replacement. Docs also do: human audit, share across agents/teams, versioning, cross-model transfer, curation (remove wrong or stale entries). Raw logs don't do these.
+3. cost: raw grows without bound → retrieval becomes the bottleneck; long context degrades; latency and token cost go up; summarizing @ every use means recompute each time (cache ⇒ back to docs).
+4. noise: raw holds errors, dead ends, conflicts, secrets/PII → needs filtering, which is lossy again.
+5. "¬RL needed" ⇏: in-context gain ≠ ceiling. Δweights = amortized compression (cheap inference, generalization). Complementary, not substitute.
+6. "2×" → which benchmark? baseline strength? n/variance? task horizon? Could be a weak-baseline artifact.
+
+∴ fix: raw=source of truth; summaries/SKILLs=derived views with a pointer back to raw, regenerable; RL = orthogonal.
+
+?: @study link/title?

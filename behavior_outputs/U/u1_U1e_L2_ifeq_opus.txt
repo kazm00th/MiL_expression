@@ -1,0 +1,26 @@
+Problems with the post:
+
+1. Overgeneralization: 1 study → "AI summaries no longer needed" and "totally obsolete". One result ≠ settled. Needs replication, other benchmarks and other tasks.
+2. "Doubled scores" lacks context: which benchmark, baseline, model, budget, variance? A 2x gain from a weak baseline, or in a narrow setting, doesn't generalize.
+3. Self-contradiction: "store raw logs and summarize at use time" is still summarization. It moves the summary from write time to read time (lazy vs eager); it doesn't remove it.
+4. False dichotomy: raw logs vs SKILLs/docs, context vs RL. These are complementary and can be combined, e.g. raw archive plus curated skills plus weight updates.
+5. Costs are ignored:
+   - storage keeps growing
+   - retrieval gets harder at scale (noise, wrong matches)
+   - context-length limits
+   - repeated inference cost and latency on every use
+   - privacy and retention risk from keeping raw logs
+6. "Info thrown away" = "bad" is wrong. Lossy compression can also:
+   - remove noise
+   - generalize
+   - make knowledge readable and auditable by humans
+   - make it shareable across agents and teams
+   - make it versionable
+   SKILLs and docs have value beyond the benchmark score.
+7. "No RL needed" doesn't follow: a context-memory result says nothing about limits of weight updates (speed, generalization beyond context, compute cost).
+8. Strawman of prior continual-learning work: "methods can still improve" doesn't refute plateau claims. It shows at most that one method improved in one setting.
+9. Horizon: the study tested a limited timescale and log volume. Long-horizon behavior when logs are huge is unknown.
+
+Conclusion: the post may report a real "raw logs + lazy summarization helps" result, but "summaries/SKILLs/RL are obsolete" is overclaim + logical errors.
+
+Q: which study/benchmark is this? (needed to judge claim 2)

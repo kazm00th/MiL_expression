@@ -1,0 +1,11 @@
+SQLite.
+
+Criteria:
+- concurrency: 30 users, low write concurrency -> SQLite(WAL) fine; PG only needed if >~50-100 concurrent writers or heavy simultaneous check-in bursts
+- ops: 1 server, no need for separate DB process/backup infra -> SQLite=1 file, simpler ops
+- HA/multi-server: none needed here -> PG wins only if multi-server/replicas required
+- data size: attendance logs small (<<10GB) -> SQLite handles easily
+- backup: file copy vs pg_dump -> SQLite simpler
+- future growth: if scaling users/servers or need networked access from multiple app instances -> migrate to PG later
+
+Given: single server + 30 users -> SQLite. Switch to PostgreSQL only if you anticipate multiple app servers, high write concurrency, or need remote DB access.

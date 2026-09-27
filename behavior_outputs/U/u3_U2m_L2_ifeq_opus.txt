@@ -1,0 +1,21 @@
+default:=SQLite ∵ users=30 ∧ server=1 → write≪1/s(peak=clock-in burst≈30 writes/min) ≪ SQLite single-writer limit
+
+→PG IF ∃ any:
+- app_server>1 ∨ DB on separate host ∨ HA/failover req
+- concurrent writes high (batch import ∥ live use, long txns)
+- PITR/replication/audit-grade backup req
+- DB-level roles/RLS ∨ external tools(BI, other systems) need direct DB access
+- growth→users≫100s ∨ multi-site/multi-tenant
+- ops team already runs PG (ops cost≈0)
+
+SQLite IF all:
+- 1 proc/host, local disk (¬NFS/SMB)
+- backup := `.backup`/litestream/cron copy OK
+- reporting light (monthly aggregates on ≈30×365 rows = trivial)
+
+SQLite must-set: `journal_mode=WAL`, `busy_timeout≥5000`, `foreign_keys=ON`, short txns
+risk hedge: ORM+migrations, avoid SQLite-only/PG-only SQL → switch cost↓ later
+
+cost: SQLite ops≈0 | PG +daemon, +tuning, +backup setup, +auth mgmt
+
+q: HA ∨ scale-out ∨ external DB access req?(Y→PG, N→SQLite)

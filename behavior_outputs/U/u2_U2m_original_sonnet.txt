@@ -1,0 +1,1 @@
+SQLite. 30 users, single server, internal tool — no concurrent-write or scaling need PostgreSQL solves; SQLite gives zero-ops (file-based, no separate service to run/back up), sufficient write concurrency at that load, and simpler deployment. Switch to PostgreSQL only if: multi-server/HA needed, >~50-100 concurrent writers, or need network access from multiple app hosts.

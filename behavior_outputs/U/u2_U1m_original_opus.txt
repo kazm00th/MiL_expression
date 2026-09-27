@@ -1,0 +1,12 @@
+verdict:=direction✓∧claim_scope✗(overgeneralized)
+
+1. src?: study∉ctx→¬verify. 2× IF baseline=weak_summary∨bench=log-heavy?→qmin: which bench, which baseline, which cost?
+2. summarize@use≠¬summarize: it's still lossy compression, just lazy∧query-conditioned. win:=(precompute→lazy)∧(generic→query_specific), ¬(summary→none). ∴"summary=info_loss→obsolete" ✗; "eager summary loses to lazy summary @this bench" ✓.
+3. raw_log cost: |log|→∞ ⇒ retrieval needed ⇒ retrieval=lossy filter (same problem moves elsewhere) + tok$/latency↑ per use (paid ∀ use, vs summary paid 1×) + stale/wrong/contradicting entries persist + privacy/retention.
+4. SKILLs/docs≠only compression: human-readable, reviewable, correctable, versioned, shareable across agents/people, encode curated negative knowledge ("X is wrong, don't do it"). raw log ⊄ these.
+5. continual_learning: prior claim:="∀current method: gain≈0". new result:=∃method: gain>0 ⇒ refutes ∀, ✓. but ¬RL_needed ✗: shows only that context-side is not saturated, ¬ that Δweights is useless. both are complementary (context: fast, specific; weights: amortized, generalizing).
+6. agree: method_space large∧under-explored ⇒ "context methods are done" was premature.
+
+best practice:=raw_log as source_of_truth ∧ summaries/SKILLs as cache/index (regenerable, pointing→raw) ∧ summarize@use for final ctx. ∴ ¬obsolete; role shift: truth→index.
+
+problem? := headline overclaim ("unneeded","obsolete","¬RL"); core finding (keep raw, compress lazily) plausible∧useful.

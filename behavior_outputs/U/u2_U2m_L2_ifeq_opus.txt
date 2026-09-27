@@ -1,0 +1,16 @@
+default→SQLite (WAL on)
+PG IF any:
+- concurrent writes high (e.g. all 30 clock in at 9:00 & app holds long txns) → SQLite=1 writer; normally OK w/ WAL+busy_timeout
+- >1 app server / HA / LB planned
+- reporting/BI or external tools connect to DB directly
+- need roles/row-level security/audit in DB
+- need PITR/replication/managed backup
+- existing PG ops skill/infra, or org standard
+- data growth ≫ GB / heavy analytics (window fns OK in both; PG richer: JSONB, tz types)
+- growth expected: users≫100 or multi-tenant
+else SQLite:
++ 0 ops, file backup (`.backup`/litestream), no network/auth
++ 30 users ≈ trivial load
+- watch: set `journal_mode=WAL`,`busy_timeout`,`foreign_keys=ON`; timestamps as UTC ISO/int; DB on local disk (not NFS)
+migration hedge: use ORM/std SQL → SQLite→PG later cheap
+q: >1 server or DB access from other tools planned?

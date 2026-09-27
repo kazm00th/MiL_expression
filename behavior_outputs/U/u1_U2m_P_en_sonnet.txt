@@ -1,0 +1,1 @@
+SQLite IF single-server,無同時書込み競合,バックアップ簡易重視。PostgreSQL IF将来的な多重アクセス/拡張/レポート集計/同時書込み増加を想定。30名規模でserver1台なら通常SQLiteで十分。

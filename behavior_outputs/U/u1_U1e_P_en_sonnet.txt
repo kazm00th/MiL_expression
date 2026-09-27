@@ -1,0 +1,15 @@
+Overgeneralizes from a single study to sweeping claims ("no longer needed," "totally obsolete"): one paper showing gains on its own benchmark doesn't establish universality across tasks/domains.
+
+Misstates the prior work it invokes: "current methods plateau" isn't refuted by one counterexample achieving a gain elsewhere; it also strawmans that literature's actual claim (which was about weight-update methods specifically, not all continual learning).
+
+False dichotomy: raw-logs-plus-retrieval-time-summarization vs. compressing into skills/docs isn't either/or — the winning approach is itself a form of summarization (just deferred to use time), and the two can be combined (e.g., curated skills for stable knowledge, raw logs for edge cases).
+
+Ignores costs/tradeoffs: retrieval-time summarization over accumulating raw logs has context-window, latency, and cost implications that don't disappear just because the study measured task performance; it doesn't scale indefinitely.
+
+"No RL needed" is a scope claim about this task's setup, not a general finding that RL is unnecessary elsewhere.
+
+"Throws away information" framing ignores that compression is a deliberate efficiency/generalization tradeoff, not simply loss — sometimes distillation improves robustness by discarding noise.
+
+No citation given, so claims (doubling scores, methodology, benchmarks used) are unverifiable as stated.
+
+Net: legitimate potential finding (test-time retrieval+summarization can beat static distillation on some tasks) is being inflated into a blanket dismissal of an entire class of techniques.

@@ -1,0 +1,10 @@
+SQLite. Decision criteria:
+
+1. Concurrency: 30 users, internal tool → write load trivial. SQLite (WAL mode) handles this fine; Postgres's multi-writer concurrency is unneeded overhead.
+2. Ops burden: one server, no HA requirement → SQLite = zero admin (no separate service, no connection pooling, no upgrades). Postgres adds a process to run, patch, and monitor.
+3. Backup/restore: SQLite = copy one file (or `.backup`). Simpler for a single internal app.
+4. Data volume/complexity: attendance records for 30 users is small; no need for Postgres's advanced types, extensions, or query planner.
+5. Failure/deployment model: single server = single point of failure either way, so Postgres's replication/HA features buy nothing here.
+6. Future growth: if you expect multi-server deployment, heavy concurrent writes, or need network access from multiple app instances, choose Postgres. If it stays one app/one server, SQLite wins.
+
+Rule of thumb: pick Postgres only if you anticipate horizontal scaling, remote DB access, or >~100 concurrent writers; otherwise SQLite is the simpler, sufficient choice for this scale.

@@ -1,0 +1,15 @@
+SQLite, unless one criterion below says otherwise.
+
+Use SQLite IF:
+- single server/process, no plan to shard
+- writes are low-concurrency (attendance check-ins, not high-frequency)
+- want zero ops (no separate DB process, easy backup = copy file)
+- <100GB data
+
+Switch to PostgreSQL IF:
+- need concurrent writes from many processes/workers (not just many web requests) — SQLite serializes writes
+- need network access from multiple servers later
+- need advanced features: roles/permissions, replication, rich types, extensions
+- app may need to scale beyond one server
+
+For 30 users, one server: SQLite is sufficient. Main risk is write-lock contention under concurrent writes — negligible at this scale.

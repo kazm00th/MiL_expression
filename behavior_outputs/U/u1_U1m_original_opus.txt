@@ -1,0 +1,17 @@
+verdict:=core_idea≈sound(raw=source_of_truth ∧ query-conditioned compression > query-agnostic pre-summary); "SKILLs/docs→obsolete"=overclaim.
+
+agree:
+- pre-summary=lossy∧query-blind → drops info a future query needs; summarize@use → keeps what's relevant to that query.
+- prior claim "method→gain≈0 ⇒ Δweights!" = hasty generalization; this result counters it (method_space ≠ exhausted).
+
+problems:
+1. scale: raw_log→grows unboundedly; retrieval quality becomes the bottleneck; the index/embeddings are themselves lossy summaries → info_loss moves, doesn't vanish.
+2. cost/latency: summarize@use costs tokens×calls on every query; pre-summary pays once (amortized). IF query_freq high → cache needed → that cache ≈ SKILL.
+3. abstraction: a SKILL distills patterns across many episodes; use-time summarization over only the top-k retrieved logs → cross-episode generalization tends to be weak.
+4. noise: raw contains failed runs∧wrong conclusions∧stale facts; curation=filter+correction. ¬curation → errors reproduce.
+5. human side: docs=reviewable∧auditable∧versioned∧shareable across agents/humans; raw_log ¬fits.
+6. safety/privacy: raw keeps secrets∧PII∧prompt-injection indefinitely.
+7. eval: "2×" → verify benchmark∧baseline strength∧task distribution (repeated env? → favors raw recall); generalization ¬shown.
+8. "¬RL needed" ≠ "Δweights useless": in-context bounded by context∧retrieval; latency/intuition-type skills → weights still win. Complementary ≠ substitute.
+
+synthesis:=raw(immutable log) + summaries/SKILLs as regenerable cache/materialized_view (re-derive when model∨query changes) → keeps both benefits. obsolete ¬; role shifts from "primary memory" to "cache/index/interface".

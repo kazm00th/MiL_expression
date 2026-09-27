@@ -1,0 +1,10 @@
+SQLite, IF: single server, ~30 users, no plans to scale writes/servers.
+
+Criteria:
+- Concurrent writes: SQLite ok IF write volume low/serialized; PostgreSQL IF frequent concurrent writes (locking).
+- Deployment simplicity: SQLite = one file, zero admin; PostgreSQL = separate service.
+- Backup: SQLite = copy file; PostgreSQL = pg_dump/replication.
+- Future scale (multi-server, >~100 users, heavy reporting/joins): PostgreSQL.
+- Need advanced features (roles, extensions, network access, replication): PostgreSQL.
+
+30 users, one server, internal tool → SQLite is enough.

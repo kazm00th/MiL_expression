@@ -1,0 +1,30 @@
+default=SQLite
+
+SQLite IF all:
+- users ≤ ~100, writes light (30 users clocking in at 9:00 is well within capacity with WAL)
+- 1 app process on 1 host, and the DB file is on local disk (not NFS or SMB)
+- no dedicated DB admin; backup = file copy or Litestream
+- ¬ outside tools (BI, Excel ODBC) connecting to the DB directly
+
+PG IF any:
+- >1 app server, or you need HA, a replica or failover
+- DB on its own host, or several apps share the DB
+- per-user DB roles, row-level security, or audits enforced in the DB
+- BI or reporting tools need direct access
+- long or heavy concurrent write transactions (bulk imports while people use the app)
+- growth expected to hundreds of users or more, or several sites
+- the org already runs PG (ops skills and backups already in place)
+
+SQLite risks:
+- 1 writer at a time → set WAL + busy_timeout≈5s
+- ALTER TABLE is limited → migrations are harder
+- locking breaks on network drives
+
+Mitigation: use an ORM and plain SQL → moving SQLite→PG later is cheap
+
+Verdict: 30 users on 1 server → SQLite (WAL, busy_timeout, daily off-host backup). Switch to PG as soon as any PG condition is true.
+
+qmin:
+1. peak simultaneous writes?
+2. multiple servers or HA planned?
+3. do outside tools need direct DB access?

@@ -1,0 +1,3 @@
+SQLite: 30 users, 1 server, single-writer internal tool → no concurrency/scaling need. Zero-config, file-based, trivial backup, no separate DB process. PostgreSQL only wins if you need concurrent writers, network access from multiple servers, or >~100k rows with complex queries — none apply here.
+
+Decision: SQLite.

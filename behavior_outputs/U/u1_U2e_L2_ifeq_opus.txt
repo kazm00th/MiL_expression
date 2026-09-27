@@ -1,0 +1,17 @@
+Default→SQLite (30u, 1srv ⇒ well within limits)
+
+Criteria:
+1. Concurrent writes: SQLite=1 writer at a time (WAL mode ⇒ reads∥write). 30u clock-in bursts ≈ ms-scale writes ⇒ OK. IF many writes/sec sustained or long write txns → PG
+2. Processes/hosts: 1 app proc on 1 srv ⇒ SQLite. IF >1 app srv | DB on separate host | multi-worker w/ heavy writes → PG
+3. Ops cost: SQLite=0 admin (1 file). PG=install+users+tuning+upgrades
+4. Backup/HA: SQLite=`.backup`/Litestream. IF need replication|PITR|failover → PG
+5. Features: IF need row-level security, roles/grants, LISTEN/NOTIFY, rich types/JSONB, full-text, strict typing → PG. SQLite `STRICT` tables cover basic typing
+6. Growth: IF expecting →100s users | multi-site | BI tools connecting directly | ext integrations → PG
+7. Stack/ORM: IF framework assumes PG (e.g. prod parity w/ other internal apps) or team already runs PG → PG (consistency > minimal ops)
+8. Audit/compliance: IF DB-level access control/audit log required → PG
+
+Rule: any of 2,4,5,6,8 = yes → PG; else SQLite.
+Hedge: use ORM + portable SQL ⇒ migration SQLite→PG later is cheap.
+SQLite setup: `journal_mode=WAL`, `busy_timeout=5000`, `foreign_keys=ON`, `synchronous=NORMAL`, daily backup.
+
+?: any requirement for multiple app servers or DB-level access control/audit?

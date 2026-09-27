@@ -1,0 +1,27 @@
+Default for 30 users on 1 server: SQLite, with WAL mode on. Switch to PG if any of the conditions below apply.
+
+IF any of these → PG:
+- More than 1 app host, now or planned (HA or load balancer), or the DB would sit on a network FS. SQLite needs a local disk.
+- Other tools or processes need network access to the DB (BI, payroll export, other apps).
+- You need DB-level roles or permissions, RLS, or an audit role split.
+- Heavy concurrent writes: bursts over roughly 100 writes/s, or long write transactions. SQLite allows only 1 writer at a time. A clock-in burst from 30 people is fine.
+- You need `timestamptz` or rich date/time SQL, JSONB, or LISTEN/NOTIFY. SQLite has no native datetime type, so you store UTC as ISO text or epoch.
+- The company already runs PG and has ops for it. Then PG costs you almost nothing extra.
+- Expected growth: company-wide rollout, over roughly 500 users, or multiple apps sharing the data.
+
+ELSE → SQLite. Why:
+- No admin: no service, users, tuning or version upgrades to manage.
+- Backup is easy: `sqlite3 .backup` or VACUUM INTO on a cron, or Litestream for continuous backup to S3.
+- Lower latency, since queries run in-process.
+- Deploy is one file.
+
+To keep your options open:
+- Use an ORM or migration tool, avoid SQLite-only SQL, and store times in UTC. That keeps a later move to PG cheap.
+- Set `PRAGMA journal_mode=WAL; busy_timeout=5000; foreign_keys=ON;`.
+
+Questions that decide it:
+1. Will it ever run on more than 1 server, or need HA?
+2. Do other systems need direct DB access?
+3. Do you already run PG?
+
+If all 3 answers are no → SQLite.

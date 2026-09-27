@@ -1,0 +1,16 @@
+?problem → yes, several:
+
+1. naming: "AI_summary→unneeded" is wrong. summarize@use is still summarizing. Δ = eager→lazy + query-conditioned (the summary knows the task). So the loss isn't removed, it's delayed until the relevant info is known. That's the real finding.
+2. SKILLs/docs obsolete → ✗. Better: raw = source of truth, SKILL/docs = cache/index/curation layer.
+   - raw log holds failed attempts, errors and contradictions → noise, and the agent can re-learn bugs
+   - docs are verified, deduplicated, readable by humans, auditable, shareable across agents/teams
+   - hybrid (raw + index + summaries) likely > either alone
+3. cost: log grows O(n); summarize@use costs compute + latency per query; bounded by context limit and retrieval recall (lost-in-middle, miss). Hidden at small scale, dominant at long horizon.
+4. 2× depends on baseline: vs a weak eager-summary baseline? task horizon/length? benchmark count, variance? Needs to be checked before generalizing.
+5. ¬RL_needed → overclaim. In-context retrieval ≤ base-model capability: it can't add a new skill, only reuse what's there. Δweights = generalization + compression + inference cost ↓. The two are complementary, not substitutes.
+6. "prior continual learning≈gain 0" is partly a strawman: the prior work was about weight updates, this is memory/retrieval. Different axis → no contradiction. But ✓ your point that method space is under-explored.
+7. risk: storing raw logs → secrets/PII persist, prompt injection persists, forgetting/deletion is hard.
+
+net: ✓ lazy+query-aware > eager summary. ✗ "summary/SKILL/RL obsolete".
+
+q: which paper @study?

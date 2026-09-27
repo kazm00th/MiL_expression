@@ -1,0 +1,15 @@
+The post overstates and misrepresents what any such study could actually show. Key problems:
+
+1. **Overgeneralization from a narrow result to "no longer needed."** A study showing that retrieval-time summarization of raw logs beat static/precomputed summaries in some benchmark or agent setup does not establish that summarization or distillation into skills/docs is "obsolete" in general. It likely shows one method (recompute-at-use-time) beat another method (fixed upfront summary) under specific conditions (task type, context length limits, model used, cost ignored or not). Score doubling on a narrow eval ≠ universal superiority.
+
+2. **"No RL needed" is a non sequitur.** Storing raw logs and summarizing at use time is an inference-time/retrieval strategy — it says nothing about whether RL is needed for anything else (e.g., improving the base policy, tool-use, weight updates). Conflating "we didn't need RL for this particular improvement" with "RL is never needed" is a category error.
+
+3. **Mischaracterizes prior continual-learning work.** The claim "prior work only said 'current methods plateau, so change the weights'" is a strawman. Continual-learning literature is precisely about whether/how to update weights vs. use non-parametric memory, and many papers already argue for retrieval-augmented or memory-based approaches (non-weight-update solutions) rather than uniformly insisting weights must change. The post sets up prior work as a strawman to declare it wrong.
+
+4. **"Methods can still improve a lot" doesn't follow from this result.** Showing one alternative technique works well doesn't prove that gradient/weight-based continual learning methods have more headroom left — that's an unrelated claim bolted on.
+
+5. **False dichotomy: raw-log-retrieval vs. summarization-into-skills isn't zero-sum.** Summarizing into a SKILL or doc is a form of compression that trades recall completeness for lower cost/latency and higher signal density; storing everything raw and summarizing at query time trades compute/latency for completeness. Depending on context window limits, cost, and staleness of raw logs, each is better in different regimes. Declaring one "totally obsolete" ignores this trade-off space (context limits, cost per query, noise/relevance filtering, privacy/redaction needs that summarization provides).
+
+6. **Selection/benchmark risk.** A single study's benchmark-doubling claim is exactly the kind of result that needs scrutiny for cherry-picked tasks, small eval sets, or comparison against a weak baseline summarizer — "doubled agent scores" is a big, extraordinary claim requiring correspondingly strong evidence before generalizing to "no RL," "prior work wrong," and "summarization obsolete" all at once.
+
+In short: the post takes one possibly narrow empirical result and stacks three or four unrelated, overreaching conclusions on top of it (RL is unnecessary, all prior continual-learning framing was wrong, weight-update methods still have room to improve, and summarization is dead) — none of which follow logically from "raw-log retrieval + late summarization beat a baseline in one study."

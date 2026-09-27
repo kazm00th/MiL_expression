@@ -1,0 +1,15 @@
+Flaws:
+
+1. Self-contradiction: post says "storing raw logs, summarize @ use time" beat baseline → but that IS summarization (just lazy/on-demand vs eager/write-time). Can't use "summarization works" as evidence "summarization obsolete."
+
+2. False dichotomy: raw-logs+runtime-summary vs SKILLs/docs aren't opposites — SKILLs/docs = precomputed summary; runtime approach = summary computed later. Difference is *when*, not *whether*. Doesn't show curated docs "throw away info" more than runtime summary does (runtime summary also lossy, just recomputed each time).
+
+3. Single-study overreach: 1 result ("doubled scores" on presumably narrow bench) generalized to "AI summaries no longer needed," "no RL needed," "totally obsolete" — unsupported leaps, no mention of task diversity/cost/latency tradeoffs of re-summarizing raw logs at every use vs cheap doc lookup.
+
+4. Misreads prior lit: "current methods plateau" (empirical claim about existing methods) ≠ "methods can't improve" (post treats it as a falsifiable ceiling claim, then "refutes" it with unrelated finding). Prior claim can be true (those methods plateaued) while new method (better runtime retrieval/summarization) simply isn't the same method.
+
+5. Ignores scaling cost: raw log storage + full re-summarization at every inference call trades compute/latency for a (claimed) score bump — not obviously superior at scale vs cheap static docs; post presents it as strictly better with no cost discussion.
+
+6. "No RL needed" is a non sequitur — study is about memory/context management, not about whether weight updates help elsewhere; conflates two separate axes (parametric learning vs external memory).
+
+Bottom line: post conflates "when you summarize" with "whether you summarize," extrapolates one result into sweeping claims, and misstates the continual-learning thesis it claims to refute.

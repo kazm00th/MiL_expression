@@ -1,0 +1,23 @@
+Problems with the post:
+
+1. It generalizes from one study (n=1). The post goes from "one study" to "summaries are unnecessary" and "totally obsolete". It names no benchmark, task domain, model or baseline, and gives no @link. "Doubled" relative to what baseline? Could this be a weak baseline or noise? Has anyone reproduced it?
+
+2. It contradicts itself. "Summarize at use time" is still summarization. It only moves the summary from write time to read time and conditions it on the query. So the result shows that when you summarize matters, not that summaries are unnecessary.
+
+3. It leaves out costs:
+   - Raw logs grow without limit, so storage and retrieval costs grow too.
+   - Every use pays for summarizing again: more compute and more latency.
+   - Context windows have limits, and long inputs suffer from lost-in-the-middle and retrieval noise.
+   - Keeping raw logs raises privacy and retention problems.
+
+   A study at small scale does not show that the approach holds at large scale.
+
+4. "No RL needed" does not follow. Changing the context (memory) and changing the weights (RL or fine-tuning) are separate levers that can be combined. Improving one says nothing about whether the other is needed.
+
+5. It strawmans prior work. Continual-learning research did not claim "methods plateau, therefore change the weights". It covers catastrophic forgetting, generalization, efficiency and more. Also, "methods can still improve a lot" does not refute a plateau claim: a gain from one method does not change a trend across methods.
+
+6. It sets up a false choice between SKILLs/docs and raw logs:
+   - Losing information is a trade-off, not a bug. Compression also removes noise, turns specific cases into general rules, costs less to load, and produces something people can audit, edit, reuse and share across agents.
+   - The two can coexist: keep raw logs and distilled SKILLs side by side, or build the distilled layer from the logs.
+
+In short, one study, with its conditions unstated, becomes a sweeping claim that ignores costs and pits approaches that complement each other against each other. A correct summary would be: "In some settings, keeping raw logs and summarizing on demand beat summarizing up front."

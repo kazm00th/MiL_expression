@@ -1,0 +1,23 @@
+default→SQLite ✓ (30u·1srv·writes≈30×2–4/d; peak burst at clock-in ≪ WAL limit)
+
+SQLite IF all:
+- app∧db same host; ¬NFS/SMB
+- peak writes ≲ 10s/s; 1 writer OK (WAL)
+- ops/DBA≈0; backup = `.backup`/Litestream/file snapshot
+- ¬ext system needs direct DB conn
+- HA/failover ¬req
+
+PostgreSQL IF any:
+- >1 app instance ∨ separate db host (now/planned)
+- concurrent heavy writes (bulk import, payroll batch ∥ clock-in peak)
+- need roles/RLS, PITR, replication, LISTEN/NOTIFY, JSONB idx
+- BI/HR/payroll tools read DB directly over network
+- org std / existing PG+DBA
+- growth → 10²–10³ u ∨ multi-site
+
+SQLite cfg (required): `journal_mode=WAL`, `busy_timeout≥5000`, `foreign_keys=ON`, STRICT tables, timestamps=UTC ISO8601/epoch
+hedge: ORM + std SQL ⇒ SQLite→PG migration cost low; ¬use SQLite-only quirks
+cost Δ: PG = +process·+auth·+backup/upgrade ops; SQLite ≈0
+
+qmin: ①ext systems access DB? ②scale-out/HA planned? ③PG already run in-house?
+all ¬ ⇒ SQLite; any ✓ ⇒ PG

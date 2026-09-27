@@ -1,0 +1,11 @@
+claim≈"store raw, compress late (query-conditioned)" > "compress early (query-agnostic)". Direction ✓ (write-time summary = irreversible loss; use-time summary keeps info that only matters for the current query). But ∃problems:
+
+1. title≠content: summarization still happens, just @use → "AI summary unneeded" = overclaim. Better title: "summary@write → summary@use".
+2. cost: raw_log grows O(N) → retrieval+summary cost/latency per query↑. Context limit → must retrieve → retrieval becomes the bottleneck, and retrieval is a lossy filter too.
+3. noise: raw logs include failures, contradictions and stale facts. No curation → wrong info can come back.
+4. 2×: which bench? baseline? IF baseline=weak summary → the gain may come from a bad baseline. IF task=long-horizon recall → favors raw by design. Generality not shown.
+5. ¬RL: in-context ≠ amortized skill. Recomputed every time → ¬speedup, ¬compositional generalization. Δweights still matters for procedural skill. "Continual learning gain≈0" is refuted only for memory-type tasks.
+6. SKILLs/docs≠obsolete: their value = {human-auditable, verified, shareable across agents/people, cheap}. They serve a different purpose from memory.
+7. best = hybrid: raw = source of truth ∧ summaries/SKILLs = cache/index (like DB log + materialized views). Summaries point back to raw → loss can be recovered.
+
+tl;dr: "don't discard raw" ✓; "summaries/SKILLs/RL not needed" ✗ (overgeneralized).

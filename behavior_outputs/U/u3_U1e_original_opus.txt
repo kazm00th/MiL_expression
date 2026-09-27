@@ -1,0 +1,18 @@
+Problems with the post (the study itself is unknown to me, so I only judge the post's claims):
+
+1. **"AI summaries no longer needed" contradicts itself.** The study still summarizes, just at use time instead of at write time. That is lazy summarization, not no summarization.
+2. **One study does not make other methods "totally obsolete".** It is n=1, with no replication. Which benchmark, which tasks and which baseline are unknown, and "doubled" a weak baseline would say little.
+3. **"No RL needed" is a non sequitur.** Unless the study compared against RL, it says nothing about RL. The two can also be combined rather than chosen between.
+4. **Prior work is strawmanned.** Continual-learning research is not just "methods plateau, so change the weights". Also, one setup improving does not show that "methods can still improve a lot" in general.
+5. **"Summarizing into SKILLs or docs just throws information away" is a false dichotomy.**
+   - Distilled summaries also remove noise, make knowledge reusable across tasks, can be read and audited by people, and can be shared or moved across agents and models.
+   - Skills and docs can hold knowledge learned across many episodes, not just from one.
+   - You can keep both: raw logs as the source of truth and distilled docs as the index or cache.
+6. **Ignored costs:**
+   - Storage grows with every log.
+   - Every use pays for retrieval, summarization and context length, in both latency and money.
+   - Finding the right records gets harder as the logs grow.
+   - Keeping raw logs raises privacy and retention issues.
+7. **The results may not transfer to longer time spans, much larger logs or other domains.**
+
+To check the claims properly, I would need the study's link.

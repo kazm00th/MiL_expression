@@ -1,0 +1,15 @@
+Default→SQLite ✓ (30u, 1srv ⇒ load≪limit)
+
+Criteria:
+1. Concurrent writes: SQLite=1 writer at a time. 30u clock-in bursts (~09:00) ≈ tens of ms each → OK w/ WAL + busy_timeout. IF sustained heavy writes → PG
+2. Topology: app+DB on same host → SQLite. IF >1 app srv / separate DB host / container w/o persistent vol → PG
+3. Ops cost: SQLite=file, 0 admin. PG=daemon, users, upgrades, tuning
+4. Backup: SQLite→`.backup`/Litestream. PG→pg_dump/PITR. IF PITR/replica required → PG
+5. Features: IF needed: row-level security, LISTEN/NOTIFY, rich types, strict typing, concurrent migrations → PG
+6. Integrations: IF BI/reporting tools/other apps need direct net access to DB → PG
+7. Growth: IF foreseeable → multi-site/100s of users/multi-srv → PG now (migration later = cost)
+8. Team skill/std: IF org already runs PG → PG (marginal ops cost ≈0)
+9. Compliance/audit: IF DB-level roles/audit logs required → PG
+
+Rule: ∀criteria 1–9 = "no" → SQLite (WAL, busy_timeout=5000, foreign_keys=ON, daily backup). ∃ "yes" → PG.
+Hedge: use ORM/std SQL → switch cost↓.

@@ -1,0 +1,15 @@
+Several problems with the post's reasoning:
+
+1. Overgeneralizes from one study. "A study says X" doesn't establish X as settled fact ("no RL needed," "totally obsolete"). One result (likely on specific benchmarks/agent tasks) doesn't refute a whole research direction.
+
+2. False dichotomy: raw-log-retrieval-at-use-time vs. summarization-into-skills/docs are not mutually exclusive alternatives to weight updates. Storing raw logs and summarizing at use time IS itself a form of context/memory engineering, not evidence that summarization in general is useless — it says *pre-compressing eagerly* may lose information vs *retrieving raw and compressing lazily*. That's a claim about when/how to summarize, not whether to.
+
+3. Misstates the prior claim: continual-learning work saying "current methods plateau" was about weight-update-based continual learning specifically, not a blanket claim that no method (including retrieval/context approaches) can improve. Citing that as if it predicted this result backwards is a misreading — the two literatures are about different mechanisms (parametric vs non-parametric memory).
+
+4. "Doubled agent scores" is likely benchmark- and setup-specific (context window size, task type, retrieval quality) — not a general multiplier that transfers to all agents/domains.
+
+5. Ignores tradeoffs: raw logs at use time cost more tokens/latency/compute per query than a compact skill/doc; for large histories this doesn't scale as well as summarization, and retrieval quality matters. "Totally obsolete" ignores these real engineering tradeoffs.
+
+6. Conflates "no RL needed" (a claim about training method) with "summarization is useless" (a claim about information architecture) — these are separate axes; the study's finding on one doesn't logically bear on the other.
+
+In short: the post takes a specific, likely narrow empirical result and inflates it into a sweeping, mutually-exclusive claim ("summaries obsolete") via a false dichotomy and unsupported generalization, while also misrepresenting what the prior continual-learning literature actually claimed.

@@ -1,0 +1,13 @@
+**Verdict: SQLite** for this case (30 users, single server, internal attendance app) — unless a listed criterion below flips it.
+
+**Decision criteria (check each; PostgreSQL if any hit hard):**
+
+1. **Write concurrency** — SQLite serializes writes (one writer at a time, DB-level lock). 30 users clocking in/out sporadically ≈ negligible collision risk. If check-ins burst simultaneously (e.g., shift-start scanner kiosk) or writes/sec regularly >~10-50, go PG.
+2. **Availability model** — need zero-downtime failover/replica? SQLite has none built-in (only file-copy/litestream-style replication). PG has native replication/HA.
+3. **Backup strategy** — SQLite backup = copy one file (trivial). PG needs pg_dump/WAL archiving setup. If "just copy a file" backup is acceptable, SQLite wins on ops simplicity.
+4. **Data size/growth** — attendance logs for 30 users stay tiny for years (rows ≈ users × days). SQLite handles GBs fine; not a factor here.
+5. **Access pattern** — single app process on one server (as stated) → SQLite's single-writer/no-network-hop model is a pure win (lower latency, zero DB admin). If you anticipate a second service (e.g., separate reporting tool, BI dashboard, external API) needing concurrent DB access, PG's client-server model is better suited.
+6. **Migration/schema tooling, JSON/advanced types, full-text search, complex analytics** — PG has richer feature set. If you expect complex queries/reporting growth, PG future-proofs.
+7. **Operational overhead tolerance** — SQLite = zero daemon to manage. PG = a service to install, secure, patch, monitor. For a 30-person internal tool, this tips strongly toward SQLite.
+
+**Bottom line:** Given the stated scale (30 users, one server, presumably low write frequency, no stated HA/multi-service requirement), SQLite is the pragmatic default — less ops burden, trivial backup, more than sufficient performance. Reconsider PostgreSQL only if you need: concurrent multi-process/multi-service DB access, built-in replication/HA, or expect the app to outgrow "internal single-server tool" status.

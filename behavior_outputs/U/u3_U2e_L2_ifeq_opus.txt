@@ -1,0 +1,17 @@
+Default: SQLite (WAL mode). 30 users on 1 server is well within what it handles.
+
+Criteria (IF → choice):
+- concurrent writes: low (clock-in/out spikes of about 30 short txns) → SQLite OK. Sustained heavy parallel writes → PG
+- servers/app instances: 1 → SQLite. More than 1, or you plan to scale out → PG
+- ops cost: no DBA, want 0 config → SQLite (a single file; backup = `.backup` or litestream)
+- other tools connect directly (BI, reporting, other apps over the network) → PG
+- features: strict types, roles/permissions, row-level security, rich JSON/full-text search, strict FKs by default → PG
+- data size: GB-scale or less → both fine
+- HA/replication/PITR needed → PG (or SQLite plus litestream as a lighter option)
+- team already runs PG infra → PG (marginal cost ≈ 0)
+
+Notes:
+- SQLite: turn on `journal_mode=WAL`, `busy_timeout`, and `foreign_keys=ON`
+- Use an ORM or plain SQL so you can migrate SQLite → PG cheaply later
+
+Rule of thumb: if none of the PG conditions above hold, choose SQLite.

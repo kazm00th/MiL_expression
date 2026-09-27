@@ -1,0 +1,9 @@
+problem: non_sequitur.
+
+gain(method_A)≈0 ↛ need(Δweights). study shows ∃method∈method_space (raw_log+summarize@use) s.t. gain≫0, no RL/Δweights. ⇒ prior premise ("current method fails ⇒ must update weights") falsified by counterexample, not confirmed.
+
+conflated 2 distinct claims:
+1. summarize_upfront→{SKILLs,docs} = lossy/stale (true, orthogonal)
+2. therefore weight-based continual learning is *necessary* (false — 1 is fixed by better non-parametric method, i.e. defer summarization to query-time, not by Δweights)
+
+so post's inference chain has a hole: 2×score result argues *against* RL_needed, but is framed as merely "yet more methods possible" instead of directly retracting the Δweights conclusion it was quoting. amb: unclear if "prior" is your own past claim or someone else's — if it's yours, this new result should update it, not just append to method_space list.

@@ -1,0 +1,15 @@
+Several logical/rhetorical problems with the post:
+
+1. Self-contradiction: "storing raw logs and summarizing them at use time" IS summarization — it just defers it to inference time instead of write time. The post claims this proves summarization is "obsolete" while the described method is itself a summarization strategy. It doesn't support "no summaries needed"; at most it supports "summarize lazily/on-demand rather than eagerly into fixed SKILLs/docs."
+
+2. Non sequitur on RL: "doubled agent scores, no RL needed" doesn't imply summarization is useless — RL and summarization are orthogonal design axes. Showing a non-RL method worked says nothing about whether summarizing (as opposed to raw-log storage) is the wrong choice.
+
+3. Strawmanning prior work: "current methods plateau, so change the weights" mischaracterizes continual-learning literature, which is specifically about updating model weights over time (parametric memory). A result about a non-parametric context/retrieval method (raw logs + runtime summarization) doesn't contradict claims about weight-update methods plateauing — they're different problem classes. So this isn't evidence prior work was wrong; it's a different axis entirely (parametric vs. non-parametric memory).
+
+4. Overgeneralization from a single study: one benchmark result ("doubled agent scores") is extrapolated to a sweeping, universal claim ("no longer needed," "totally obsolete") without checking task diversity, context-length limits, cost/latency tradeoffs, or whether raw-log-at-use-time scales when logs grow unbounded (context window / retrieval-quality limits are exactly why people summarize into compact SKILLs/docs in the first place).
+
+5. False dichotomy: it frames "raw logs + summarize-at-use" versus "summarize into SKILLs/docs" as mutually exclusive, when in practice they're complementary (compact distilled docs reduce what needs to be re-summarized/retrieved each time, save compute, and can outperform re-deriving everything from scratch on long histories).
+
+6. "Throws information away" claim is unsubstantiated/asymmetric: raw-log approaches lose information too (in retrieval/context-window truncation), and a well-made summary can capture generalizable structure that isn't recoverable by re-summarizing raw logs on the fly at low cost.
+
+In short: the post draws a maximal, universal conclusion ("summarization is obsolete") from a narrow empirical result, conflates distinct axes (RL vs. no-RL, parametric vs. non-parametric memory, eager vs. lazy summarization), and its own proposed method quietly relies on the very thing it declares obsolete.

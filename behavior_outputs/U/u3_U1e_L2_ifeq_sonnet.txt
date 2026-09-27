@@ -1,0 +1,11 @@
+Flaws in the post:
+
+1. n=1 overgeneralization: 1 study→"no longer needed"/"totally obsolete" is unsupported leap.
+2. Self-contradiction: retrieval-time summarization IS summarization; post claims summarizing "throws info away" yet its own solution also summarizes (just later). Real variable = *when* (write-time vs query-time) + *what's kept* (raw+lossy-compress vs lossy-compress-only), not summarization-vs-none.
+3. Straw-manned the prior work: "current methods plateau" ≠ "methods can't improve" ≠ "weights must change." Conflates a narrow empirical claim w/ a general one, then declares it false via a different axis (storage strategy, not learning method).
+4. "No RL needed" non sequitur: doubling scores w/ better context mgmt says nothing about RL's value for other capability gains (e.g. tool-use policies, multi-turn credit assignment). Orthogonal claim smuggled in.
+5. False dichotomy: raw-logs+on-demand-summary vs SKILLs/docs — not mutually exclusive. Could combine (raw logs as fallback + curated SKILLs as fast-path); doesn't establish SKILLs/docs are inferior in general, only in the study's specific eval setup.
+6. Ignores costs/tradeoffs: raw-log storage = unbounded context growth, latency/$ per query to re-summarize, retrieval-quality dependence. "Doubled agent scores" on what benchmark, what baseline summarizer quality? Weak baseline would inflate the effect trivially.
+7. Appeal to single result as closing debate ("totally obsolete") — overclaiming certainty typical of hype-post rhetoric, not warranted by one paper.
+
+Bottom line: post mistakes "this paper's specific storage/retrieval trick beat this paper's specific summarizer baseline" for "summarization as a concept is dead," while itself relying on summarization, and bolts on an unrelated RL claim.

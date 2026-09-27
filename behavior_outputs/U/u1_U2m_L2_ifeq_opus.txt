@@ -1,0 +1,20 @@
+default→SQLite (users=30 ∧ server=1 ⇒ load≪limit)
+
+SQLite IF:
+- concurrent writes = low (clock-in/out peak ~30 req/min) ∧ WAL mode on
+- app ∧ db on the same host
+- ops=min: no DB process, backup=file copy (or `.backup`/Litestream)
+- no need for other tools/hosts to connect directly
+
+PostgreSQL IF any of:
+- app servers >1 ∨ planned HA/redundancy
+- external BI/reporting/other systems need network access to the db
+- heavy concurrent writes (batch jobs ∥ user writes → lock waits)
+- need DB roles/permissions, row-level security, audit
+- users expected to grow to ~100s+ ∨ integration with other systems planned
+- team already has PG ops experience ∨ managed PG available (cost≈0)
+
+risk↓: use an ORM/migration tool so you can switch later (SQLite→PG).
+⚠ on SQLite: set `busy_timeout`, and keep the db file off NFS/network storage.
+
+Is expansion planned (multi-site/other system integration)? Y→PG, N→SQLite

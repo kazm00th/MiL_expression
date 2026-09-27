@@ -1,0 +1,2 @@
+SQLite;crit:concurrent_writers>~10-15?→PG;multi_proc/replicas?→PG;need_network_access_to_db?→PG;else SQLite(simpler ops,no server,file backup)
+30 users+1 server→low write concurrency→SQLite sufficient

@@ -1,0 +1,17 @@
+Default: SQLite (30 users, 1 server → well within its limits)
+
+Criteria:
+1. Concurrent writes: SQLite has 1 writer at a time. Attendance use is roughly 30 clock-ins in bursts of about 5ms each → OK with WAL + busy_timeout=5s. If you expect more than about 100 writes/sec sustained, use PG.
+2. Topology: app and DB on one host → SQLite. More than one app server, or a separate DB host → PG. Never put SQLite on a network filesystem (NFS/SMB).
+3. Ops cost: SQLite has no daemon, no auth, no tuning. PG needs a process, users, upgrades and monitoring. If you have no DBA time, choose SQLite.
+4. Backup/HA: SQLite uses `.backup` or Litestream, and gets point-in-time restore through Litestream. PG uses pg_dump, WAL archiving and replicas. If you need HA or failover, choose PG.
+5. Features: row-level security, per-user DB roles, LISTEN/NOTIFY, rich types (tstzrange, exclusion constraints for overlapping shifts), full-text search in several languages → PG. Plain CRUD and reports → SQLite.
+6. Integration: BI tools, other services or ad-hoc SQL users reading the DB directly → PG.
+7. Growth: more than 10x users, multi-site, or an audit/compliance requirement → PG, or plan for it.
+8. Org standard: if IT already runs PG, or policy requires it → PG.
+
+Rule: if none of 2, 4, 5, 6 or 8 applies, use SQLite. If any one applies, use PG.
+
+Hedge: use an ORM or query builder, avoid dialect-specific SQL and store timestamps as UTC ISO8601. That keeps a later move from SQLite to PG cheap.
+
+SQLite setup: journal_mode=WAL; synchronous=NORMAL; foreign_keys=ON; busy_timeout=5000; daily backup copied to another host.

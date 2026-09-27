@@ -1,0 +1,17 @@
+Problems with the post:
+
+1. Self-contradiction: "summaries not needed" vs "summarize at use time". Summarization still happens, just later (lazy, query-conditioned). What changed is *when* it happens, not *whether*.
+2. Overgeneralization: 1 study → "no longer needed / totally obsolete". Result depends on benchmark, baseline strength, model, and task distribution. No replication, variance or ablation mentioned. "2x" depends on how weak the baseline was.
+3. "No RL needed" is a non sequitur. Memory design and weight updates are separate axes that complement each other. IF the study never compared against RL, it can't support this claim.
+4. Strawman: prior continual-learning work did not only say "plateau → change weights". It also covered memory, retrieval, and replay. The post sets up a false choice: better methods vs weight updates, when you can do both.
+5. Costs are ignored. Raw logs grow without bound. Use-time summarization means ~tokens, latency and cost on every call, plus limits on context and retrieval. Retrieval misses make raw logs lossy in practice too.
+6. Benefits of SKILL/docs are dropped:
+   - One-time cost, reused many times
+   - Humans can read, audit and edit them
+   - They move across models and agents
+   - Compression filters noise
+   - They support privacy (raw logs contain PII or secrets)
+   - They can be shared and versioned
+7. "Info loss ⇒ obsolete" is a bad inference. All abstraction loses information by design. The right question is the tradeoff. The likely answer is a hybrid: keep raw logs, distill stable knowledge into SKILL/docs, and summarize raw logs at query time for the long tail.
+
+Q: which study (@link)?

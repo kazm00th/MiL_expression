@@ -1,0 +1,3 @@
+problem:summarize→static_artifact(SKILLs/docs)=lossy,irreversible;compresses before knowing future query→drops info later needed;also stale as env/task shifts,no update path w/o re-run.
+fix=defer_summarization:keep raw_log verbatim;summarize only at use-time,conditioned on current query→less info_loss,adapts each time;explains gain≈2× w/o RL/weight_updates(retrieval/prompting change only,not learning).
+caveat:raw_log growth→context/cost scales w/ history;need retrieval or truncation strategy eventually.

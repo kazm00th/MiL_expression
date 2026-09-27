@@ -1,0 +1,5 @@
+SQLite fine, IF: single server stays, no plan to scale writers, backups handled via file copy, no need for concurrent heavy writes.
+
+Use PostgreSQL IF: expect multi-server/cloud deploy later, need concurrent writes from many users simultaneously, want network access to DB, need advanced features (roles, replication).
+
+30 users on one server = SQLite is simplest and sufficient.

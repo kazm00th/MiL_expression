@@ -1,0 +1,19 @@
+Default → SQLite ✓ (30 users ∧ 1 server ⇒ load ≪ SQLite's limits)
+
+Use PG IF any of these apply:
+- >1 app instance or server, or the DB sits on its own host (network access)
+- Sustained concurrent writes ≫ ~tens/s. SQLite allows 1 writer at a time. A 9:00 clock-in burst from 30 users is still trivial.
+- HA / replicas / failover required
+- A BI or reporting tool must connect to the DB directly
+- You need PG-only features: RLS, LISTEN/NOTIFY, rich types (jsonb, arrays, range), advanced FTS, fine-grained roles
+- Expected growth to ~100s+ users or several apps sharing 1 DB
+- Your team already runs PG (ops cost ≈ 0)
+
+ELSE → SQLite, because:
+- Ops cost = 0: no service to run, no users to manage, no upgrades
+- Backups are file-based (`.backup`, or Litestream for continuous off-box backup)
+- Fewer failure points
+
+SQLite config: `journal_mode=WAL`, `busy_timeout=5000`, `foreign_keys=ON`, `synchronous=NORMAL`, STRICT tables, off-box backup.
+
+Hedge: using an ORM plus standard SQL keeps a later SQLite→PG migration cheap.

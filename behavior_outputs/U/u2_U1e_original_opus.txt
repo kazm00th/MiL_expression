@@ -1,0 +1,19 @@
+Problems with the post:
+
+1. **No source, and one study is treated as settled.** The post doesn't name the study. It takes a single result and turns it into "no longer needed" and "totally obsolete". It says nothing about whether the result replicates, which benchmarks were used, or whether it holds for other tasks and models.
+
+2. **"Doubled agent scores" has no context.** We aren't told the baseline, the benchmark, the model, or how much variance there was. If the starting score was weak, doubling it doesn't mean much, and a benchmark gain may not carry over to real use.
+
+3. **"No RL needed" doesn't follow.** Beating a summarization baseline says nothing about how the method compares with RL, unless the study tested against RL directly. Doing well without RL doesn't make RL useless, and the two can be combined.
+
+4. **It misstates prior work.** Reducing earlier continual-learning research to "current methods plateau, so change the weights" is a strawman. Also, showing that methods can still improve doesn't disprove that weight updates help. Both can be true.
+
+5. **It contradicts itself.** Storing raw logs and summarizing them at use time is still summarization. It just happens later, when a query comes in, instead of ahead of time. So the result argues for when to summarize, not for dropping summarization.
+
+6. **It ignores the costs.** Keeping raw logs means more storage, retrieval noise, context-length limits, and compute and latency every time the agent uses them. The logs can also hold sensitive data. It's not clear this scales as the logs grow.
+
+7. **Losing information is not always bad.** Skills and docs cut noise and turn experience into general lessons. People can read, audit and edit them. They are cheap to load and can be shared across agents and models. Raw logs do none of this well.
+
+8. **False choice between the two.** The approaches work together: keep raw logs as the source of truth and build skills and docs on top as an index or cache.
+
+Bottom line: at most the evidence supports "use-time summarization of raw logs beat pre-summarization under condition X". It does not support "summaries, skills, docs and RL are obsolete".

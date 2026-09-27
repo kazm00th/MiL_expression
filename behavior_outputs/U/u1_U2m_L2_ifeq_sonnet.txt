@@ -1,0 +1,1 @@
+SQLite<30. WAL,~1writer. PG only if:multi-server||high-concurrency-writes||need-replication/backup-infra. Here:single-server,30users→SQLite suffices.

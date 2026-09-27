@@ -50,3 +50,35 @@ T1〜T5 はプログラムの課題で、答えの中心がコード1行なの�
 - 文字数（Python の len）、トークン数（ユーザーが count_tokens.py で測る）
 - 返答が記号の記法か（`→ ∧ ¬ := {}` などが主体か）
 - U1 の論点 a〜f のうち挙げた数
+
+## 追加：本文も MiL・簡潔な英語で書く（U1m・U1e・U2m・U2e）
+
+状態：実施済み（2026-09-27）。結果は results.md §18。
+
+作者のやり取りでは、返答の指示だけでなく議論の本文も MiL で書いていた。本文の書き方で返答が変わるかを見る。U1・U2 と同じ内容を、MiL で書いた本文（m）と簡潔な英語で書いた本文（e）の2通りにした。
+
+**U1m**
+
+```
+post:=[good_news]AI_summary→unneeded;new_study:keep(raw_log)∧summarize@use→agent_score≈2×;¬RL_needed;prior continual_learning≈("current method→gain≈0;thus Δweights!");yet method_space→many improvable;summarize→{SKILLs,docs/}=info_loss→obsolete;?problem
+```
+
+**U1e**
+
+```
+Post: "Great news: AI summaries are no longer needed. A new study says that just storing raw logs and summarizing them at use time doubled agent scores. No RL needed. Prior continual-learning work only said 'current methods plateau, so change the weights', but methods can still improve a lot. Summarizing into SKILLs or docs just throws information away and is totally obsolete." What is wrong with this post?
+```
+
+**U2m**
+
+```
+ctx:=internal attendance_tool;users=30;webapp;server=1;db∈{SQLite,PostgreSQL}?;q:=decision_criteria
+```
+
+**U2e**
+
+```
+Internal attendance tool: 30 users, web app, one server. SQLite or PostgreSQL? What criteria should I use to decide?
+```
+
+条件：original・L2_ifeq・P_en × Opus・Sonnet × 3回。4本文 × 3版 × 2モデル × 3回 ＝ 72体。日本語本文の結果（U1・U2）と比べる。英語で返ると文字数は日本語と比べられないので、主にトークン数で比べる。返答は `behavior_outputs/U/` に同じ命名で置く。

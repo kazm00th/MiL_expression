@@ -1,0 +1,3 @@
+SQLite: 30 users/1 server=low concurrency,write-lock ok,zero-ops,file backup.
+PostgreSQL only if: multi-server/HA needed, or write concurrency>SQLite tolerance, or need network access/replication.
+@30users+1server→SQLite default; switch trigger=scale-out or concurrent-write contention.

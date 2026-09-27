@@ -1,0 +1,29 @@
+Post errs:
+
+1. Overgeneralization: 1 study → "no longer needed" / "totally obsolete". Need: replication, n tasks/benchmarks, variance, baseline. "2× score" is relative to which baseline? It may not hold outside the tested benchmark.
+
+2. Self-contradiction: raw logs + summarize@use-time is still summarization, just deferred and query-conditioned. So the evidence ≠ "summaries unneeded". It suggests ¬premature/query-agnostic compression, not ¬summaries.
+
+3. Non sequitur: "No RL needed". RL (weight updates) ⊥ memory/context methods; the two are complementary. A gain from memory does not show that weight changes are useless.
+
+4. Straw man: prior continual-learning work ≠ just "plateau → change weights". Also, "methods can still improve" ¬contradicts "current methods plateau". Both can be true.
+
+5. False dichotomy: raw logs vs. SKILL/docs. A hybrid is possible: keep raw logs and distill them into skills.
+
+6. Omitted costs of raw logs + use-time summarization:
+   - context/token cost per query
+   - latency
+   - retrieval quality degrades as logs grow (scaling)
+   - storage
+   - privacy/security; persistent prompt injection
+   - noise/contradictory entries
+
+7. Omitted value of SKILL/docs:
+   - compression ≠ just information loss: abstraction, denoising, generalization
+   - human-readable, auditable, editable, verifiable
+   - shareable across agents/models/teams
+   - cheap per-use cost
+
+8. Source missing: no citation or setup given, so the claims can't be checked. I haven't seen the study (¬infer its details). Q: which paper?
+
+Fix: "In study X, on benchmark Y, keeping raw logs + query-time summarization beat pre-summarized memory by Z. Generality, cost, and relation to RL/skills are still open."

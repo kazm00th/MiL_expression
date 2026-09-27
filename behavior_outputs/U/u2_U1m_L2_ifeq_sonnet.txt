@@ -1,0 +1,1 @@
+Q: raw_log summarize→SKILLs/docs loses info→obsolete when? spec unclear which artifact stays fresh vs decays.

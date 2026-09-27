@@ -1,0 +1,17 @@
+Problems with the post:
+
+1. Overgeneralization from one study: "no RL needed" and "totally obsolete" are sweeping claims drawn from a single result (one benchmark, one setup). A doubling on that task doesn't establish the method beats summarization/RL broadly.
+
+2. Self-contradiction: the post says summarizing "throws away information" and is obsolete, but the study's own method (store raw logs, summarize at use time) still summarizes — just later. It's an argument for when to summarize, not against summarization itself.
+
+3. Misrepresents prior continual-learning claims: "current methods plateau" was a finding about specific approaches under specific conditions, not a blanket claim that no method could ever improve. Showing one new method improves doesn't contradict or refute the earlier work — it's compatible with it (prior methods plateaued; this one doesn't, or this one just wasn't compared under the same regime).
+
+4. False dichotomy: raw-logs-at-use-time vs RL/weight-updates vs SKILLs/docs aren't mutually exclusive. Retrieval-augmented context and learned/compressed representations can be combined; picking a winner between them from one paper is premature.
+
+5. Ignores costs/limits ignored by "just store raw logs": context window limits, retrieval latency/cost, noise from irrelevant logs, and scaling as logs grow unboundedly — these are real tradeoffs the post hand-waves away.
+
+6. "Doubled agent scores" lacks context: no mention of baseline strength, task domain, dataset size, or whether the comparison to summarization/SKILLs was apples-to-apples (e.g., same compute/context budget). Cherry-picked headline stat.
+
+7. Category error conflating "RL/weight updates" with "summarization into docs" as if they're the same alternative being ruled out — they're different mechanisms (parametric learning vs. context engineering vs. compression strategy), and disproving the need for one doesn't touch the others.
+
+Bottom line: the post takes a narrow empirical result and inflates it into a universal, definitive claim while misstating what the prior work argued and treating clearly compatible approaches as rivals.

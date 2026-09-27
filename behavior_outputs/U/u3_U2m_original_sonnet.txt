@@ -1,0 +1,1 @@
+SQLite for 30 users/1 server — simpler ops, zero-config, no separate process, file-based backup; sufficient concurrency for this scale. Switch to PostgreSQL only if: multi-server/HA needed, concurrent writes grow heavily, or need network access from multiple app instances.

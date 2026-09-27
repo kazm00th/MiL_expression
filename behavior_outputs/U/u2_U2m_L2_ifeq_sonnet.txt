@@ -1,0 +1,1 @@
+PostgreSQL. 30 users/1 server = low concurrency, but attendance data grows indefinitely + likely needs concurrent writes(clock-in bursts), reporting queries, future scaling/backup → PostgreSQL's concurrency handling & robustness outweigh SQLite's simplicity here. SQLite ok only if single-process/low-write-contention guaranteed.

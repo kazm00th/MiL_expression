@@ -1,0 +1,27 @@
+default:=SQLite ∵ 30u ∧ 1srv ∧ writes≪ (clock-in burst ~30 writes/min is trivial)
+
+SQLite IF:
+- WAL on ∧ busy_timeout≥5s
+- DB on local disk (¬NFS/SMB)
+- app∧db on same host
+- backup:=.backup | litestream | cron copy
+- ops:=0 (no DB process to run)
+
+→PG IF ∃ any:
+- >1 app server | HA | failover | replicas
+- DB on a separate host
+- heavy concurrent writes (≫100/s) | long write transactions
+- complex reporting/analytics | window funcs + large joins | BI tool access
+- DB-level roles/RLS | audit or compliance requirements
+- PITR needed (restore to a point in time)
+- growth → multiple departments | 100s of users | multi-tenant
+- PG ops/skills already exist in-house → switching cost ≈0
+
+risk(SQLite): ALTER is limited → migrations are harder; single writer lock
+mitigation: use an ORM (Prisma/SQLAlchemy/Django…) → PG swap later ≈ config change
+
+decision:
+IF ¬(HA ∨ separate DB host ∨ PG ops already in place) → SQLite
+ELSE → PG
+
+qmin: HA/redundancy required? ∧ PG already operated in-house?

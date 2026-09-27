@@ -1,0 +1,17 @@
+Critique of the post (compressed per requested notation):
+
+1. **Self-contradiction**: claim = "summaries no longer needed"; evidence = "raw logs + summarize-at-use-time." But summarize-at-use-time IS summarization — just lazy(query-time) instead of eager(write-time). raw-log-store + on-demand-summ ⊂ summarization, ¬its negation. ∴ the cited result argues for *when* to summarize, not *whether*.
+
+2. **n=1, unnamed study**: "a study says... doubled agent scores" — no citation, no benchmark/task spec. Can't distinguish "robust general finding" from "one narrow eval." Generalizing to "AI summaries no longer needed" from this = hasty generalization.
+
+3. **Non-sequitur on RL**: "no RL needed" doesn't bear on the continual-learning claim at all. Different mechanism class (retrieval/context engineering vs weight updates). Citing it as if it refutes "methods plateau" conflates two unrelated research threads.
+
+4. **Straw-man / equivocation on "methods"**: prior continual-learning work said *specific weight-update methods* plateau. Post reframes this as "methods [in general] can't improve," then "refutes" it with a non-weight-update method (context/log management) improving. That's equivocation, not a rebuttal — the original claim's scope was narrower than the post implies.
+
+5. **Scaling problem ignored**: storing raw logs indefinitely and summarizing at every use has real costs — context window limits, inference cost/latency, privacy/retention. Some compression layer is still needed eventually; "no longer needed" doesn't hold long-term or at scale, only in whatever regime the study tested.
+
+6. **SKILLs/docs serve other purposes** the post ignores: cross-session and cross-agent knowledge sharing, human readability/auditability, curation and correction of errors, versioning. A per-query raw-log summarizer doesn't replace these use cases even if it beats *eager* summarization on the tested metric.
+
+7. **False dichotomy in "totally obsolete"**: the more defensible conclusion from the described result is "lazy/on-demand summarization outperformed eager/static summarization in this setting" — a specific, useful finding. The post inflates it into a sweeping claim that summarization/SKILLs/docs as a category are worthless, which the evidence given doesn't support.
+
+Bottom line: the post overgeneralizes a single, uncited result, misapplies it to an unrelated debate (RL/weight-updates vs retrieval), and mistakes "lazy summarization beat eager summarization here" for "summarization is obsolete" — while the very technique it praises is itself a form of summarization.

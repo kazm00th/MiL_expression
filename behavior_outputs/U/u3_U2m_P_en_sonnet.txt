@@ -1,0 +1,1 @@
+SQLite if single-server, low concurrency, simple backup(file copy)OK. PostgreSQL if need concurrent writes, remote/multi-instance access, or future scaling. 30 users/1 server → SQLite likely sufficient unless concurrent write conflicts expected.

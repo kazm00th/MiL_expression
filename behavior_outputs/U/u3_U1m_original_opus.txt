@@ -1,0 +1,20 @@
+verdict: core∧"¬RL_needed"≈OK(scope-limited); "summary→unneeded/obsolete" = overclaim.
+
+1. summary¬deleted, only moved: eager(write-time, query-agnostic)→lazy(use-time, query-conditioned). The gain comes from ¬discarding raw data before the query is known. Summarization is still used. ∴ "AI_summary unneeded"=false.
+
+2. cost is moved too:
+ - raw_log grows without bound → retrieval quality becomes the bottleneck (recall miss ≡ info loss by another route)
+ - summarizing on every use = repeated compute + latency; eager summaries amortize that cost
+ - long-context degradation, context budget limits
+ - noise: failed attempts, stale facts, contradictions; eager curation removes these, raw keeps them → risk of drawing the wrong lesson
+ - privacy/security: raw keeps secrets/PII; a summary can redact them
+
+3. SKILLs/docs do more than compress: human-readable, auditable, versioned, shareable across agents/teams, verified procedures. A raw log does none of this. ∴ ¬obsolete; their role changes.
+
+4. check the 2×: baseline=weak summarizer? task distribution ≈ log distribution? how does it scale with log size or time? do the gains carry across domains?
+
+5. continual_learning: agree. "method X→gain≈0 ⇒ Δweights required" is a bad inference (∃untested methods, big method space). But ¬RL_needed@this_bench ⇏ ∀. Δweights is still useful for capacity beyond context, latency, and inference cost.
+
+synthesis: raw_log = source of truth (immutable); summary/SKILL/docs = cache/index/view (regenerable from raw, disposable). Info loss is fixed by keeping raw, not by dropping summaries. Best option is likely hybrid: raw + eager index + lazy task-specific summary.
+
+∴ ?problem → framing ("obsolete") yes; direction ("keep raw") no.
