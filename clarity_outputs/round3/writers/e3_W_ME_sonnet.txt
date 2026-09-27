@@ -1,0 +1,19 @@
+Winter‑campaign checkout discount rules
+
+LEGEND (¥, pre‑tax; ⌊⌋=floor)
+P=2026‑12‑01→2027‑02‑28(incl). tier∈{Gold,Silver,Gen}. R=Σregular‑item¥(pre‑disc). S=Σsale‑item¥(pre‑disc). cpn=coupon presented(bool). deliv=is‑delivery(bool). mo/bmo=checkout/birth‑month.
+
+RULES
+1. M(member%) = Gold10 / Silver5 / Gen0. Active in&out P.
+2. V(volume%, P only) = 8 IF R≥20000; 5 IF 10000≤R<20000; else 0. (judged on pre‑disc R; out‑P→0; 5&8 don't stack together)
+3. Bd(birthday%, P only) = 3 IF tier≠Gen & mo=bmo; else 0.
+4. D = M+V+Bd; cap = 18 IF(tier=Gold & mo=bmo) else 15; D=min(D,cap).
+5. D applies to R only — S never gets %‑disc.
+6. %disc vs coupon (mutually excl., incl. member%): A = R−⌊R·D/100⌋+S. IF cpn: B=max(0,R+S−500); pay=min(A,B); coupon_used=(B<A), tie→false (same ¥, keeps points). IF ¬cpn: pay=A, coupon_used=false.
+7. Coupon: valid in&out P; ≤1/checkout.
+8. Shipping (deliv only, else n/a): Gold→0. Elif coupon_used→[0 IF R≥5000 else 600]. Else→[0 IF R−⌊R·D/100⌋≥5000 else 600].
+9. Points (P only, else 0): 0 IF coupon_used; else ⌊pay·0.01⌋ (pay excl. shipping).
+10. ⌊⌋ at each ¥ calc (%disc amt, coupon sub, pts) — not just final total.
+
+Q (@store‑mgr):
+- Rule 8, coupon_used branch: free‑ship threshold uses raw R (shipping bullet never mentions coupon, so read as 0% literally applied). Confirm this, or should it instead use the R that the %‑discount would've produced had that path won?

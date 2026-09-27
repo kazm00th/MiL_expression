@@ -1,0 +1,24 @@
+R=regular(non-sale) items pretax subtotal, pre-discount. S=sale items pretax subtotal, pre-discount. tier=Gold/Silver/General. BM=order date is member's birth month. IN=order date in 2026-12-01~2027-02-28.
+
+basePct: Gold10 Silver5 General0.
+
+bonus: IF NOT IN:0. IF IN: (IF R≥20000:8 ELIF R≥10000:5 ELSE 0) + (IF tier≠General AND BM:3 ELSE 0).
+cap: IF tier=Gold AND BM:18 ELSE 15.
+pctRate: IF IN: min(basePct+bonus,cap) ELSE basePct. Applies to R only; S never gets pctRate.
+
+payPct=floor(R×(1−pctRate/100))+S.
+payCoupon=max(R+S−500,0). Coupon usable IN or not, covers R and S, 1/checkout, exclusive with pctRate (coupon⇒pctRate=0, incl basePct).
+couponUsed = payCoupon<payPct (tie→pctRate path).
+total = couponUsed?payCoupon:payPct.
+R_eff = couponUsed?R:floor(R×(1−pctRate/100)).
+
+Shipping: pickup→0. delivery: tier=Gold→0 ELIF R_eff≥5000→0 ELSE 600.
+
+Points: IN AND NOT couponUsed → floor(total×0.01), else 0. (total excl shipping)
+
+Floor every yen figure at each step; all amounts pre-tax.
+
+Questions:
+Coupon-vs-%discount exclusivity include basePct too (coupon checkout loses plain member% even outside campaign)? Assuming yes.
+"Better deal"=payPct vs payCoupon only (ignoring shipping/points), tie→pctRate? Assuming yes.
+Shipping rule (free≥5000, Gold-free) year-round or campaign-only? Assuming year-round.

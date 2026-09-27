@@ -1,0 +1,15 @@
+```
+P:=2026/12/1~2027/2/28;B:=birth_month;¥:tax_excl;<¥1→⌊⌋[Q2]
+R:=Σregular(pre-disc);X:=Σsale
+m:=gold→10|silver→5|0
+v:=P∧R≥20k→8|P∧R≥10k→5|0
+b:=P∧B∧≥silver→3|0
+r:=min(m+v+b,gold∧B→18|15)%
+D:=R·r
+cpn:−500 from R+X[Q3];≤1;¬(cpn∧D)→better[Q1];cpn→D=0
+ship:delivery∧¬gold∧R−D<5k→600|0
+pts:P∧¬cpn→⌊1%(R+X−D)⌋|0
+Q1 better:=max disc|disc+pts? tie→D|cpn?
+Q2 ⌊⌋ on D|R−D?
+Q3 R+X<500→0|cpn✗?
+```

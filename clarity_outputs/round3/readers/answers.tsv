@@ -1,0 +1,73 @@
+reader_file	writer	reader_model	score	wrong
+W01	e2_W_ME_sonnet	opus	10	
+W01	e2_W_ME_sonnet	sonnet	10	
+W02	e3_W_MM_sonnet	opus	10	
+W02	e3_W_MM_sonnet	sonnet	10	
+W03	e1_W_EJ_opus	opus	10	
+W03	e1_W_EJ_opus	sonnet	8	4:不明 8:不明
+W04	e2_W_EE_opus	opus	9	6:不明
+W04	e2_W_EE_opus	sonnet	9	6:不明
+W05	e3_W_NJ_opus	opus	10	
+W05	e3_W_NJ_opus	sonnet	10	
+W06	e1_W_NJ_sonnet	opus	10	
+W06	e1_W_NJ_sonnet	sonnet	10	
+W07	e2_W_EM_sonnet	opus	10	
+W07	e2_W_EM_sonnet	sonnet	10	
+W08	e3_W_ME_sonnet	opus	10	
+W08	e3_W_ME_sonnet	sonnet	10	
+W09	e3_W_EM_sonnet	opus	8	6:不明 7:不明
+W09	e3_W_EM_sonnet	sonnet	8	6:不明 7:不明
+W10	e2_W_MM_opus	opus	9	6:不明
+W10	e2_W_MM_opus	sonnet	9	6:不明
+W11	e2_W_ME_opus	opus	10	
+W11	e2_W_ME_opus	sonnet	10	
+W12	e2_W_EJ_sonnet	opus	9	7:不明
+W12	e2_W_EJ_sonnet	sonnet	9	7:不明
+W13	e2_W_MM_sonnet	opus	10	
+W13	e2_W_MM_sonnet	sonnet	10	
+W14	e1_W_ME_opus	opus	10	
+W14	e1_W_ME_opus	sonnet	10	
+W15	e2_W_EM_opus	opus	9	6:不明
+W15	e2_W_EM_opus	sonnet	9	6:不明
+W16	e1_W_MM_sonnet	opus	10	
+W16	e1_W_MM_sonnet	sonnet	10	
+W17	e2_W_NJ_sonnet	opus	10	
+W17	e2_W_NJ_sonnet	sonnet	10	
+W18	e1_W_EE_opus	opus	9	6:不明
+W18	e1_W_EE_opus	sonnet	9	6:不明
+W19	e3_W_EJ_opus	opus	10	
+W19	e3_W_EJ_opus	sonnet	10	
+W20	e1_W_MM_opus	opus	10	
+W20	e1_W_MM_opus	sonnet	10	
+W21	e3_W_EM_opus	opus	9	6:不明
+W21	e3_W_EM_opus	sonnet	7	4:不明 6:不明 8:不明
+W22	e3_W_MM_opus	opus	9	6:不明
+W22	e3_W_MM_opus	sonnet	10	
+W23	e3_W_EE_sonnet	opus	9	5:不明
+W23	e3_W_EE_sonnet	sonnet	10	
+W24	e1_W_NJ_opus	opus	10	
+W24	e1_W_NJ_opus	sonnet	10	
+W25	e1_W_EJ_sonnet	opus	10	
+W25	e1_W_EJ_sonnet	sonnet	10	
+W26	e1_W_EE_sonnet	opus	9	6:不明
+W26	e1_W_EE_sonnet	sonnet	10	
+W27	e1_W_ME_sonnet	opus	9	7:不明
+W27	e1_W_ME_sonnet	sonnet	10	
+W28	e3_W_EJ_sonnet	opus	10	
+W28	e3_W_EJ_sonnet	sonnet	10	
+W29	e1_W_EM_opus	opus	10	
+W29	e1_W_EM_opus	sonnet	9	8:不明
+W30	e3_W_NJ_sonnet	opus	8	6:不明 7:不明
+W30	e3_W_NJ_sonnet	sonnet	10	
+W31	e3_W_EE_opus	opus	10	
+W31	e3_W_EE_opus	sonnet	8	4:不明 8:不明
+W32	e2_W_EE_sonnet	opus	10	
+W32	e2_W_EE_sonnet	sonnet	10	
+W33	e2_W_EJ_opus	opus	10	
+W33	e2_W_EJ_opus	sonnet	10	
+W34	e3_W_ME_opus	opus	9	6:不明
+W34	e3_W_ME_opus	sonnet	10	
+W35	e2_W_NJ_opus	opus	10	
+W35	e2_W_NJ_opus	sonnet	10	
+W36	e1_W_EM_sonnet	opus	10	
+W36	e1_W_EM_sonnet	sonnet	10	

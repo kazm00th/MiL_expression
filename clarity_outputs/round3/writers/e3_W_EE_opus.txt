@@ -1,0 +1,11 @@
+All amounts are before tax. Round down fractions of a yen. R = total of regular items before any discount. Period P = 2026-12-01 to 2027-02-28.
+
+The % rate r applies to R only, and rates add. Gold 10%, Silver 5%, General 0. IF in P, add 5% IF R>=10000 (8% instead IF R>=20000), and add 3% IF Silver or Gold in birth month. Cap r at 15%, or 18% IF Gold in birth month.
+
+500-yen coupon: 1 per checkout, valid anytime, taken off the regular+sale total, cannot be combined with any % discount. IF presented, apply either the coupon or r, whichever is better for the customer.
+
+Shipping 600 IF delivery, not Gold, and R after % discount < 5000; else 0.
+
+IF in P and no coupon, points = 1% of amount paid excluding shipping.
+
+Does "better" count the points lost by using the coupon, and which applies on a tie? Round down the discount amount or the discounted price?

@@ -1,0 +1,13 @@
+Campaign window: 2026-12-01 to 2027-02-28 inclusive. Outside it, only the member rate applies; volume, birthday, and the 18% cap exception never apply there (member rate alone never exceeds the general cap). Shipping and the coupon-vs-percent comparison apply both inside and outside the window. For each checkout compute R, the pre-discount sum of regular (non-sale) item prices, and S, the pre-discount sum of sale item prices.
+
+Member rate: Gold 10%, Silver 5%, General 0%, always active. Volume rate, window only: 8% if R is 20,000 yen or more, else 5% if R is 10,000 yen or more, else 0%; based on R before any discount, never 5% and 8% together. Birthday rate, window only: 3% if the customer is Gold or Silver and the checkout month matches their birth month, else 0% (General never gets it).
+
+Sum the three rates. Cap the sum at 18% if the customer is Gold and the birthday rate applied, else cap at 15%. Call this Percent. Percent applies only to R; S is never percent-discounted. Discount = floor(R * Percent / 100).
+
+The 500 yen coupon is an alternative to the percent discount, not additive with it; max one per checkout; usable inside or outside the window and against sale items, subtracting 500 from R+S (floor at 0). Compare Discount to 500 and apply whichever is larger for the customer: Discount > 500 means use the percent path (payable = R - Discount + S, S full price); 500 > Discount means use the coupon path (payable = R + S - 500, no percent discount, R counts as full price for shipping purposes); equal means use the percent path (same price, and it still earns points).
+
+Shipping applies only to delivery orders. Gold always gets free shipping. For everyone else on a delivery order, shipping is free if R after whichever path was used (R - Discount on the percent path, full R on the coupon path) is 5,000 yen or more, else 600 yen.
+
+Points, window only and only when the coupon path was not used: floor(1% of the payable merchandise total, i.e. R - Discount + S). No points outside the window or whenever the coupon path is used. Every monetary result (Discount, coupon payable, points) is floored to a whole yen; all figures are pre-tax.
+
+Question: is the 500 yen coupon auto-applied to every checkout for this comparison, or only when the customer presents/selects one (i.e., is coupon use an input flag rather than always-on)?

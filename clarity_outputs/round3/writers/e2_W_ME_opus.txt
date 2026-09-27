@@ -1,0 +1,22 @@
+```
+#WinterCP checkout
+¥=pre-tax int; ⌊⌋=floor; r in %
+in: d=@checkout_date lv=@rank∈{G,S,N=general} bm=@birth_month cart=@items(p,q,sale?) dlv=@delivery? cpn=@¥500coupon?(≤1/checkout)
+
+P   := 2026-12-01≤d≤2027-02-28
+B   := month(d)=bm
+R   := Σp·q[¬sale] ; X := Σp·q[sale]
+m   := {G:10,S:5,N:0}[lv]
+t   := 8 IF P∧R≥20000 | 5 IF P∧R≥10000 | 0
+b   := 3 IF P∧B∧lv≠N | 0
+cap := 18 IF lv=G∧B | 15
+r   := min(m+t+b, cap)
+
+A(%):   R'=R−R·r/100 ⌊⌋⟨Q2⟩ ; g=R'+X ; pt=⌊g/100⌋ IF P | 0
+C(cpn): R'=R ; g=R+X−min(500,R+X) ; pt=0
+route := C IF cpn ∧ g_C < g_A[−pt_A]⟨Q1⟩ | A
+ship  := 0 IF ¬dlv ∨ lv=G ∨ R'≥5000 | 600   //R' of route
+out: pay=g+ship ; pt                         //of route
+```
+Q1: Does the "better deal" check count A's points (the `[−pt_A]` term)? (Shipping can't change which route wins.)
+Q2: Which gets floored: the discount (R−⌊R·r/100⌋) or the discounted price (⌊R(100−r)/100⌋)? (±¥1)

@@ -1,0 +1,43 @@
+```
+// Winter-campaign discount rules (pre-tax; ↓=floor to whole ¥)
+CONST:
+ PERIOD=[2026-12-01..2027-02-28]        // incl. both ends
+ MEM%={Gold:10,Silver:5,General:0}
+ CAP=15; CAP_G_BDAY=18
+ CPN=¥500, ≤1/checkout
+ SHIPFEE=600; FREESHIP_THRESH=5000
+
+REF (@=ext, from checkout/customer data):
+ @date, @tier∈{Gold,Silver,General}, @bmonth
+ @items[]{price,sale:bool}, @delivery:bool, @couponReq:bool
+
+DERIVED:
+ IN = @date∈PERIOD
+ BDAY = month(@date)=@bmonth
+ R=Σprice(¬sale); S=Σprice(sale)        // pre-discount subtotals
+
+%STACK (applies to R only; sale items always 0% off):
+ V%: IF ¬IN→0; ELIF R≥20000→8; ELIF R≥10000→5; ELSE→0   // 5/8 don't stack
+ D%: IF IN∧BDAY∧@tier∈{Silver,Gold}→3; ELSE→0
+ cap = IF @tier=Gold∧BDAY→CAP_G_BDAY; ELSE→CAP
+ P% = min(MEM%[@tier]+V%+D%, cap)
+
+CANDIDATES:
+ T_pct = (R×(1−P%/100))↓ + S
+ T_cpn = @couponReq ? max(0,R+S−CPN) : ∞
+
+SELECT (mutually exclusive w/ %-stack; lower price wins):
+ useCPN = @couponReq ∧ T_cpn<T_pct
+ goods = useCPN ? T_cpn : T_pct
+ R_eff = useCPN ? R : (R×(1−P%/100))↓   // "regular after %" for shipping calc
+
+SHIP (delivery only):
+ IF ¬@delivery→0; ELIF @tier=Gold ∨ R_eff≥FREESHIP_THRESH→0; ELSE→SHIPFEE
+
+POINTS:
+ IF IN∧¬useCPN → (goods×0.01)↓; ELSE→0
+
+PAYABLE = goods + ship
+```
+
+Q: "% discounts excl. sale items" — does this also bind the base MEM% (e.g. outside the campaign period, when MEM% is the only discount live), or does MEM% alone still apply to sale items in that case? Ruleset above assumes the former (sale items are always excluded from every % discount, MEM% included).

@@ -1,0 +1,22 @@
+```
+@checkout{d:date;rk:General<Silver<Gold;bm:birth month;dlv,cp:bool(delivery;has ¥500 coupon,≤1);items[{¥,sale:bool}]}
+all ¥ pre-tax
+R=Σ¥[¬sale];S=Σ¥[sale]
+P≔d∈[2026-12-01,2027-02-28]
+B≔P∧rk≥Silver∧month(d)=bm
+m=10 IF Gold;5 IF Silver;0
+a=8 IF P∧R≥20000;5 IF P∧R≥10000;0
+b=3 IF B;0
+cap=18 IF Gold∧B;15
+pct=min(m+a+b,cap)
+D%=⌊R·pct/100⌋(?Q2)
+Dc=min(500,R+S)
+useC=cp∧C≻%(?Q1)
+useC→D%:=0;¬useC→Dc:=0
+ship=0 IF ¬dlv∨Gold∨R−D%≥5000;600
+pay=R+S−D%−Dc+ship
+pt=⌊(pay−ship)/100⌋ IF P∧¬useC;0
+
+?Q1 C≻%(coupon beats %):larger ¥disc only, or incl. pt? tie→?
+?Q2 D%:⌊⌋ or ⌈⌉(=floor price after disc)?
+```

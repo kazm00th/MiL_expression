@@ -1,0 +1,35 @@
+discount_rules(winter_campaign);src=store_mgr_memo;reader=checkout_agent
+
+vars: regular_total=Σpre-disc price,flag=regular(tax_excl); sale_total=Σflag=sale; period=date∈[2026-12-01,2027-02-28]; tier∈{gold,silver,general}; bday=is_birth_month
+
+1)%disc_rate (regular items only; sale items always excluded from %disc):
+ base=member_disc[tier]: gold=10,silver=5,general=0
+ tier_bonus: period∧regular_total≥20000→8; period∧regular_total≥10000→5; else→0 (mutually exclusive,¬stack; judged on pre-discount regular_total)
+ bday_bonus: period∧bday∧tier∈{silver,gold}→3; else→0
+ raw=base+tier_bonus+bday_bonus
+ cap=(tier=gold∧bday)?18:15
+ %disc_rate=min(raw,cap)
+
+2)coupon¥500 (customer-presented; ≤1/checkout; valid in+out of period; ¬combinable w/ %disc→use whichever costs customer less):
+ optA(use %disc)=regular_total×(1−%disc_rate)+sale_total
+ optB(use coupon)=regular_total+sale_total−500
+ coupon_used = coupon_presented ∧ optB<optA
+ merch_total = coupon_used ? optB : optA
+ (if coupon_used: %disc_rate treated as 0/unapplied)
+
+3)shipping (delivery orders only; pickup→n/a, see Q3):
+ tier=gold → 0
+ elif regular_total×(1−%disc_rate)≥5000 → 0   [uses %disc_rate from step1 even when coupon_used — see Q1]
+ else → 600
+
+4)total_paid = merch_total + shipping   (all tax-excl)
+
+5)points (only if period active; else out of scope for this campaign):
+ points = coupon_used ? 0 : floor(0.01 × merch_total)   [merch_total excludes shipping]
+
+6)rounding: any amount <¥1 → floor (applied at each step — see Q2 for exact granularity)
+
+Qs (rules above already use best-guess defaults; please confirm):
+Q1: shipping free-threshold when coupon_used (so %disc_rate=0 per the rules) — use raw regular_total pre-disc as assumed above, or should the coupon reduce it first some other way?
+Q2: <¥1 rounding — floor at every intermediate amount (%disc calc, coupon split, points) or only the final total_paid?
+Q3: store-pickup orders — confirm shipping fee is ¥0/not charged (memo says "delivery only" but doesn't state the pickup case explicitly).

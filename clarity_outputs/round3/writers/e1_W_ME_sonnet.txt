@@ -1,0 +1,37 @@
+```
+VARS: tier∈{GOLD,SILVER,GEN}; d=checkout date; P=[2026-12-01,2027-02-28]; IN_P=(d∈P)
+R=Σregular item price(pre-disc); S=Σsale item price(pre-disc); T=R+S
+BM=(month(d)=member.birth_month); deliv=(fulfillment=delivery)
+cpn∈{0,1}=coupon presented (¥500, max 1/checkout)
+
+CONST: MEMBER%={GOLD:10,SILVER:5,GEN:0}; CAP=15; CAP_GOLD_BM=18
+SHIP_FEE=¥600; SHIP_FREE_MIN=5000; CPN_AMT=¥500
+
+%DISC (applies to R only, never S — rule6, unconditional on IN_P):
+ thresh%: IF ¬IN_P→0; ELIF R≥20000→8; ELIF R≥10000→5; ELSE→0   [no-stack; all tiers incl GEN — Q2]
+ bm%:     IF IN_P∧BM∧tier∈{GOLD,SILVER}→3; ELSE→0
+ raw%   = MEMBER%[tier]+thresh%+bm%
+ cap:     IF tier=GOLD∧BM→18; ELSE→15
+ pct    = min(raw%,cap)
+
+CAND_A (%disc applied, coupon unused):
+ Ra=⌊R×(100−pct)/100⌋; merchA=Ra+S
+ shipA: IF ¬deliv→0; ELIF tier=GOLD→0; ELIF Ra≥5000→0; ELSE→600
+ payA=merchA+shipA
+ ptsA = IN_P?⌊merchA/100⌋:0
+
+CAND_B (coupon applied; %disc=0 incl. member%; exists only if cpn=1):
+ merchB=max(T−500,0)
+ shipB: IF ¬deliv→0; ELIF tier=GOLD→0; ELIF R≥5000→0; ELSE→600   [R, since %disc=0 here]
+ payB=merchB+shipB
+ ptsB=0   (coupon used⇒no pts, rule9)
+
+SELECT: IF cpn=0→CAND_A; ELSE→argmin(payA,payB), tie→CAND_A (equal pay, but A also grants pts + leaves coupon unused ⇒ dominates)
+NOTE: cpn=1 but A wins ⇒ coupon not "used" ⇒ ptsA still awarded (not forced to 0).
+
+RESULT: {merch_total, shipping_fee, points, pct_applied(0 if B), coupon_used(bool)} — all pre-tax.
+ROUNDING: ⌊⌋ wherever a %-calc yields fractional yen (Ra, pts). No other fraction sources.
+```
+
+Q1: "Better deal" compare = full payment incl. shipping (payA vs payB, as coded above), or merchandise-discount only (shipping computed after, independent of which wins)? Assumed: incl. shipping.
+Q2: Does the +5%/+8% spend bonus (rule3) apply to GEN members (0% base) too, or only GOLD/SILVER? Assumed: all tiers.

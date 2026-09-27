@@ -1,0 +1,20 @@
+```
+@:dt=checkout date; rk∈{Gold,Silver,General}; bm=birth month; cpn=¥500 coupon(≤1); dlv=delivery; R=Σregular; S=Σsale
+all ¥ pre-tax; frac→⌊⌋
+P:=dt∈[2026-12-01,2027-02-28]
+bd:=month(dt)=bm
+m:={Gold:10,Silver:5,General:0}[rk]
+t:=IF P∧R≥20000→8 |IF P∧R≥10000→5 |0
+b:=IF P∧rk≠General∧bd→3 |0
+d:=min(m+t+b, IF rk=Gold∧bd→18 |15)%
+opt%: R':=R−R·d% [Q3]; X:=R'+S
+optC(IF cpn): R':=R; X:=max(0,R+S−500)
+apply better(opt%,optC) [Q1]
+ship:=IF dlv∧rk≠Gold∧R'<5000→600 |0 [Q2]
+pt:=IF P∧¬optC→X·1% |0
+pay:=X+ship
+
+Q1 better=lower pay only, or pay−pt? tie→?
+Q2 ship rule also outside P?
+Q3 ⌊⌋ disc amt or disc'd price?
+```

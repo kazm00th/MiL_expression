@@ -1,0 +1,16 @@
+¬tools;reply directly
+
+rply MiL mode: answer in the fewest tokens that keep the same meaning. Write plain text: no headings, lists, tables, or decorative symbols. Omit anything recoverable from context. IF means condition; @ means external reference. If something is ambiguous, don't guess; ask one short question.
+task:=memo→discount_rules;reader:=checkout_agent;IF questions→write all rules anyway,questions at end
+
+memo(store_mgr):=winter_campaign;
+period:=2026/12/1~2027/2/28;¬period→member_disc only;
+member_disc:=gold 10%,silver 5%,general none;
+period∧regular_total≥¥10k→+5%,≥¥20k→+8%,¬(5%∧8%);sale∉total;judge:=pre_discount amount;
+period∧birth_month∧≥silver→+3%;
+%disc total≤15%;gold∧birth_month→≤18%;
+sale→¬%disc;
+coupon_¥500:¬with %disc→use better;usable in+out of period;usable on sale(−¥500 from regular+sale total);1/checkout;
+shipping:delivery only;regular_total after %disc≥¥5k→free,else ¥600;gold→always free;
+period→points:=1%×paid(excl shipping);coupon used→no points;
+amounts:tax_excl;<¥1→round down

@@ -1,0 +1,19 @@
+All amounts tax-exclusive; floor every computed yen figure.
+
+R = pre-discount subtotal of regular-price items; S = same for sale items.
+
+Member rate M: Gold 10%, Silver 5%, General 0%; applies year-round.
+
+Within 2026-12-01–2027-02-28 only, also add: volume rate V, judged on raw R with sale items excluded — 8% if R≥20000, else 5% if R≥10000, else 0 (the two tiers don't add together); birthday rate Bd=3% if tier is Silver or Gold and the order date falls in that customer's birth month. Outside that window V=Bd=0.
+
+P = M+V+Bd, capped at 15%, except 18% when tier is Gold and Bd applies.
+
+P discounts R only, never S — sale items get no % discount, in or out of the window. Regular-item discount amount = floor(R×P/100); regular items are then charged R minus that.
+
+500-yen coupon: flat, max one per checkout, usable any time and on sale items too, deducted from R+S combined (floor result at 0). Coupon and the % discount are mutually exclusive for the whole checkout — using the coupon sets P to 0 for that checkout (member discount is forfeited too). Take whichever path charges the customer less: %-path total = (R minus its discount) + S; coupon-path total = max(R+S−500, 0).
+
+Shipping (delivery orders only; applies year-round, not just the campaign window): free if the regular-item amount actually charged (R if the coupon path was used, R minus its discount if the %-path was used) is ≥5000, else 600 — Gold customers always ship free regardless of path or amount.
+
+Points (campaign window only, and only if no coupon was used): floor(1% of ((R minus its discount) + S)). No points outside the window, and none whenever a coupon is applied.
+
+Question: when the %-path and coupon-path totals tie exactly, which should the system apply? It decides whether points are earned on that checkout.

@@ -1,0 +1,11 @@
+All amounts tax-excluded, fractions truncated. Period means checkout date 2026-12-01 to 2027-02-28 inclusive. R is the pre-discount total of regular-price items, S the total of sale items.
+
+The percentage rate applies to R only. Base: gold 10%, silver 5%, general 0%. In period only, add 8% if R ≥ ¥20,000 or else 5% if R ≥ ¥10,000, and add 3% for gold or silver in their birth month. Cap the rate at 15%, or 18% for gold in their birth month. D is R after the rate; goods payment P = D + S.
+
+¥500 coupon: one per checkout, valid in and out of period, cannot be combined with the rate. With the coupon, D = R and P = R + S − 500. If the customer has one, apply the rate or the coupon, whichever is better for them.
+
+Shipping, delivery orders only: free if gold or D ≥ ¥5,000, else ¥600.
+
+Points, in period and without coupon only: 1% of P.
+
+Questions: Does the shipping rule also apply outside the period? Should "better" count lost points or only payment, and which wins a tie? Truncate the discount amount or the discounted price?

@@ -1,0 +1,35 @@
+discount_rules(winter_campaign;src=store_mgr;for=checkout_agent):
+
+DEFS: P:=period[2026-12-01,2027-02-28](incl); RT:=Σpre-disc regular-price items,tax-excl; ST:=Σsale-price items,tax-excl; tier∈{gold,silver,general}; BM:=today∈cust.birth_month; ⌊⌋=round down; all amt tax-excl.
+
+R1 %disc (candidate value, always computed):
+ base:={gold:10,silver:5,general:0}[tier]
+ IF P: RT≥20000→base+=8 ELIF RT≥10000→base+=5 (judge on pre-disc RT; tiers mutex, not additive)
+       IF BM∧tier≠general→base+=3
+ cap:=18 IF(tier=gold∧BM) ELSE 15
+ %disc:=min(base,cap); disc_amt:=⌊RT×%disc/100⌋
+ NOTE: %disc applies to RT only. ST never gets %disc (sale items excluded, in∧out P) — see Q1.
+
+R2 coupon(¥500,customer-invoked,opt-in):
+ valid in∧out P; valid on all-sale cart(−¥500 from RT+ST combined); max 1/checkout
+ mutex w/%disc → compare disc_amt vs 500:
+  disc_amt≥500 → reject coupon, keep %disc (tie→%disc, since coupon also forfeits points)
+  disc_amt<500 → apply coupon, %disc→0
+ IF coupon applied: RT':=RT; merch:=RT+ST−500
+ ELSE: RT':=RT−disc_amt; merch:=RT'+ST
+
+R3 shipping(delivery only; pickup n/a):
+ tier=gold → free (always, overrides below)
+ ELIF RT'≥5000 → free
+ ELSE → ¥600
+
+R4 points(IF P only; ¬P→out of scope/default policy):
+ coupon applied → 0
+ ELSE → ⌊merch×0.01⌋ (merch excl shipping)
+
+¬P: %disc:=member_disc only (base above, no P-bonuses; cap moot, max=10<15); R2/R3 unchanged (period-independent); R4 n/a.
+
+---
+Q1: "sale→¬%disc" scope unclear — item-level (only the sale item itself excluded; other regular-price items in same cart still get %disc — this is what's ASSUMED above) or cart-level (any sale item present in checkout → %disc=0 for entire order incl. regular items)? Please confirm.
+
+Q2: possible unintended interaction — for GOLD tier, RT≥¥20,000(+8%) always caps to the identical result as RT≥¥10,000(+5%): w/o birth-month both land at 15% (10+8→cap15; 10+5→cap15); w/ birth-month both land at 18% (10+8+3→cap18; 10+5+3→cap18). So gold members get zero marginal discount benefit for spending ¥20k+ vs ¥10k+. Intended, or should caps/tiers be adjusted?

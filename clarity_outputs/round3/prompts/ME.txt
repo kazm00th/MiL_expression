@@ -1,0 +1,16 @@
+Do not use any tools. Reply directly.
+
+rply MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>natural_language;del(recoverable_from_context);IF=condition;@=external_ref;amb->no_guess,ask_1_short_q
+Turn the following store manager's memo into discount rules for another agent that processes checkouts. Even if you have questions, write all the rules first and put the questions at the end.
+
+Winter campaign (store manager's memo)
+- Period: 2026/12/1 to 2027/2/28. Outside the period, only the member discount applies.
+- Member discount: Gold 10%, Silver 5%, General none.
+- During the period, if the total of regular items is 10,000 yen or more, an additional 5%; if 20,000 yen or more, an additional 8% (5% and 8% do not stack). Sale items are not counted in the total. Judge by the amount before discounts.
+- During the period, Silver and above get an additional 3% in their birth month.
+- % discounts are capped at 15% in total, but at 18% for Gold in their birth month.
+- % discounts cannot be used on sale items.
+- The 500-yen coupon cannot be used together with % discounts; apply whichever is the better deal. The coupon can also be used outside the period and on sale items (it is subtracted from the total of regular and sale items). One per checkout.
+- Shipping is charged only for delivery. Free if the total of regular items after % discounts is 5,000 yen or more; otherwise 600 yen. Gold always gets free shipping.
+- During the period, give points worth 1% of the amount paid (excluding shipping). Checkouts that use a coupon get no points.
+- All amounts are before tax. Round down fractions of a yen.

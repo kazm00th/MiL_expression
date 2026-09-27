@@ -1,0 +1,22 @@
+¥:tax_excl;<¥1→floor[Q2]
+P:=@date∈[2026-12-01,2027-02-28]
+B:=month(@date)=@bmonth
+reg:=Σ@item¬sale;sale:=Σ@item sale
+d%:=min(mem+vol+bd,cap)
+ mem:gold10|silver5|gen0
+ vol:IF P:reg≥20k→8|≥10k→5|0
+ bd:IF P∧B∧rank≥silver→3|0
+ cap:gold∧B→18|15
+A:sub:=reg×(1−d%)+sale
+C:IF @cpn500(≤1/checkout):d:=0;sub:=reg+sale−500[Q5]
+IF @cpn→better(A,C)[Q1]
+ship:IF @delivery∧¬gold∧reg×(1−d%)<5k→600|0[Q3][Q4]
+pts:IF P∧¬C→floor(1%×sub)|0
+pay:=sub+ship
+
+Q1:better:=min pay(incl ship)?pts counted?tie→?
+Q2:floor disc amt|price?per line|cart?
+Q3:ship rule ¬P too?
+Q4:C→ship judge reg|reg−500?
+Q5:reg+sale<500∧C→sub=0|C✗?
+Q6:non-member=gen?

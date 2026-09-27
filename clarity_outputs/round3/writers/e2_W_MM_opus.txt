@@ -1,0 +1,21 @@
+¥:=tax_excl;
+P:=date∈2026/12/1~2027/2/28;
+rk∈{G,Sv,N};B:=birth_month;dlv:=delivery;
+R:=Σregular;S:=Σsale;
+m:=G10,Sv5,N0;
+t:=P∧R≥20k→8|P∧R≥10k→5|0;
+b:=P∧B∧rk≥Sv→3|0;
+d:=min(m+t+b,G∧B→18|15)%;
+A:goods:=R(1−d)+S;
+C:goods:=max(0,R+S−500);IF coupon;≤1/checkout;
+A⊕C;IF coupon→better(A,C)[Q2];
+ship:=¬dlv∨G→0|base≥5k→0|600[Q3];
+base:=A→R(1−d)|C→R[Q4];
+pts:=P∧A→⌊1%·goods⌋|0;
+pay:=goods+ship;
+⌊<¥1⌋[Q1];
+
+Q1:floor disc amt or net price?per item or per checkout?
+Q2:better=min(goods+ship)?pts count?tie→?
+Q3:¬P→ship rule applies?(else @std)
+Q4:C→base=R(−500 ignored)?

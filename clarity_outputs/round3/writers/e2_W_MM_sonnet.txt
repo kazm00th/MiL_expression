@@ -1,0 +1,27 @@
+discount_rules[winter_campaign→checkout_agent]
+
+def: P=period[2026/12/1~2027/2/28]; RT=regular_total(pre-disc,tax-excl,=tier-judge basis); ST=sale_total(tax-excl); BM=(order_month=cust_birth_month); M∈{gold,silver,general}; DELIV=bool; CPN∈{0,1},≤1/checkout
+
+member_disc(M):=gold10%,silver5%,general0%
+tier_bonus:=P∧RT≥¥20k→+8%,P∧RT≥¥10k→+5%,¬(8%∧5%)[higher tier only,no stack;judge=RT pre-disc,sale∉RT]
+bday_bonus:=P∧BM∧M≥silver→+3%,else0[general excluded]
+%disc:=member_disc+tier_bonus+bday_bonus; cap≤15%; M=gold∧BM→cap≤18%; %disc:=min(%disc,cap)
+%disc applies to RT only; ST always excluded(sale items keep sale price, never %disc'd)
+
+coupon(¥500): %disc_amt:=floor(RT×%disc)
+ %disc_amt≥¥500→use %disc(coupon unused,¬applied)
+ %disc_amt<¥500→use coupon(¥500 off [RT+ST], %disc→0)
+ ¬combinable w/%disc(mutually exclusive,pick larger discount); usable in/out P; usable w/sale; max1/checkout
+
+merch_total:= CPN→(RT+ST−¥500) , ¬CPN→(RT×(1−%disc)+ST)
+
+shipping(DELIV only):= M=gold→free , RT×(1−%disc)≥¥5k→free , else¥600
+ [pickup/¬DELIV: no shipping fee — assumption, not stated in memo]
+
+points:= P∧¬CPN→floor(merch_total×1%) , else→0   [paid=merch_total, excl shipping; CPN used→0 regardless of P]
+
+round: all amounts tax-excl; any fraction<¥1→round down, applied at each calc step (disc amt, merch_total, shipping compare, points)
+
+Q (answer if these assumptions are wrong; rules above already usable as-is):
+1. Outside campaign period memo says nothing about points → I set pts=0 off-campaign. Is there instead a separate standing/base point rate that still applies outside P?
+2. Exact tie %disc_amt=¥500 → I default to using %disc (not coupon). Correct, or should coupon win ties?

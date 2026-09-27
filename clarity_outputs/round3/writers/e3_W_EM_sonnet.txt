@@ -1,0 +1,17 @@
+Winter campaign period: 2026-12-01 to 2027-02-28.
+
+Membership discount (always applies): gold 10%, silver 5%, general 0%. Outside the campaign period this is the only discount.
+
+Inside the period, add on top: IF pre-discount regular-price total (sale items excluded) ≥¥10,000, +5%; IF ≥¥20,000, +8% instead (never both). IF it's the customer's birth month and they're silver or gold, +3% more. Combined percentage discount is capped at 15%, except gold in their birth month, capped at 18%.
+
+Sale items get no percentage discount and are excluded from the regular-price total above.
+
+¥500 coupon: usable in or out of the period, and on orders with sale items (¥500 off regular+sale total combined). Can't combine with a percentage discount — use whichever discount is bigger. One per checkout.
+
+Shipping, delivery only: free IF regular-price total after percentage discount ≥¥5,000, else ¥600. Gold: always free.
+
+Points, period only: 1% of amount paid, excluding shipping. IF a coupon was used, no points.
+
+Amounts are tax-exclusive; round down any fraction under ¥1.
+
+Questions: does the ¥10k/¥20k spend bonus apply to general (non-member) customers, or only silver/gold — the memo states no tier condition for it, unlike the birth-month bonus? Does the ¥5,000 free-shipping check use only the regular (non-sale) total, or the whole order total? Is gold's always-free shipping year-round, or campaign-period only?

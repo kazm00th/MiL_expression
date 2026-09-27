@@ -1,0 +1,6 @@
+All amounts pre-tax; floor yen fractions. Period 2026/12/1-2027/2/28. R = regular items total before discounts.
+% discounts apply to R only, rates add: Gold 10, Silver 5. IF period: +3 IF Silver or Gold in birth month, and +8 IF R>=20000 else +5 IF R>=10000. Cap 15, or 18 IF Gold in birth month.
+Coupon: 500 off regular+sale total, 1 per checkout; apply either it or all % discounts, whichever is the better deal.
+Shipping only IF delivery: 600, free IF Gold or R after % discounts >=5000.
+Points IF period and no coupon: 1% of payment excl. shipping.
+Floor the discount or the discounted price? Is the better deal judged by payment alone or with points, and which wins a tie? Shipping rules outside the period too? IF regular+sale total < 500, does the coupon bring it to 0?

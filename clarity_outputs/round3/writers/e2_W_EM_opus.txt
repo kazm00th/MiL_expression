@@ -1,0 +1,6 @@
+All amounts are tax-excluded, and fractions under ¥1 are floored. The period is 2026/12/1–2027/2/28. R := total of regular-price items before any discount. Sale items are excluded from R and never get %disc.
+%disc applies to R: gold 10%, silver 5%, general 0. IF period, add +5% IF R≥¥10k (+8% instead IF R≥¥20k), and add +3% IF birth month and silver or gold. The sum is capped at 15%, or at 18% IF gold in birth month.
+¥500 coupon: 1 per checkout, valid in and out of period, deducted from R + sale total. It is never combined with %disc; apply whichever is better.
+Shipping is charged only IF delivery. Gold always gets free shipping. Others get free shipping IF R after %disc ≥¥5k, else ¥600.
+IF period, points = 1% of amount paid excluding shipping. No points IF coupon used.
+Questions: Does the shipping rule also apply outside the period? Does "better" mean the larger discount only, or does it also count shipping and points, and which wins a tie? Is the floor applied to the discount or to the discounted price, and per item or per cart? IF the coupon exceeds the goods total, does the goods total go to ¥0?
