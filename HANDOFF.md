@@ -77,6 +77,7 @@ $env:ANTHROPIC_API_KEY = "ここにキー"; & "D:\Users\usor\miniconda3\envs\mye
 | ファイル | 内容 |
 |---|---|
 | HANDOFF.md | この引継ぎ資料 |
+| SUMMARY.md | ここまでの実験結果のまとめ（最初に読むならこれ） |
 | results.md | 全候補のトークン数、読解テストの結果、モデルごとの傾向 |
 | background.md | 元の MiL の意味、圧縮手法の整理、S式、システムカードの「読めない推論」、記号の話 |
 | reading_test_prompt.md | 読解テストのプロンプトと判定の観点 |
