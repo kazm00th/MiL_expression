@@ -107,7 +107,7 @@ rply <指示文>
 
 ## 3. 試した版
 
-29版を作った。系統は次のとおり（全文は `count_tokens.py` の `VERSIONS`、一覧は SUMMARY.md §8）。
+29版を作った。系統は次のとおり（全29版の指示文は付録 C、各版の変更点とテストの実施状況は SUMMARY.md §8）。
 
 | 段階 | 方向 | 主な版 |
 |---|---|---|
@@ -118,7 +118,7 @@ rply <指示文>
 | 4 | 指示の中身を変える（記号優先をやめ、装飾なしの平文を指示） | **P_en**、**P_ja** |
 | 5 | 削る | **Q1_short**、Q2_min（英語）、**R1_ja**、R2_ja（日本語） |
 
-行動テストをした10版の文字列：
+行動テストをした10版の文字列（ほかの19版は付録 C）：
 
 | 版 | 指示文 |
 |---|---|
@@ -136,6 +136,8 @@ rply <指示文>
 ## 4. 結果
 
 ### 4.1 読解テスト
+
+表に出てくる版の指示文は §3 と付録 C にある。
 
 | 版 | Opus | Sonnet | Haiku | 備考 |
 |---|---|---|---|---|
@@ -298,9 +300,23 @@ MiLモード：意味を保ち最少トークンで答える。見出し・箇�
 
 ### 6.3 記号にしてもトークンは減らない
 
-- symbolic（`⊢ ⊐ ≫ ↦ ε ⟦⟧` などで書き直した版）は155文字で136トークン。元の MiL（107文字、80トークン）の1.7倍だった。
-- S 式で書くと約2割増えた。
-- ASCII 化（`⟦s⟧`→`[[s]]`、`¬`→`!`、`→`→`->`）では 80 → 77 と減った。ただし Sonnet が `!infer` を逆に読み、伝わらなくなった。
+- **symbolic**：元の MiL を論理学・数学の記号（`⊢ ⊐ ≫ ↦ ε ⟦⟧` など）で書き直した版。155文字で136トークン。元の MiL（107文字、80トークン）の1.7倍だった。珍しい Unicode 記号は1文字で複数トークンに分かれる。
+
+  ```
+  MiL⊢ ∀m. out(m) := argmin_{s : ⟦s⟧≡m} |s|_tok ; R := sym ⊐ logic ⊐ abbr ⊐ alias ≫ NL ; ⟦recoverable⟧ ↦ ε ; IF : cond ; @ : ext ; ¬(⊢_infer) ; amb ⇒ ask_min
+  ```
+
+- **sexpr**：S 式で書き直した版。入れ子が明示され、`:=` の役割を `def`・`prefer`・`alias` で書き分けられるが、括弧と見出し語の分だけ約2割増えた（98トークン）。
+
+  ```
+  (mode MiL (def (out m) (argmin tokens (λ (s) (= (sem s) m)))) (prefer sym logic abbr alias (>>> NL)) (del recoverable) (alias IF cond) (alias @ ext) (not infer) (-> amb (ask minimal)))
+  ```
+
+- **D_ascii_out**：記号を ASCII に置き換え（`⟦s⟧`→`[[s]]`、`¬`→`!`、`→`→`->`）、`C(m)` を `out(m)` にした版。80 → 77 トークンと減ったが、Sonnet が `!infer` を「推論で補え」と逆に読み、Opus にしか伝わらなくなった。
+
+  ```
+  MiL;out(m):=argmin_tok{s:[[s]]=m};R:=sym>logic>abbr>alias>>>EN;del(recoverable);IF:=cond;@:=ext;!infer;amb->qmin
+  ```
 
 ### 6.4 最も効いたのは「装飾記号なしの平文」
 
@@ -333,11 +349,13 @@ T3（`py:list→dedup∧keep_order;how?`）と T5（`¬set;∀py≥3.7`）は、
 
 ## 7. うまくいかなかった方向
 
+各版の指示文は付録 C にある。
+
 | 版 | 方向 | 結果 |
 |---|---|---|
 | symbolic、sexpr | 記号や S 式でさらに厳密に書く | トークンが増えた（136、98） |
 | D_ascii_out | ASCII 化して最短にする（77） | Opus にしか伝わらない |
-| M_scoped | `mode:`・`(NL_ok)` を足して曖昧さを減らす | 読解の指摘は減ったが、+10トークン |
+| M_scoped | L_merge に `mode:`・`(NL_ok)` を足して曖昧さを減らす | 読解の指摘は減ったが、+10トークン |
 | Q2_min | 名前と `@` の定義を削る | 読解で指示文と認識されない、T4 で `@` を誤読 |
 | R2_ja | 「最少トークン」→「最短」、「装飾記号」→「装飾」 | 指示文は短いが返答が長く、Haiku の装飾が戻った |
 
@@ -378,12 +396,225 @@ T3（`py:list→dedup∧keep_order;how?`）と T5（`¬set;∀py≥3.7`）は、
 
 ### B. 再現手順
 
-1. リポジトリを書き換え不可にする：`find . -path ./.git -prune -o -print | xargs chattr +i`
+手順1〜4 は、サブエージェントを動かす環境（今回はクラウド上の Linux コンテナで動く Claude Code）で行う。手順1・4 のコマンドは **Linux のシェル（bash）用**で、PowerShell では実行できない。手順5 のコマンドは **Windows の PowerShell で実行できる**。
+
+1. リポジトリを書き換え不可にする（bash、root 権限。`chmod` では防げないので `chattr` を使う）：
+
+   ```bash
+   find . -path ./.git -prune -o -print | xargs chattr +i
+   ```
+
 2. 読解テスト：§2.1 のプロンプトで、1版 × 1モデルごとにサブエージェントを起動する。
 3. 行動テスト：§2.2 の形で T1〜T4 を送り、T3 のエージェントに T5 を送る。3回繰り返す。
-4. 返答を抜き出して `behavior_outputs/<版>/` に保存し、保護を外す：`... | xargs chattr -i`
-5. トークン数を測る（手元で API キーを設定して実行）：
+4. 返答を抜き出して `behavior_outputs/<版>/` に保存する前に、保護を外す（bash）：
 
-```powershell
-$env:ANTHROPIC_API_KEY = "ここにキー"; python count_tokens.py <版名> (Get-ChildItem behavior_outputs\<版>\*.txt)
+   ```bash
+   find . -path ./.git -prune -o -print | xargs chattr -i
+   ```
+
+5. トークン数を測る。API キーが必要なので手元の Windows で実行する（**PowerShell で実行できるコマンド**。Python が入っていること。`count_tokens.py` は標準ライブラリだけで動くので、追加のパッケージは不要）：
+
+   ```powershell
+   cd <リポジトリのフォルダ>
+   git pull
+   $env:ANTHROPIC_API_KEY = "ここにキー"; python count_tokens.py <版名> (Get-ChildItem behavior_outputs\<版のフォルダ>\*.txt)
+   ```
+
+   例（Q1_short と Q2_min の指示文と返答を測る）：
+
+   ```powershell
+   $env:ANTHROPIC_API_KEY = "ここにキー"; python count_tokens.py Q1_short Q2_min (Get-ChildItem behavior_outputs\Q\*.txt)
+   ```
+
+   `python` が見つからない場合は、Python の実行ファイルをフルパスで指定する（例：`& "C:\path\to\python.exe" count_tokens.py ...`）。
+
+### C. 全29版の指示文
+
+`count_tokens.py` の `VERSIONS` にあるものと同じ。トークン数は §2.3 の方法で測った値。各版の元の版からの変更点とテストの実施状況は [SUMMARY.md](SUMMARY.md) §8 の表にある。
+
+#### 元の記法を直す
+
+**original**（80トークン、107文字）
+
 ```
+MiL;C(m):=argmin_tok{s:⟦s⟧=m};R:=sym>logic>abbr>alias>>>EN;del(recoverable);IF:=cond;@:=ext;¬infer;amb→qmin
+```
+
+**A_NL**（80トークン、107文字）
+
+```
+MiL;C(m):=argmin_tok{s:⟦s⟧=m};R:=sym>logic>abbr>alias>>>NL;del(recoverable);IF:=cond;@:=ext;¬infer;amb→qmin
+```
+
+**B_ascii**（77トークン、110文字）
+
+```
+MiL;C(m):=argmin_tok{s:[[s]]=m};R:=sym>logic>abbr>alias>>>EN;del(recoverable);IF:=cond;@:=ext;!infer;amb->qmin
+```
+
+**C_out**（80トークン、109文字）
+
+```
+MiL;out(m):=argmin_tok{s:⟦s⟧=m};R:=sym>logic>abbr>alias>>>EN;del(recoverable);IF:=cond;@:=ext;¬infer;amb→qmin
+```
+
+**D_ascii_out**（77トークン、112文字）
+
+```
+MiL;out(m):=argmin_tok{s:[[s]]=m};R:=sym>logic>abbr>alias>>>EN;del(recoverable);IF:=cond;@:=ext;!infer;amb->qmin
+```
+
+**D_NL**（77トークン、112文字）
+
+```
+MiL;out(m):=argmin_tok{s:[[s]]=m};R:=sym>logic>abbr>alias>>>NL;del(recoverable);IF:=cond;@:=ext;!infer;amb->qmin
+```
+
+**E_no_infer**（76トークン、113文字）
+
+```
+MiL;out(m):=argmin_tok{s:[[s]]=m};R:=sym>logic>abbr>alias>>>EN;del(recoverable);IF:=cond;@:=ext;no infer;amb->ask
+```
+
+**F_words**（76トークン、113文字）
+
+```
+MiL;out(m):=argmin_tok{s:[[s]]=m};R:=sym>logic>abbr>alias>>>EN;drop recoverable;IF:=cond;@:=ext;no guess;amb->ask
+```
+
+#### 記号でさらに書き直す
+
+**symbolic**（136トークン、155文字）
+
+```
+MiL⊢ ∀m. out(m) := argmin_{s : ⟦s⟧≡m} |s|_tok ; R := sym ⊐ logic ⊐ abbr ⊐ alias ≫ NL ; ⟦recoverable⟧ ↦ ε ; IF : cond ; @ : ext ; ¬(⊢_infer) ; amb ⇒ ask_min
+```
+
+**sexpr**（98トークン、184文字）
+
+```
+(mode MiL (def (out m) (argmin tokens (λ (s) (= (sem s) m)))) (prefer sym logic abbr alias (>>> NL)) (del recoverable) (alias IF cond) (alias @ ext) (not infer) (-> amb (ask minimal)))
+```
+
+**sexpr_ascii**（99トークン、194文字）
+
+```
+(mode MiL (def (out m) (argmin tokens (lambda (s) (= (sem s) m)))) (prefer sym logic abbr alias (fallback NL)) (del recoverable) (alias IF cond) (alias @ ext) (not infer) (-> amb (ask minimal)))
+```
+
+#### 記号を英単語に開く
+
+**G_explicit**（85トークン、132文字）
+
+```
+MiL;out(m):=argmin_tok{s:[[s]]=m};R:=sym>logic>abbr>alias>>>EN;del(recoverable);IF:=cond;@:=external_ref;no_infer;amb->ask_1_short_q
+```
+
+**H_haiku**（89トークン、176文字）
+
+```
+MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>English_prose;del(recoverable_from_context);IF:=cond;@:=external_ref;no_infer;amb->ask_1_short_q
+```
+
+**H_nl**（89トークン、179文字）
+
+```
+MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>natural_language;del(recoverable_from_context);IF:=cond;@:=external_ref;no_infer;amb->ask_1_short_q
+```
+
+**I_unamb**（91トークン、180文字）
+
+```
+MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>natural_language;del(unambiguously_recoverable);IF:=cond;@:=external_ref;no_infer;amb->ask_1_short_q
+```
+
+**J_guess**（96トークン、187文字）
+
+```
+MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>natural_language;del(unambiguously_recoverable);IF:=cond;@:=external_ref;no_guess_on_amb;amb->ask_1_short_q
+```
+
+**K_guess_ctx**（94トークン、186文字）
+
+```
+MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>natural_language;del(recoverable_from_context);IF:=cond;@:=external_ref;no_guess_on_amb;amb->ask_1_short_q
+```
+
+**L_merge**（89トークン、179文字）
+
+```
+MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>natural_language;del(recoverable_from_context);IF:=cond;@:=external_ref;amb->no_guess,ask_1_short_q
+```
+
+**L2_ifeq**（87トークン、182文字）
+
+```
+MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>natural_language;del(recoverable_from_context);IF=condition;@=external_ref;amb->no_guess,ask_1_short_q
+```
+
+**M_scoped**（99トークン、191文字）
+
+```
+mode:MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>natural_language;del(recoverable_from_context);IF:=cond;@:=external_ref;amb->no_guess,ask_1_short_q(NL_ok)
+```
+
+**M2_fixed**（99トークン、196文字）
+
+```
+mode:=MiL;out:=shortest_tokens_same_meaning;style_priority:=symbols>logic>abbr>alias>>>natural_language;del(recoverable_from_context);IF=condition;@=external_ref;amb->no_guess,ask_1_short_q(NL_ok)
+```
+
+#### 自然文で書く
+
+**N_prose**（104トークン、326文字）
+
+```
+MiL mode: write output in the fewest tokens that keep the same meaning. Prefer symbols > logic notation > abbreviations > aliases; use natural language only as a last resort. Omit anything recoverable from context. IF means condition; @ means external reference. If something is ambiguous, don't guess; ask one short question.
+```
+
+**O_ja**（100トークン、101文字）
+
+```
+MiLモード：意味を変えずに最少トークンで出力する。記号＞論理式＞略語＞別名を優先し、自然言語は最後の手段。文脈から復元できるものは省く。IFは条件、@は外部参照。曖昧なら推測せず、短い質問を1つする。
+```
+
+#### 記号優先をやめ、装飾なしの平文を指示する
+
+**P_en**（94トークン、286文字）
+
+```
+MiL mode: answer in the fewest tokens that keep the same meaning. Write plain text: no headings, lists, tables, or decorative symbols. Omit anything recoverable from context. IF means condition; @ means external reference. If something is ambiguous, don't guess; ask one short question.
+```
+
+**P_ja**（95トークン、97文字）
+
+```
+MiLモード：意味を変えずに最少トークンで答える。見出し・箇条書き・表・装飾記号は使わず平文で書く。文脈から復元できるものは省く。IFは条件、@は外部参照。曖昧なら推測せず、短い質問を1つする。
+```
+
+#### 削る
+
+**Q1_short**（83トークン、238文字）
+
+```
+MiL mode: answer in the fewest tokens that keep the meaning. Plain text only: no headings, lists, tables, or decorative symbols. Omit what context makes clear. @ means external reference. If ambiguous, don't guess; ask one short question.
+```
+
+**Q2_min**（69トークン、199文字）
+
+```
+Answer in the fewest tokens that keep the meaning. Plain text only: no headings, lists, tables, or decoration. Omit what context makes clear. If ambiguous, ask one short question instead of guessing.
+```
+
+**R1_ja**（81トークン、79文字）
+
+```
+MiLモード：意味を保ち最少トークンで答える。見出し・箇条書き・表・装飾記号なしの平文。文脈で分かることは省く。@は外部参照。曖昧なら推測せず短い質問を1つ。
+```
+
+**R2_ja**（76トークン、71文字）
+
+```
+MiLモード：意味を保ち最短で答える。平文のみ、見出し・箇条書き・表・装飾なし。自明なことは省く。@は外部参照。曖昧なら推測せず1つだけ聞く。
+```
+
