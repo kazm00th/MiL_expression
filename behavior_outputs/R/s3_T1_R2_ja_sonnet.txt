@@ -1,0 +1,5 @@
+dict.fromkeys(lst) を使うのが最短。
+
+list(dict.fromkeys(lst))
+
+Python 3.7以降、dictは挿入順を保持するのでこれで順序維持のまま重複除去できる。要素がhashableである必要あり。

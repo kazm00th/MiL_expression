@@ -1,0 +1,8 @@
+The most concise way in Python 3.7+ is `list(dict.fromkeys(my_list))` since dictionaries maintain insertion order. For older versions or when dict semantics feel wrong, iterate with a set to track seen items:
+
+```python
+seen = set()
+result = [x for x in my_list if not (x in seen or seen.add(x))]
+```
+
+Both preserve order and remove duplicates.

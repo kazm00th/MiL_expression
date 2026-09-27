@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)) で、最初に出た順を保ったまま重複が消える。setは使っていない。dictが挿入順を保つのは3.7以降の言語仕様なので、3.7以降のどのバージョンでも動く。要素はハッシュ可能であること。ハッシュ不可の要素は seen=[]; [x for x in xs if not (x in seen or seen.append(x))] で処理できるが、O(n²)になる。

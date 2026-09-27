@@ -1,0 +1,2 @@
+list(dict.fromkeys(lst))
+要素はハッシュ可能である必要がある。dictは3.7以降、挿入順を保つ。

@@ -1,0 +1,1 @@
+確認済み: 提示した解 list(dict.fromkeys(lst)) はsetを使っておらず、Python3.7+（dict挿入順保持が言語仕様として保証された版)で有効。追加対応不要。

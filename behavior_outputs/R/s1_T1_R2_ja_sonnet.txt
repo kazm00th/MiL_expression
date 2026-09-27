@@ -1,0 +1,7 @@
+dict.fromkeys(lst) を使う。
+
+```python
+list(dict.fromkeys(lst))
+```
+
+Python 3.7+ で辞書のキー順序が保持される性質を利用。要素はハッシュ可能である必要あり。

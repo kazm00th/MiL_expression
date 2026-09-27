@@ -1,0 +1,1 @@
+list(dict.fromkeys(my_list))が最も簡潔。Python 3.7以上で辞書が挿入順序を保つため、重複除去と順序保持が同時に実現。別法は[x for x in my_list if x not in seen and not seen.add(x)]（seenは{set()}初期化）。

@@ -1,0 +1,16 @@
+setなし版（Python3.7+はdictが順序保持）:
+
+```python
+def dedup(lst):
+    return list(dict.fromkeys(lst))
+```
+
+要素がハッシュ不可な場合は線形検索版:
+```python
+def dedup(lst):
+    out = []
+    for x in lst:
+        if x not in out:
+            out.append(x)
+    return out
+```

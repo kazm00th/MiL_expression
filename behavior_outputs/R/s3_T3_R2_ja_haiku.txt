@@ -1,0 +1,3 @@
+`list(dict.fromkeys(my_list))` — dict preserves insertion order since Python 3.7, so this deduplicates while keeping order. O(n) time.
+
+For unhashable items, use: `[x for x in my_list if not (x in seen or seen.add(x))]` with `seen = set()`, but slower.

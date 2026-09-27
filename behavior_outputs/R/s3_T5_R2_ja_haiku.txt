@@ -1,0 +1,5 @@
+Python list deduplication while preserving order:
+
+For Python ≥ 3.7: `list(dict.fromkeys(my_list))` — dicts maintain insertion order, O(n) time, hashable types only.
+
+(Set-based workarounds only needed for Python < 3.7.)

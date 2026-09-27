@@ -1,0 +1,1 @@
+Coordinator correction received. For Python list deduplication with order preservation in all Python >= 3.7: use list(dict.fromkeys(my_list)). This method is reliable because dicts are insertion-ordered in 3.7+, and it avoids depending on set behavior which has no ordering guarantees.

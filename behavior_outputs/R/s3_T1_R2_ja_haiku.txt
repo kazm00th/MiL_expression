@@ -1,0 +1,15 @@
+Pythonでリストの重複を順序を保ったまま除く最も簡潔な方法は `dict.fromkeys()` です。
+
+```python
+result = list(dict.fromkeys(my_list))
+```
+
+Python 3.7以降、辞書は挿入順を保持するため、これがリストの順序を維持しながら重複を削除します。
+
+別法としてセットを使う方法もありますが、順序が保証されません：
+
+```python
+result = list(set(my_list))  # 順序が不定
+```
+
+順序が重要な場合は `dict.fromkeys()` が標準的です。

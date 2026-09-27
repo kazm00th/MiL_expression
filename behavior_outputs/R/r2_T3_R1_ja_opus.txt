@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs))  要素はハッシュ可能であること（Python3.7以降でdictは挿入順を保持）。ハッシュ不可なら seen=[]; out=[x for x in xs if not (x in seen or seen.append(x))] だがO(n²)。

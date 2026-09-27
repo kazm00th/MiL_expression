@@ -1,0 +1,25 @@
+dict.fromkeys()を使うのが最も簡潔です。
+
+```python
+list(dict.fromkeys(lst))
+```
+
+Python 3.7以降ではdictが挿入順序を保つため、これでリストの重複が除かれながら元の順序が保たれます。別の方法として、setで既出要素を追跡しながらループする方法もあります。
+
+```python
+seen = set()
+result = [x for x in lst if not (x in seen or seen.add(x))]
+```
+
+or
+
+```python
+seen = set()
+result = []
+for item in lst:
+    if item not in seen:
+        seen.add(item)
+        result.append(item)
+```
+
+dict.fromkeys()が読みやすく推奨されます。

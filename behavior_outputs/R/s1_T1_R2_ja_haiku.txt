@@ -1,0 +1,11 @@
+Python 3.7以降なら `list(dict.fromkeys(my_list))` が最速で最短。辞書が挿入順序を保つので重複が消え順序も維持される。
+
+それ以前のバージョンなら、集合に追加しながら順序を記録する方法：`[x for i, x in enumerate(my_list) if my_list.index(x) == i]` だがこれはO(n²)で遅い。
+
+もう1つは空の集合と元のリストを使用：
+```python
+seen = set()
+result = [x for x in my_list if not (x in seen or seen.add(x))]
+```
+
+どのバージョンを使っているか、大きさはどの程度か。

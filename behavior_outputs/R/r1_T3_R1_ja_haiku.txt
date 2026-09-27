@@ -1,0 +1,5 @@
+dict.fromkeys(lst)で順序保持しながら重複削除。Python 3.7以降で辞書が挿入順を保証するため。
+
+別案：seen = set(); [x for x in lst if not (x in seen or seen.add(x))]だが可読性低い。
+
+要素がハッシュ不可なら手動ループが必要。

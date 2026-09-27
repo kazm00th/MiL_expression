@@ -1,0 +1,1 @@
+dict.fromkeys(list_var) creates a dict with list items as keys in insertion order (dicts preserve order since Python 3.7), then convert back: list(dict.fromkeys(list_var)). Alternative: iterate and track seen with a set, appending unseen items to result.

@@ -1,0 +1,1 @@
+No set needed. Use list(dict.fromkeys(xs)), which works on any Python 3.7 or later because dicts keep insertion order. The elements must be hashable. If they aren't, use seen=[]; out=[x for x in xs if not (x in seen or seen.append(x))], which is O(n^2).

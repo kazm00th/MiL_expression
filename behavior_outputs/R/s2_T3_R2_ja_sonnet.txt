@@ -1,0 +1,5 @@
+dict.fromkeys(lst)をlist()で包む。
+
+```python
+list(dict.fromkeys(lst))
+```

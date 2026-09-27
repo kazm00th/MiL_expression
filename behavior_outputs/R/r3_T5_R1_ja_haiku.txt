@@ -1,0 +1,8 @@
+Python リスト重複削除しながら順序保持：
+
+Python 3.7+ では dict.fromkeys() のみ推奨
+```python
+result = list(dict.fromkeys(mylist))
+```
+
+dict は挿入順序保証されるため、これが標準方法。set 使用は不適切。

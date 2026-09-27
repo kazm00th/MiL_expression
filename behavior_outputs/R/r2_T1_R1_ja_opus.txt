@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs))。要素はハッシュ可能である必要がある。辞書はPython 3.7以降、挿入順を保持する。ハッシュ不可なら seen=[]; [x for x in xs if not (x in seen or seen.append(x))]。ただしO(n²)。

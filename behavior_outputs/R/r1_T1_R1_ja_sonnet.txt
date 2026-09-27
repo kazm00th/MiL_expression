@@ -1,0 +1,6 @@
+dict.fromkeys(lst) を使う。
+
+例:
+list(dict.fromkeys(lst))
+
+Python 3.7以降、dictはキー順序を保持するため重複が消えて順序も保たれる。要素はハッシュ可能である必要がある。

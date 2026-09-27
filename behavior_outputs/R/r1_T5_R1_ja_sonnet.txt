@@ -1,0 +1,1 @@
+確認: list(dict.fromkeys(lst)) はsetを使わず、Python 3.7以降で辞書の挿入順保持が言語仕様として保証されているため要件(¬set, py>=3.7)を満たす。

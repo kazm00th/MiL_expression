@@ -1,0 +1,4 @@
+def dedup(lst):
+    return list(dict.fromkeys(lst))
+
+dict.fromkeys preserves insertion order (CPython 3.6, guaranteed language spec 3.7+), so order is kept and no set is used.

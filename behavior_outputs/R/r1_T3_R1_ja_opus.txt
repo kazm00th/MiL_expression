@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs))  3.7以降dictは挿入順を保持。要素はhashable必須。

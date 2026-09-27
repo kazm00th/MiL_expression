@@ -1,0 +1,3 @@
+I can't determine what you're asking. "f:=@;optimize(f)?" appears to be pseudo-code, but without a concrete task or question, I can't help. 
+
+What do you need?

@@ -1,0 +1,8 @@
+dict使って順序保持で重複排除:
+
+```python
+def dedup(lst):
+    return list(dict.fromkeys(lst))
+```
+
+3.7+ならdictは挿入順を保持するのでこれで十分。setだと順序崩れるので不可。

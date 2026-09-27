@@ -1,0 +1,1 @@
+list(dict.fromkeys(lst))　# set不使用、Python3.7+で順序保持保証

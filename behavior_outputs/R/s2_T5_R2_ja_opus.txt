@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)) は set を使わず、Python 3.7 以降で順序を保ったまま重複を除けます。要素がハッシュ可能である必要があります。ハッシュ不可なら seen=[]; out=[x for x in xs if not (x in seen or seen.append(x))] で、O(n²) です。

@@ -1,0 +1,1 @@
+要素がハッシュ可能なら list(dict.fromkeys(xs)) で重複を除けます（Python 3.7以降、dict は挿入順を保つ）。ハッシュ不可なら seen=[]; out=[x for x in xs if not (x in seen or seen.append(x))] ですが、O(n²) です。

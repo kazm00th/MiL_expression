@@ -1,0 +1,5 @@
+dict.fromkeys(lst) で順序保持しつつ重複除去、list()で戻す。
+
+```python
+list(dict.fromkeys(lst))
+```

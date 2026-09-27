@@ -1,0 +1,22 @@
+Python で重複を削除しながら順序を保つ方法：
+
+dict.fromkeys() を使う方法が最も効率的です。
+
+```python
+mylist = [1, 2, 2, 3, 1, 4]
+result = list(dict.fromkeys(mylist))
+# [1, 2, 3, 4]
+```
+
+set() では順序が保証されないため、この方法が推奨されます。Python 3.7 以降、dict は挿入順序を保持するため、dict.fromkeys() で重複排除しながら元の出現順序を保持できます。
+
+ハッシュ化不可の要素（リストなど）がある場合は for ループで set に追跡する方法も選択肢です。
+
+```python
+seen = set()
+result = []
+for item in mylist:
+    if item not in seen:
+        seen.add(item)
+        result.append(item)
+```

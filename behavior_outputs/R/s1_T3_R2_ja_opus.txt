@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)) を使うと、重複を除きつつ最初に出た順を保てる（Python 3.7以降はdictが挿入順を保証）。要素はハッシュ可能である必要がある。リストのようなハッシュ不可の要素には seen=[]; out=[x for x in xs if not (x in seen or seen.append(x))] を使う（O(n^2)）。

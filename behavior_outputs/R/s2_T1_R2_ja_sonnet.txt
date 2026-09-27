@@ -1,0 +1,5 @@
+dict.fromkeys(lst) を使う。
+
+list(dict.fromkeys(lst))
+
+Python 3.7+ で dict の順序保証を利用。set()だと順序が壊れる。

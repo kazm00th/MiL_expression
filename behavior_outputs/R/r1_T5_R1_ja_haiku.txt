@@ -1,0 +1,1 @@
+Python list deduplication with order preservation: For Python ≥3.7, use list(dict.fromkeys(my_list)) - simplest, fastest, and standard approach leveraging dict insertion order guarantee. Manual set-tracking or other alternatives are unnecessary for this version range and only needed for unhashable types.

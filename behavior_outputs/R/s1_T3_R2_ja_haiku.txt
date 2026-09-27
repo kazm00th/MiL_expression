@@ -1,0 +1,12 @@
+dict.fromkeys()を使う（Python 3.7以上）:
+```python
+list(dict.fromkeys(my_list))
+```
+
+順序を保ったまま重複を除去する最速の方法。ハッシュ可能な要素専用。
+
+非ハッシュ可能な要素が必要な場合:
+```python
+seen = set()
+[x for x in my_list if not (x in seen or seen.add(x))]
+```

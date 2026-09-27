@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs))  set不使用、Python3.7以降の全版で順序保持（dictが挿入順を保証）。要素はハッシュ可能であること。ハッシュ不可なら seen=[]; out=[x for x in xs if not (x in seen or seen.append(x))]（O(n²)、set不使用）。

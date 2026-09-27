@@ -1,0 +1,14 @@
+Python list deduplication while keeping order:
+
+**Recommended (Python 3.7+):**
+```python
+list(dict.fromkeys(my_list))
+```
+Does not use an explicit set—relies on dict's built-in key deduplication. Works for all Python ≥3.7.
+
+**For unhashable items:**
+```python
+seen = set()
+[x for x in my_list if not (x in seen or seen.add(x))]
+```
+Requires explicit set to track seen items since unhashable items cannot be dict keys.

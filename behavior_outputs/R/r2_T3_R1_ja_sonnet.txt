@@ -1,0 +1,11 @@
+```python
+def dedup(lst):
+    seen = set()
+    out = []
+    for x in lst:
+        if x not in seen:
+            seen.add(x)
+            out.append(x)
+    return out
+```
+順序保持のため集合で既出チェックしつつリストに追加。要素がハッシュ不可なら`seen`はリストにして`in`で線形検索。
