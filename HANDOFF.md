@@ -55,6 +55,7 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 2. ~~P_en をさらに短くする~~ → Q1_short・Q2_min を作って試験済み（results.md §13）。トークン数も測定済み。Q1_short を本命にした。Q2_min は入力込みでは最少だが、T4 で `@` を誤読するので非推奨。
    （旧メモ） 94トークン。`MiL mode:` の要否、`IF`・`@` の定義（入力側で使わないなら削れる）などを試す。Sonnet 向けに L2_ifeq の「コード1行で返す」傾向を取り込めるかも見る。
 3. ~~P_ja を Q1_short と同じ方針で短くする~~ → R1_ja・R2_ja を試験済み（results.md §15）。トークン数も測定済み。文字数では R1_ja が最少、トークンでは Q1_short が最少のまま。
+4. **記号の多い指示文が「明確さを強制」するかを確かめる。** 作者の @AM09_21 氏は「トークン削減には使えないが、明確さを強制できる」と述べている。実験案は [clarity_experiment.md](clarity_experiment.md)（未実施）。まず課題1つで小さく試す。
 4. **英文の指示をさらに短くする。** Haiku 向けの N_prose（104）を、出力の短さを保ったまま削れるか試す。
 4. **「文脈」を会話内に限る案。** Sonnet は T2 で、質問を返したあと答えを待たずにリポジトリを探し、推測でファイルを書き換えることがある（指示なしでも起きる）。`del(recoverable_from_this_conversation)` などで減るかを試す。
 5. **入力側で使う記号の定義。** T4 で `@` の定義が入力の読み取りに効いた。入力に `?problem` などを使うなら、その記号も指示文で定義する。
@@ -96,6 +97,8 @@ $env:ANTHROPIC_API_KEY = "ここにキー"; & "D:\Users\usor\miniconda3\envs\mye
 |---|---|
 | HANDOFF.md | この引継ぎ資料 |
 | SUMMARY.md | ここまでの実験結果のまとめ（最初に読むならこれ） |
+| REPORT.md | レポートの下書き |
+| clarity_experiment.md | 実験案：記号の多い指示文は明確さを強制できるか（未実施） |
 | results.md | 全候補のトークン数、読解テストの結果、モデルごとの傾向 |
 | background.md | 元の MiL の意味、圧縮手法の整理、S式、システムカードの「読めない推論」、記号の話 |
 | reading_test_prompt.md | 読解テストのプロンプトと判定の観点 |
