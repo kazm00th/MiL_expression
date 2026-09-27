@@ -52,6 +52,13 @@ VERSIONS = {
     "S0_orig":     "MiL;out(m):=argmin_tok{s:⟦s⟧=m};style:=plain,¬markdown,¬decorative_symbols;del(recoverable);@:=ext;¬infer;amb→ask_1_short_q",
     "S1_plain":    "MiL;out:=shortest_tokens_same_meaning;plain_text:no_headings,lists,tables,decorative_symbols;del(recoverable_from_context);@=external_ref;amb->no_guess,ask_1_short_q",
     "S2_sym":      "MiL;out:=min_tokens,same_meaning;plain_text,¬markdown,¬decorative_symbols;del(recoverable_from_context);@:=external_ref;amb→¬guess,ask_1_short_q",
+    # 散文課題の本文（指示文ではない。results.md §17・§18 の入力トークン用）
+    "body_U1_ja":  "次の投稿の問題点は？\n\n【朗報】AIの要約はもう不要。新しい研究で、ログを要約せずそのまま保存し、使う時に要約するだけでエージェントの成績が2倍になったと発表された。強化学習もいらない。今までの継続学習の研究は「今の手法では伸びないから重みを変えろ」と言うばかりだったが、手法を工夫すればまだいくらでも伸びるということだ。要約してからSKILLやdocsに溜めるやり方は情報を捨てているだけで、完全に時代遅れ。",
+    "body_U1m":    "post:=[good_news]AI_summary→unneeded;new_study:keep(raw_log)∧summarize@use→agent_score≈2×;¬RL_needed;prior continual_learning≈(\"current method→gain≈0;thus Δweights!\");yet method_space→many improvable;summarize→{SKILLs,docs/}=info_loss→obsolete;?problem",
+    "body_U1e":    "Post: \"Great news: AI summaries are no longer needed. A new study says that just storing raw logs and summarizing them at use time doubled agent scores. No RL needed. Prior continual-learning work only said 'current methods plateau, so change the weights', but methods can still improve a lot. Summarizing into SKILLs or docs just throws information away and is totally obsolete.\" What is wrong with this post?",
+    "body_U2_ja":  "社内の小さな勤怠管理ツール（利用者30人、Webアプリ、サーバー1台）のDBを、SQLiteとPostgreSQLのどちらにするか迷っている。判断の観点を教えて。",
+    "body_U2m":    "ctx:=internal attendance_tool;users=30;webapp;server=1;db∈{SQLite,PostgreSQL}?;q:=decision_criteria",
+    "body_U2e":    "Internal attendance tool: 30 users, web app, one server. SQLite or PostgreSQL? What criteria should I use to decide?",
 }
 
 
