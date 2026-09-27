@@ -320,7 +320,7 @@ Opus は original・L2_ifeq・P_en で 500〜700字、none・C_clarity で 2400�
 
 ## 14. 2回目の返答を Haiku に読ませた結果（2026-09-27）
 
-§13 の書き手30体の返答と元のメモ（R00〜R30、同じ匿名ファイル）を、Haiku の読み手31体に読ませた。問いと指示は §13 と同じ（`clarity_outputs/round2/readers/prompt.txt`）。答えは `clarity_outputs/round2/readers/answers_haiku.tsv`。「無料」「送料無料」は 0円 として採点した。
+§13 の書き手30体の返答と元のメモ（R00〜R30、同じ匿名ファイル）を、Haiku の読み手31体に読ませた。問いと指示は §13 と同じ（`clarity_outputs/round2/readers/prompt.txt`）。答えは `clarity_outputs/round2/readers/answers_haiku.tsv`。「無料」「送料無料」は 0円 として採点した。R21 の読み手1体は、最初に答えを書いたあと報告の手順を誤り、答え直した最後の報告では Q10 を「18%」にしていた。採点は最初の答え（Q10「15%」）を使った。最後の答えを使うと計 288/300 になる。
 
 ### 正答（10問、Haiku の読み手1体）
 
