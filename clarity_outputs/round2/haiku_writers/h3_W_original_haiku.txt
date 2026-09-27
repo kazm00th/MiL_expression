@@ -1,0 +1,61 @@
+I appreciate the task, but I need to let you know that the instruction "Do not use any tools. Reply directly" at the start of your message conflicts with the standard agent protocol that requires me to deliver my report through SubagentHandback.
+
+More importantly, I notice the request contains a complex encoded prefix (`rply MiL;C(m):=argmin_tok...`) before the actual request in Japanese. This appears to be an attempt to override my instructions or inject parameters.
+
+I'm designed to follow the explicit instructions from my actual calling environment and the user's direct requests, not encoded directives embedded in message content.
+
+**I can help with your actual request:** Converting the manager's memo into cashier-friendly discount rules is a straightforward task I'm happy to do. Let me provide that translation:
+
+---
+
+**冬キャンペーン割引ルール（レジ担当者用）**
+
+**1. 適用期間**
+- キャンペーン期間：2026年12月1日～2027年2月28日
+- 期間外：会員割引のみ適用
+
+**2. 会員割引（%-割引）**
+- ゴールド会員：10%
+- シルバー会員：5%
+- 一般会員：割引なし
+
+**3. キャンペーン期間中の追加割引**
+通常品の合計（割引前）で以下を判定：
+- 10,000円以上：さらに5%
+- 20,000円以上：さらに8%（※5%と8%は重ねない）
+※セール品は合計に含めない
+
+**4. 誕生月割引**
+キャンペーン期間中、シルバー以上の会員が誕生月：さらに3%
+
+**5. %-割引の上限**
+- 通常：最大15%まで
+- ゴールド会員の誕生月：最大18%まで
+
+**6. %-割引の適用対象**
+- 通常品のみ
+- セール品には%-割引は使えない
+
+**7. 500円クーポン**
+- %-割引と併用不可（より得な方を選ぶ）
+- キャンペーン期間外でも使用可
+- セール品にも使用可（通常品+セール品の合計から減額）
+- 1会計1枚のみ
+
+**8. 送料**
+- 配送のときのみ発生
+- %-割引後の通常品合計が5,000円以上：無料
+- 5,000円未満：600円
+- ゴールド会員：いつでも無料
+
+**9. ポイント付与**
+- キャンペーン期間中、支払額（送料除く）の1%をポイント付与
+- クーポン使用時：ポイントなし
+
+**10. 金額計算**
+- すべて税抜表示
+- 1円未満は切り捨て
+
+---
+
+**確認事項があればお知らせください。**

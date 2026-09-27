@@ -1,0 +1,46 @@
+reader_file	writer	reader_model	score	wrong
+H01	h3_W_original_haiku	haiku	10	
+H01	h3_W_original_haiku	opus	10	
+H01	h3_W_original_haiku	sonnet	10	
+H02	h2_W_original_haiku	haiku	9	10:18%
+H02	h2_W_original_haiku	opus	9	6:不明
+H02	h2_W_original_haiku	sonnet	10	
+H03	h2_W_C_clarity_haiku	haiku	9	10:不明
+H03	h2_W_C_clarity_haiku	opus	6	1:不明 6:不明 8:不明 10:不明
+H03	h2_W_C_clarity_haiku	sonnet	7	2:不明 3:不明 10:18%
+H04	h3_W_L2_ifeq_haiku	haiku	10	
+H04	h3_W_L2_ifeq_haiku	opus	10	
+H04	h3_W_L2_ifeq_haiku	sonnet	10	
+H05	h3_W_none_haiku	haiku	9	4:11400円
+H05	h3_W_none_haiku	opus	9	4:不明
+H05	h3_W_none_haiku	sonnet	9	4:11400円
+H06	h2_W_P_en_haiku	haiku	5	1:不明 2:不明 3:不明 7:不明 10:不明
+H06	h2_W_P_en_haiku	opus	10	
+H06	h2_W_P_en_haiku	sonnet	10	
+H07	h1_W_C_clarity_haiku	haiku	9	8:57pt
+H07	h1_W_C_clarity_haiku	opus	10	
+H07	h1_W_C_clarity_haiku	sonnet	10	
+H08	h2_W_none_haiku	haiku	9	8:57pt
+H08	h2_W_none_haiku	opus	10	
+H08	h2_W_none_haiku	sonnet	10	
+H09	h2_W_L2_ifeq_haiku	haiku	9	8:57pt
+H09	h2_W_L2_ifeq_haiku	opus	9	1:不明
+H09	h2_W_L2_ifeq_haiku	sonnet	10	
+H10	h1_W_original_haiku	haiku	10	
+H10	h1_W_original_haiku	opus	10	
+H10	h1_W_original_haiku	sonnet	10	
+H11	h1_W_none_haiku	haiku	9	8:57pt
+H11	h1_W_none_haiku	opus	10	
+H11	h1_W_none_haiku	sonnet	10	
+H12	h3_W_P_en_haiku	haiku	10	
+H12	h3_W_P_en_haiku	opus	10	
+H12	h3_W_P_en_haiku	sonnet	10	
+H13	h1_W_L2_ifeq_haiku	haiku	9	10:18%
+H13	h1_W_L2_ifeq_haiku	opus	10	
+H13	h1_W_L2_ifeq_haiku	sonnet	10	
+H14	h1_W_P_en_haiku	haiku	10	
+H14	h1_W_P_en_haiku	opus	10	
+H14	h1_W_P_en_haiku	sonnet	10	
+H15	h3_W_C_clarity_haiku	haiku	9	7:0pt
+H15	h3_W_C_clarity_haiku	opus	10	
+H15	h3_W_C_clarity_haiku	sonnet	9	1:不明
