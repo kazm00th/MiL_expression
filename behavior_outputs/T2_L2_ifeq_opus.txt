@@ -1,0 +1,1 @@
+対象fn=?→code|path 提示

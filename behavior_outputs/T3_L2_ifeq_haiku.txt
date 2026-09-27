@@ -1,0 +1,8 @@
+```
+dict.fromkeys(lst)  # O(n), hashable, Py 3.7+
+
+∘ Unhashable? → {x for seen=∅, (x in lst ∧ not seen|x)} ✗syntax
+∘ Use: [*{x: None for x in lst}]  # if order critical <3.7
+```
+
+**Amb:** Keep duplication strategy fixed or show multi-approach?

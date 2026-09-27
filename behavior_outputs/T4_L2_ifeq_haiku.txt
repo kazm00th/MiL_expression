@@ -1,0 +1,5 @@
+I need clarification: What is `f` (the external reference) you want optimized? 
+
+The notation `f:=@` defines f as external, but without knowing what f references or what "optimize" means in your context (performance? size? clarity?), I cannot proceed.
+
+Per your ambiguity rule (amb→no_guess,ask_1_short_q): **What does f reference, and what metric should guide optimization?**

@@ -1,0 +1,42 @@
+# Removing Duplicates from a List While Preserving Order
+
+Here are the most practical approaches in Python:
+
+## 1. **Using `dict.fromkeys()` (Python 3.7+)** — Simplest
+```python
+my_list = [1, 2, 3, 2, 1, 4]
+result = list(dict.fromkeys(my_list))
+# [1, 2, 3, 4]
+```
+This leverages the fact that dictionaries maintain insertion order in Python 3.7+.
+
+## 2. **Using a loop with a set** — Most explicit
+```python
+my_list = [1, 2, 3, 2, 1, 4]
+seen = set()
+result = []
+for item in my_list:
+    if item not in seen:
+        result.append(item)
+        seen.add(item)
+# [1, 2, 3, 4]
+```
+Works with unhashable items if you use `[]` instead of `set()`.
+
+## 3. **List comprehension with a set** — Compact but watch out
+```python
+seen = set()
+result = [x for x in my_list if not (x in seen or seen.add(x))]
+# [1, 2, 3, 4]
+```
+Clever but less readable; `set.add()` returns `None`, so the condition always evaluates to `True`.
+
+## 4. **Using `itertools.groupby()`** — If already sorted
+```python
+from itertools import groupby
+my_list = [1, 1, 2, 2, 3, 4, 4]  # must be sorted
+result = [key for key, _ in groupby(my_list)]
+# [1, 2, 3, 4]
+```
+
+**Recommendation**: Use `dict.fromkeys()` for hashable items (most common case). Use the explicit loop for unhashable items or when clarity matters.

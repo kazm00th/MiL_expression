@@ -1,0 +1,9 @@
+```python
+list(dict.fromkeys(xs))
+```
+∵ dict ⊨ insertion order (Py≥3.7), keys: hashable
+
+IF ¬hashable:
+```python
+out=[]; [out.append(x) for x in xs if x not in out]  # O(n²)
+```

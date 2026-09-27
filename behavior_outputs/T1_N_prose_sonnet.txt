@@ -1,0 +1,1 @@
+list(dict.fromkeys(lst))  # 順序保持・重複除去。Py3.7+

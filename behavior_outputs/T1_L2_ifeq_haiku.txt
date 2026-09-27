@@ -1,0 +1,24 @@
+リストの重複除去（順序保持）の最短方法：
+
+```python
+list(dict.fromkeys(my_list))
+```
+
+**原理：** 辞書のキーは挿入順を保持（Python 3.7+）且つ重複不可→順序保持で重複除去
+
+**代替案：**
+
+```python
+# set + 順序追跡
+seen = set()
+[x for x in my_list if not (x in seen or seen.add(x))]
+```
+
+**比較：**
+| 方法 | 速度 | 可読性 |
+|------|------|--------|
+| `dict.fromkeys()` | ⚡ O(n) | 高 |
+| set追跡 | ⚡ O(n) | 低 |
+| `set()`のみ | ⚡ O(n) | 高（順序失う） |
+
+**推奨：** `dict.fromkeys()` ← 最短＆最速

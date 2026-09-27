@@ -1,0 +1,32 @@
+To dedupe a list while preserving order in Python:
+
+```python
+def dedup(seq):
+    return list(dict.fromkeys(seq))
+```
+
+This works because dict preserves insertion order (Python 3.7+) and keys are unique. Requires elements to be hashable.
+
+If elements aren't hashable (e.g. lists/dicts), use an explicit seen-list with equality checks:
+
+```python
+def dedup(seq):
+    seen = []
+    result = []
+    for x in seq:
+        if x not in seen:
+            seen.append(x)
+            result.append(x)
+    return result
+```
+
+For a generator/streaming version:
+
+```python
+def dedup(seq):
+    seen = set()
+    for x in seq:
+        if x not in seen:
+            seen.add(x)
+            yield x
+```

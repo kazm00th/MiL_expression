@@ -1,0 +1,24 @@
+To remove duplicates from a list and keep the original order, use `dict.fromkeys`. Since Python 3.7, dicts keep keys in the order you insert them.
+
+```python
+lst = [3, 1, 3, 2, 1]
+out = list(dict.fromkeys(lst))   # [3, 1, 2]
+```
+
+This needs the items to be hashable. If they aren't (for example, lists or dicts), compare each item against what you've already kept. This is O(n²), so it's slow on long lists:
+
+```python
+out = []
+for x in lst:
+    if x not in out:
+        out.append(x)
+```
+
+If you want to dedupe by a key, keep a set of the keys you've already seen:
+
+```python
+seen = set()
+out = [x for x in lst if not (k := key(x)) in seen and not seen.add(k)]
+```
+
+Don't use `list(set(lst))`. It removes duplicates but doesn't keep the order.

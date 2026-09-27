@@ -1,0 +1,8 @@
+`list(dict.fromkeys(xs))`
+∵ dict keeps insertion order (py≥3.7) ∧ keys are unique
+req: elements hashable
+
+IF unhashable (e.g. list/dict elements):
+`out=[];[out.append(x) for x in xs if x not in out]` → O(n²)
+
+✗ `list(set(xs))` → loses order

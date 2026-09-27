@@ -1,0 +1,13 @@
+```python
+# Py3.7+ (dict 順序保証)
+list(dict.fromkeys(lst))
+
+# or 手動 (全バージョン)
+s = set()
+[x for x in lst if not (x in s or s.add(x))]
+```
+
+**最速**: `dict.fromkeys()` O(n)  
+**別案**: `set()` 追跡しながらイテレート
+
+どちらの形式が必要？

@@ -1,0 +1,19 @@
+This looks like Maple syntax. As written, it most likely won't run.
+
+1. **`f:=@;` is a syntax error.** In Maple, `@` is the function-composition operator (as in `f@g`, and `@@` for repeated composition). A bare `@` is not a valid expression, so the parser stops with something like `Error, `;` unexpected`. To store the operator itself as a name, quote it with backquotes: ``f := `@`;``.
+
+2. **`optimize` is not available by default.** It is in the `codegen` package, so you must call it as `codegen[optimize](...)` or run `with(codegen):` first. It optimizes expressions, lists of assignments and procedures for code generation, by eliminating common subexpressions and reducing the operation count.
+
+3. **What it would return.** If `f` were a plain name, or the operator name `` `@` ``, there is nothing to optimize, so `optimize(f)` would just give back `f` unchanged. The same happens if `optimize` isn't loaded: the call comes back unevaluated as `optimize(f)`.
+
+4. **The trailing `?` is not valid there.** In Maple, `?` opens help only at the start of a line (e.g. `?codegen,optimize`). After an expression it is a syntax error.
+
+A version that actually does something:
+```maple
+with(codegen):
+f := proc(x) (x^2+1)*sin(x^2+1) end proc:
+optimize(f);
+```
+This returns a procedure that computes `x^2+1` once into a temporary and reuses it.
+
+If you meant a different language, or wanted `@` to stand for a composition like `g@h`, tell me which and I'll adjust.

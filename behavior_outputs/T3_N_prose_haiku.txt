@@ -1,0 +1,5 @@
+`list(dict.fromkeys(lst))`
+
+Preserves insertion order (py3.7+); O(n) time.
+
+Alt: loop with set tracker if dict overhead matters.

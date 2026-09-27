@@ -1,0 +1,52 @@
+## Pythonでリストの重複を順序保持で除く方法
+
+### 1. **dict.fromkeys() を使う方法（最も推奨）**
+```python
+my_list = [1, 2, 2, 3, 1, 4, 3, 5]
+result = list(dict.fromkeys(my_list))
+# 結果: [1, 2, 3, 4, 5]
+```
+- Python 3.7以降、辞書の挿入順序が保証されているため、この方法が最も効率的です
+- コードも簡潔で読みやすいです
+
+### 2. **集合（set）とループを組み合わせる方法**
+```python
+my_list = [1, 2, 2, 3, 1, 4, 3, 5]
+seen = set()
+result = [x for x in my_list if not (x in seen or seen.add(x))]
+# 結果: [1, 2, 3, 4, 5]
+```
+- `seen.add(x)` は None を返すため、`or` の右辺は常に False になります
+- 効率的で順序も保持されます
+
+### 3. **明示的なループを使う方法**
+```python
+my_list = [1, 2, 2, 3, 1, 4, 3, 5]
+seen = set()
+result = []
+for x in my_list:
+    if x not in seen:
+        result.append(x)
+        seen.add(x)
+# 結果: [1, 2, 3, 4, 5]
+```
+- 最も読みやすく理解しやすい方法です
+
+### 4. **ハッシュ不可能な要素がある場合**
+```python
+my_list = [1, [1, 2], 2, [1, 2], 3]
+result = []
+for x in my_list:
+    if x not in result:
+        result.append(x)
+# 結果: [1, [1, 2], 2, 3]
+```
+- リストなど、ハッシュ不可能な要素を含む場合はこの方法が必要です
+
+### 性能比較
+- **dict.fromkeys()**: 最速（O(n)）
+- **set + リスト内包表記**: 高速（O(n)）
+- **明示的ループ**: 高速（O(n)）
+- **in チェック**: 遅い（O(n²)）
+
+通常は **dict.fromkeys()** を使うことをお勧めします。

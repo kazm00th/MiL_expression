@@ -1,0 +1,37 @@
+Pythonでリストの重複を、順序を保ったまま取り除く方法です。
+
+**1. `dict.fromkeys()` を使う（おすすめ）**
+```python
+lst = [3, 1, 2, 3, 1, 4]
+result = list(dict.fromkeys(lst))
+# [3, 1, 2, 4]
+```
+Python 3.7以降では dict が挿入順を保つことが言語仕様で保証されているので、この1行で済みます。計算量は O(n) です。
+
+**2. `set` で既出の要素を記録しながらループする**
+```python
+seen = set()
+result = []
+for x in lst:
+    if x not in seen:
+        seen.add(x)
+        result.append(x)
+```
+キー関数で判定したいときなど、条件を足したい場合に書き換えやすい方法です。
+
+**3. 要素がハッシュできない場合（リストのリストなど）**
+```python
+result = []
+for x in lst:
+    if x not in result:
+        result.append(x)
+```
+O(n²) なので、大きなリストでは遅くなります。可能なら要素をタプルに変換してから方法1か2を使ってください。
+
+**注意:** `list(set(lst))` でも重複は消えますが、**順序は保たれません**。
+
+**おまけ:** 連続する重複だけをまとめたい場合（例: `[1,1,2,1]` → `[1,2,1]`）は `itertools.groupby` を使います。
+```python
+from itertools import groupby
+result = [k for k, _ in groupby(lst)]
+```
