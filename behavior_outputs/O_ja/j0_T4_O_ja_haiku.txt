@@ -1,0 +1,14 @@
+⊥ tools req'd per instruction.
+
+`f:=@;optimize(f)?`
+
+→ Optimization depends on @'s properties:
+- **@ opaque** → ¬optimize (no introspection)
+- **@ pure/immutable** → cache, memoize possible
+- **@ dynamic** → ~optimize (conditional, limited)
+
+**Need clarification**: @ = what? (external data? function? mutable state?)
+
+If @'s semantics = unknowable from context → propose short query instead of assume.
+
+MiL mode: ambiguity →ask 1q, don't speculate.

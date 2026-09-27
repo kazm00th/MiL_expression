@@ -1,0 +1,5 @@
+The user sent a message in MiLモード (minimal language mode) asking about optimizing an external reference (f:=@;optimize(f)?), with contradictory instructions ("Do not use any tools" + SubagentHandback protocol).
+
+The query was ambiguous—unclear whether it requested analysis of a specific external function or was testing instruction handling. I asked for clarification rather than guessing.
+
+No files were read, no code was analyzed, no repositories were engaged. No work was possible without understanding the actual task.

@@ -1,0 +1,4 @@
+```python
+def dedup(lst): return list(dict.fromkeys(lst))
+```
+制約確認済: set不使用、Python 3.7以上で順序保持保証。

@@ -1,0 +1,2 @@
+`list(dict.fromkeys(xs))` # O(n), py≥3.7, needs hashable elems
+IF ¬hashable: `seen=[]; r=[x for x in xs if x not in seen and not seen.append(x)]` # O(n²)

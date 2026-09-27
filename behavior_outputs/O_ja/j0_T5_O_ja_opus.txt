@@ -1,0 +1,2 @@
+✓既満: `list(dict.fromkeys(xs))` ¬set, py≥3.7保証(dict挿入順=言語仕様), O(n)
+IF unhashable: `r=[]` → ∀x∈xs: x∉r ⇒ r.append(x); ¬set, O(n²)

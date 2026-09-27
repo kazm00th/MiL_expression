@@ -17,6 +17,7 @@ LLM に圧縮した応答をさせる指示文「MiL」を、次の2つを満た
 | 全モデル向け（前の本命） | L_merge | 89 | 3モデルに伝わるが、Haiku が `IF:=cond` を逆向きに読むことがある |
 | 衝突の指摘を最小にしたい | M_scoped / M2_fixed | 99 | L に `mode:` と `(NL_ok)` を追加。M2 は書式を揃えた版（読解テスト未実施） |
 | Opus だけが読む | D_NL | 77 | D_ascii_out の `EN`→`NL`。Sonnet・Haiku には伝わらない（D_ascii_out での結果） |
+| 日本語で書く | O_ja | 100 | 3モデルすべてに伝わった。行動テストでも指示が効く（results.md §8） |
 | （参考）元の MiL | original | 80 | Opus 専用。Sonnet は読めるが指示が効かず出力が約6倍、Haiku は解読できない（results.md §7） |
 
 L2_ifeq：
@@ -55,6 +56,7 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 ### テストを走らせるときの注意
 
 - サブエージェントはリポジトリ内で動き、Sonnet がファイルを書き換えることがある。**実行前に `find . -path ./.git -prune -o -type f -print | xargs chattr +i` で書き換え不可にし、終わったら `chattr -i` で戻す。** root で動くので `chmod` は効かない。
+- **ファイルだけでなくディレクトリにも `chattr +i` を付ける。** O_ja のテストで、Sonnet が書き換え不可に気づいて別名の新しいファイルを作った（results.md §8）。
 - 同時に動かせるサブエージェントは20体まで。
 - 返答の抜き出しは、引き渡し（SubagentHandback）より前の本文、なければ引き渡しの中身を使う（results.md §5 の注意）。
 
@@ -90,6 +92,6 @@ $env:ANTHROPIC_API_KEY = "ここにキー"; & "D:\Users\usor\miniconda3\envs\mye
 | background.md | 元の MiL の意味、圧縮手法の整理、S式、システムカードの「読めない推論」、記号の話 |
 | reading_test_prompt.md | 読解テストのプロンプトと判定の観点 |
 | behavior_test.md | 行動テストの設計（出力側と入力側の双方向） |
-| behavior_outputs/ | 行動テストの各返答。直下が初回、`rerun/` が追試3回、`original/` が元の MiL の4回 |
-| reading_outputs/ | 読解テストの返答（original の v2） |
+| behavior_outputs/ | 行動テストの各返答。直下が初回、`rerun/` が追試3回、`original/` が元の MiL の4回、`O_ja/` が日本語版の4回 |
+| reading_outputs/ | 読解テストの返答（original の v2、O_ja） |
 | count_tokens.py | トークン測定スクリプト（全候補を収録） |

@@ -1,0 +1,13 @@
+**Python list deduplication (preserve order, ¬set for py≥3.7):**
+
+Recommended:
+```python
+list(dict.fromkeys(lst))
+```
+
+- Uses dict insertion-order guarantee (Python 3.7+)
+- O(n) time/space
+- No set required
+- Clean, idiomatic
+
+This is the standard solution for deduplicating while preserving order in modern Python.

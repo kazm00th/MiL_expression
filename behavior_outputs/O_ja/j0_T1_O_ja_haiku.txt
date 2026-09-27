@@ -1,0 +1,29 @@
+# Python: 重複除去（順序保持）
+
+**方法1：dict（推奨、Python 3.7+）**
+```python
+lst = [1, 2, 2, 3, 1, 4]
+result = list(dict.fromkeys(lst))  # [1, 2, 3, 4]
+```
+
+**方法2：set + 反復（順序不安定）**
+```python
+seen = set()
+result = [x for x in lst if not (x in seen or seen.add(x))]
+```
+
+**方法3：OrderedDict（旧版）**
+```python
+from collections import OrderedDict
+result = list(OrderedDict.fromkeys(lst))
+```
+
+**記号表記**
+| 方法 | 時間 | 空間 | hashable? | 推奨 |
+|------|------|------|----------|------|
+| dict.fromkeys | O(n) | O(n) | ✓ | ★★★ |
+| set+filter | O(n) | O(n) | ✓ | ★★ |
+
+**注**：hashableでない型（list等）→ `[(k, list(g)) for k, g in itertools.groupby(sorted(lst, key=id))]` か手動管理
+
+SubagentHandback({message: "Pythonで重複除去（順序保持）: dict.fromkeys()推奨（O(n)時間・空間）。hashable型向け。"})

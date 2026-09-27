@@ -1,0 +1,4 @@
+I need the function code to optimize. Please share:
+- The function itself
+- Programming language  
+- Current bottleneck (if known)

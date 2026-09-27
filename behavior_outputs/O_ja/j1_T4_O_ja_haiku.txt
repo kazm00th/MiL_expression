@@ -1,0 +1,8 @@
+Unclear. "f:=@;optimize(f)?" — what's the target? 
+
+Is this about:
+- Code optimization in the repo?
+- Token/prompt compression?
+- Tool selection strategy?
+
+Need context.

@@ -1,0 +1,2 @@
+`list(dict.fromkeys(xs))` ✓¬set ∧ py≥3.7(dict順序保証) ; O(n)
+IF 要素unhashable: `s=[];[x for x in xs if x not in s and not s.append(x)]` ✓¬set ; O(n²)

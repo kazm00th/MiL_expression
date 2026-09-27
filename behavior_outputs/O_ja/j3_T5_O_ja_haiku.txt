@@ -1,0 +1,19 @@
+**Deduplicate Python list while preserving order:**
+
+**For Python 3.7+:**
+```python
+list(dict.fromkeys(lst))
+```
+- O(n) time complexity
+- Preserves insertion order
+- No set construction needed
+
+**For Python < 3.7:**
+```python
+seen = set()
+[x for x in lst if not (x in seen or seen.add(x))]
+```
+- O(n) time complexity
+- Preserves insertion order
+
+The `dict.fromkeys()` method is the recommended solution for modern Python codebases (3.7+).

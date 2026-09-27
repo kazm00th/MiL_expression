@@ -1,0 +1,37 @@
+# Python list deduplication with order preservation
+
+**Best approach (Python 3.7+):**
+```python
+dedup_list = list(dict.fromkeys(original_list))
+```
+
+**Why:** O(n) time complexity, preserves insertion order since Python 3.7+ (dicts maintain insertion order)
+
+**Alternatives:**
+
+1. **Set-based (if order doesn't matter initially):**
+```python
+seen = set()
+result = [x for x in lst if not (x in seen or seen.add(x))]
+```
+
+2. **For hashable items only - dict approach:**
+```python
+{x: None for x in lst}.keys()  # Then convert to list if needed
+```
+
+3. **For unhashable items:**
+```python
+result = []
+for x in lst:
+    if x not in result:
+        result.append(x)
+# Warning: O(n²) complexity
+```
+
+**Performance comparison:**
+- `dict.fromkeys()`: O(n) ✓
+- Set + list comprehension: O(n) ✓
+- `in` operator on list: O(n²) ✗
+
+Use `dict.fromkeys()` for best readability and performance with hashable items.

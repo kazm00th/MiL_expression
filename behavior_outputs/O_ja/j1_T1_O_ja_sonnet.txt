@@ -1,0 +1,1 @@
+dict.fromkeys(lst)で順序保持の重複除去。リストに戻すならlist(dict.fromkeys(lst))。

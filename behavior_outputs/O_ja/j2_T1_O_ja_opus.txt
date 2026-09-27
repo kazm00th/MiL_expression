@@ -1,0 +1,6 @@
+`list(dict.fromkeys(xs))`  # py3.7+, 要素hashable
+
+IF 非hashable:
+```python
+seen=[]; [seen.append(x) for x in xs if x not in seen]  # O(n²)
+```

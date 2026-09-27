@@ -1,0 +1,9 @@
+`list(dict.fromkeys(xs))`  ∵ dictは挿入順を保持 (Py≥3.7)。要素はhashableであること。
+
+IF 要素がunhashable (例: list):
+```python
+out=[]
+for x in xs:
+    if x not in out: out.append(x)
+```
+O(n²)

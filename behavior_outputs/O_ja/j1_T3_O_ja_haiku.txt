@@ -1,0 +1,13 @@
+**py:list dedup with order preservation:**
+
+```python
+list(dict.fromkeys(lst))  # O(n) | 3.7+
+```
+
+Or loop-based (pre-3.7 compat):
+```python
+seen = set()
+[x for x in lst if not (x in seen or seen.add(x))]
+```
+
+Dict approach faster, cleaner. Set-add trick exploits `add()` returning None (falsy).

@@ -1,0 +1,1 @@
+`list(dict.fromkeys(lst))` — dedup, keep order, no `set`, valid ∀ py≥3.7 (dict insertion-order guaranteed).

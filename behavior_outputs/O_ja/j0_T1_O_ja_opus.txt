@@ -1,0 +1,3 @@
+`list(dict.fromkeys(xs))`  ※py≥3.7, 要素hashable, O(n)
+
+非hashable→ `r=[];[r.append(x) for x in xs if x not in r]`  O(n²)

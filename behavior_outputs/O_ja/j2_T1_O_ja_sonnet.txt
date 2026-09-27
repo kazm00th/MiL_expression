@@ -1,0 +1,5 @@
+dict.fromkeys(lst)
+
+- 順序保持・重複除去
+- listに戻すならlist(dict.fromkeys(lst))
+- 3.7+で順序保証

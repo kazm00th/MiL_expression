@@ -1,0 +1,10 @@
+`list(dict.fromkeys(lst))`
+
+Python 3.7+ では辞書が挿入順を保持するため、この1行で重複除去＆順序保持が達成できます。
+
+他方法：
+- `functools.reduce()` + `set` （複雑）
+- pandas: `df.drop_duplicates(keep='first')` （外部依存）
+- loop＋set （手動管理）
+
+推奨：`dict.fromkeys()` ← 最速＆最シンプル

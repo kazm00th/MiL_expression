@@ -1,0 +1,7 @@
+`list(dict.fromkeys(xs))`
+条件: 要素がhashable、Py≥3.7(dictが挿入順を保持)
+
+IF unhashable:
+```python
+out=[]; [out.append(x) for x in xs if x not in out]  # O(n²)
+```

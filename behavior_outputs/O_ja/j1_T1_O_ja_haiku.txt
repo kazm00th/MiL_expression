@@ -1,0 +1,18 @@
+```python
+list(dict.fromkeys(lst))  # O(n), 3.7+
+```
+
+**Alt** (pre-3.7):
+```python
+seen = set()
+[x for x in lst if not (x in seen or seen.add(x))]
+```
+
+**Unordered** (faster if order unnecessary):
+```python
+list(set(lst))
+```
+
+---
+
+**Q:** Hashable items only? Or need to handle unhashable types?

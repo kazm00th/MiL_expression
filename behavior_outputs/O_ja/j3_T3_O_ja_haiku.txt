@@ -1,0 +1,18 @@
+**dict.fromkeys()**
+
+```python
+list(dict.fromkeys(lst))
+```
+
+✓ O(n) time, preserves insertion order (Python 3.7+)
+
+**Alt w/ custom tracking:**
+
+```python
+seen = set()
+[x for x in lst if not (x in seen or seen.add(x))]
+```
+
+✓ Works all versions, slightly more verbose
+
+**Why dict.fromkeys() wins:** keys are ordered dict values; `.add()` returns None so the `or` chain keeps it compact.

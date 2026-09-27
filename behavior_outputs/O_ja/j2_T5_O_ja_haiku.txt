@@ -1,0 +1,31 @@
+# Python List Deduplication While Preserving Order
+
+**For Python 3.7+:**
+```python
+dedup_list = list(dict.fromkeys(original_list))
+```
+
+O(n) time, preserves insertion order (guaranteed in Python 3.7+).
+
+**For Python < 3.7 (order not preserved in dict):**
+```python
+seen = set()
+result = [x for x in lst if not (x in seen or seen.add(x))]
+```
+
+O(n) time, but order preservation requires the set-based approach.
+
+**For unhashable items:**
+```python
+result = []
+for x in lst:
+    if x not in result:
+        result.append(x)
+```
+
+O(n²) - avoid for large lists.
+
+**Recommendation:** 
+- Python 3.7+: Use `dict.fromkeys()` exclusively
+- Python < 3.7: Use set-based approach if order preservation needed
+- Unhashable items: Use loop-based approach

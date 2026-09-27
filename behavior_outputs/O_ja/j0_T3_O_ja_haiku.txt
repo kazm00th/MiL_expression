@@ -1,0 +1,25 @@
+**py:list→dedup∧keep_order:**
+
+```python
+list(dict.fromkeys(lst))  # Python 3.7+, O(n)
+```
+
+Alt (any version):
+```python
+seen = set()
+[x for x in lst if not (x in seen or seen.add(x))]
+```
+
+或 w/ manual loop:
+```python
+seen = set()
+result = []
+for x in lst:
+    if x not in seen:
+        result.append(x)
+        seen.add(x)
+```
+
+**Recommendation:** `dict.fromkeys()` - simplest, fastest, idiomatic since 3.7.
+
+Need other constraints (hashable items, etc.)?

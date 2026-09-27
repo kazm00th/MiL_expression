@@ -1,0 +1,9 @@
+**py:list→dedup∧keep_order (Python ≥3.7):**
+
+```python
+list(dict.fromkeys(lst))
+```
+
+**Why:** Insertion order guaranteed by language spec; O(n); no set-tracking needed.
+
+Set-based alternatives only for Python <3.7.

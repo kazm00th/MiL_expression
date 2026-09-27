@@ -1,0 +1,7 @@
+dict.fromkeys(lst)をlist()で包む。
+
+```python
+list(dict.fromkeys(lst))
+```
+
+O(n)、Python3.7+で順序保証。

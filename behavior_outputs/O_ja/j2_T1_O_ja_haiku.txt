@@ -1,0 +1,20 @@
+リストの重複を順序保持で除く方法：
+
+**最も簡潔（Python 3.7+）:**
+```python
+list(dict.fromkeys(lst))
+```
+
+**明示的な方法:**
+```python
+seen = set()
+result = [x for x in lst if not (x in seen or seen.add(x))]
+```
+
+**セット非対応型の場合:**
+```python
+result = []
+for x in lst:
+    if x not in result:
+        result.append(x)
+```

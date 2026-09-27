@@ -1,0 +1,8 @@
+list(dict.fromkeys(lst))
+
+例:
+lst = [3,1,2,3,1]
+list(dict.fromkeys(lst))  # [3,1,2]
+
+条件付き(IF hashable): dict.fromkeys(lst)のkeys順=挿入順→保持。非hashable要素は@collections.OrderedDict代替不可、set+append方式:
+seen=set(); [x for x in lst if not (x in seen or seen.add(x))]

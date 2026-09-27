@@ -1,0 +1,3 @@
+✓ already ¬set ∧ py≥3.7:
+`list(dict.fromkeys(xs))` # dict keeps insertion order ≥3.7, O(n), hashable only
+IF ¬hashable: `seen=[]; r=[x for x in xs if x not in seen and not seen.append(x)]` # O(n²)

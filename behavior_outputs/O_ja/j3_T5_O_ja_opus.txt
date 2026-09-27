@@ -1,0 +1,2 @@
+✓ already ¬set ∧ py≥3.7: list(dict.fromkeys(xs))  # hashable
+IF unhashable: seen=[];[seen.append(x) for x in xs if x not in seen]
