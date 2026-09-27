@@ -17,6 +17,7 @@ LLM に圧縮した応答をさせる指示文「MiL」を、次の2つを満た
 | 全モデル向け（前の本命） | L_merge | 89 | 3モデルに伝わるが、Haiku が `IF:=cond` を逆向きに読むことがある |
 | 衝突の指摘を最小にしたい | M_scoped / M2_fixed | 99 | L に `mode:` と `(NL_ok)` を追加。M2 は書式を揃えた版（読解テスト未実施） |
 | Opus だけが読む | D_NL | 77 | D_ascii_out の `EN`→`NL`。Sonnet・Haiku には伝わらない（D_ascii_out での結果） |
+| （参考）元の MiL | original | 80 | Opus 専用。Sonnet は読めるが指示が効かず出力が約6倍、Haiku は解読できない（results.md §7） |
 
 L2_ifeq：
 ```
@@ -27,7 +28,8 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 - 読み手のモデルが小さいほど、記号や数式風の定義を英単語に開く必要がある。そのぶんトークンが増える。
 - MiL 形式の節約は控えめ。同じ内容の英文（104）より 17 トークン（約16%）少ない程度。
 - **出力の長さは、指示文の形式よりモデルで決まる**（行動テスト、3回ずつの追試）。全体では L2_ifeq と N_prose はほぼ同じ（1返答あたり +4 トークン）。Sonnet は L2_ifeq のほうが短く（約 2/3）、Haiku は N_prose のほうが短い（L2_ifeq は約 1.3 倍）。初回の「英文のほうが 40% 短い」は再現しなかった。
-- 詳しい数値と各モデルの読みは [results.md](results.md)、経緯は [background.md](background.md)。
+- **元の MiL（original）は Opus 専用。** Sonnet・Haiku に使うと出力がかえって長くなる（Sonnet 約6倍、Haiku 約3〜4倍）。
+- まとめは [SUMMARY.md](SUMMARY.md)、詳しい数値と各モデルの読みは [results.md](results.md)、経緯は [background.md](background.md)。
 
 ## L2_ifeq に残っている問題
 
@@ -41,14 +43,20 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 
 ## 次の作業（優先順）
 
-行動テスト（T1〜T5 × 3条件 × 3モデル）は実施済み。結果は results.md §5、返答は behavior_outputs/。
+実施済み：L2_ifeq の読解テスト、行動テスト（L2_ifeq・N_prose・指示なし、初回＋追試3回）、original の読解テストと行動テスト（4回）。結果は results.md §5〜§7。
 
-1. **「英文の指示のほうが出力が短い」の追試。** → 実施・測定済み（results.md §6）。再現せず。差はモデルによって向きが違う（Sonnet は L2_ifeq、Haiku は N_prose が短い）。モデル別の版を用意するかを検討する。 行動テストでは、出力の合計が N_prose 714 に対して L2_ifeq 1200 トークン（3モデルとも N_prose が短い）。各条件3回以上で確かめる。再現すれば、**本命は出力も含めた総量で N_prose（英文）**になり、MiL 形式の利点は指示文の 17 トークンだけになる。
-2. **Sonnet の違反の追試。** → 実施済み（results.md §6）。指示なしでも書き換えたので、MiL 指示だけが原因ではない。以下は当初の記述。 T2（「この関数を速くして。」）で、MiL 指示ありの Sonnet がリポジトリのファイルを書き換えた（2/2）。指示なしでは書き換えなかった（0/1）。コードのないディレクトリで、L2_ifeq・N_prose・指示なしを各3回以上走らせ、指示が原因かを確かめる。原因なら、`del(recoverable_from_context)` の「文脈」を会話内に限定する案を検討する（例：`del(recoverable_from_this_conversation)`）。
-3. **英文の指示をさらに短くする。** N_prose（104）の出力の短さを保ったまま、指示文を削れるか試す。
-4. **入力側で使う記号の定義。** T4 で `@` の定義が入力の読み取りに効いた。投稿者のように入力にも `?problem` などの記号を使うなら、その記号も指示文で定義する必要がある。
-5. **繰り返し試行。** 読解テスト・行動テストとも多くは1回ずつ。
-6. **M2_fixed の読解テスト（任意）。**
+1. **original の行動テストのトークン数を測る（ユーザーがローカルで）。** `count_tokens.py (Get-ChildItem behavior_outputs\original\*.txt)`。今は文字数での比較だけ。
+2. **モデル別の版を正式に決める。** 出力の長さはモデルで決まる：Sonnet は L2_ifeq が短く、Haiku は N_prose が短い。Opus はどれでも同じ（original も可）。
+3. **英文の指示をさらに短くする。** Haiku 向けの N_prose（104）を、出力の短さを保ったまま削れるか試す。
+4. **「文脈」を会話内に限る案。** Sonnet は T2 で、質問を返したあと答えを待たずにリポジトリを探し、推測でファイルを書き換えることがある（指示なしでも起きる）。`del(recoverable_from_this_conversation)` などで減るかを試す。
+5. **入力側で使う記号の定義。** T4 で `@` の定義が入力の読み取りに効いた。入力に `?problem` などを使うなら、その記号も指示文で定義する。
+6. **M2_fixed などの未テスト版の読解テスト（任意）。** SUMMARY.md §8 の一覧で「未」の版。
+
+### テストを走らせるときの注意
+
+- サブエージェントはリポジトリ内で動き、Sonnet がファイルを書き換えることがある。**実行前に `find . -path ./.git -prune -o -type f -print | xargs chattr +i` で書き換え不可にし、終わったら `chattr -i` で戻す。** root で動くので `chmod` は効かない。
+- 同時に動かせるサブエージェントは20体まで。
+- 返答の抜き出しは、引き渡し（SubagentHandback）より前の本文、なければ引き渡しの中身を使う（results.md §5 の注意）。
 
 ## 作業環境と手順
 
@@ -82,5 +90,6 @@ $env:ANTHROPIC_API_KEY = "ここにキー"; & "D:\Users\usor\miniconda3\envs\mye
 | background.md | 元の MiL の意味、圧縮手法の整理、S式、システムカードの「読めない推論」、記号の話 |
 | reading_test_prompt.md | 読解テストのプロンプトと判定の観点 |
 | behavior_test.md | 行動テストの設計（出力側と入力側の双方向） |
-| behavior_outputs/ | 行動テストの各返答（`<ケース>_<指示文>_<モデル>.txt`） |
+| behavior_outputs/ | 行動テストの各返答。直下が初回、`rerun/` が追試3回、`original/` が元の MiL の4回 |
+| reading_outputs/ | 読解テストの返答（original の v2） |
 | count_tokens.py | トークン測定スクリプト（全候補を収録） |
