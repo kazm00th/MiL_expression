@@ -1,0 +1,6 @@
+dict.fromkeys(lst) を使う（Python 3.7+、順序保持）。
+
+例:
+list(dict.fromkeys(lst))
+
+要素はハッシュ可能である必要あり。集合を使う内包表記より高速・簡潔。

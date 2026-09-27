@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs))。Python 3.7以降ならdictが挿入順を保つので順序も残る。要素はhashableである必要がある。hashableでない要素が混ざるなら次の形にする。seen=[]; out=[x for x in xs if not (x in seen or seen.append(x))]。この形はO(n²)。

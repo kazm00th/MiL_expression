@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)). Items must be hashable; dicts keep insertion order since 3.7.

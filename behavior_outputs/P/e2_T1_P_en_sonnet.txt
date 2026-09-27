@@ -1,0 +1,4 @@
+list(dict.fromkeys(元のリスト))
+
+例: list(dict.fromkeys([3,1,2,1,3])) → [3,1,2]
+Python3.7+でdictの挿入順が保証されるため順序維持。要素はhashable限定。

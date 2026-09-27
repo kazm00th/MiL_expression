@@ -1,0 +1,1 @@
+dict.fromkeys()が最も簡潔です。list(dict.fromkeys(lst))でリストの順序保ったまま重複除去できます。Python 3.7以降ではdictが挿入順序保証するため順序が保たれます。例えばlist(dict.fromkeys([1,2,2,3,1]))は[1,2,3]になります。別案としてセット追跡: [x for x in lst if not (x in seen or seen.add(x))]（seen=setが前提）。ハッシュ不可な要素の場合は順番付き反復で逐次チェック必要です。

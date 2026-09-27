@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)) already meets that: no set, and it works on any Python 3.7 or later.

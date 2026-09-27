@@ -1,0 +1,13 @@
+For Python 3.7+ deduplicating lists while preserving order:
+
+If items are hashable: `list(dict.fromkeys(lst))` is fastest.
+
+If items may be unhashable (lists, dicts, etc.):
+```python
+result = []
+for x in lst:
+    if x not in result:
+        result.append(x)
+```
+
+This works for any type and preserves insertion order. O(n²) but handles unhashable items.

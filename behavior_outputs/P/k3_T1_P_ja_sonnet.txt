@@ -1,0 +1,10 @@
+dict.fromkeysで可。
+
+list(dict.fromkeys(lst))
+
+Python3.7+推奨。dictはキー順序保持のため重複除去しつつ順序維持できる。
+
+代替: 手動でseen集合を使う方法もある。
+seen=set(); [x for x in lst if not (x in seen or seen.add(x))]
+
+要素がhashable前提。unhashableな要素（list等）がある場合はseen操作をlist+in判定に変える必要あり(O(n^2))。

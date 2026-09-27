@@ -1,0 +1,14 @@
+dict.fromkeys()を使う方法が最も簡潔です。Python 3.7以降でdictが挿入順序を保つため、重複除去と順序保持が同時に実現できます。
+
+```python
+list(dict.fromkeys(your_list))
+```
+
+または、setと同時実行性が不要なら、ループで新しいリストに追加する方法もあります。
+
+```python
+seen = set()
+result = [x for x in your_list if not (x in seen or seen.add(x))]
+```
+
+dict.fromkeys()の方が読みやすく、大規模リストでも効率的です。

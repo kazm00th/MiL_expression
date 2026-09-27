@@ -1,0 +1,7 @@
+To deduplicate a Python list while keeping order for Python 3.7+:
+
+Primary solution: list(dict.fromkeys(original_list)) - leverages dict insertion-order preservation, works for any hashable items, clean and efficient.
+
+Alternative for unhashable items: manual iteration tracking seen items with a list, though this is less performant.
+
+The set-based approach was excluded per coordinator constraint. dict.fromkeys() is the recommended method for Python 3.7+.

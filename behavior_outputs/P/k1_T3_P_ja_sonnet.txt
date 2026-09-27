@@ -1,0 +1,8 @@
+dict + list内包表記で順序を保ったままdedup。
+
+```python
+def dedup(lst):
+    return list(dict.fromkeys(lst))
+```
+
+dictはPython3.7+で挿入順を保持。setだけだと順序が崩れるためNG。

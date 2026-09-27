@@ -1,0 +1,1 @@
+To deduplicate a Python list while keeping order: use dict.fromkeys(list) which preserves insertion order (Python 3.7+), or track seen items with set: seen=set(); result=[x for x in list if not (x in seen or seen.add(x))]. The dict approach is simpler if items are hashable. If items aren't hashable, iterate once tracking seen, appending unseen items to result.

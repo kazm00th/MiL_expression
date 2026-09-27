@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs))。setは使わず、3.7以降のdict挿入順保持に依存して最初の出現順を残す。要素はhashable前提。

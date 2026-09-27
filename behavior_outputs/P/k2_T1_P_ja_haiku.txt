@@ -1,0 +1,3 @@
+Python 3.7以降なら `list(dict.fromkeys(your_list))` で順序を保ったまま重複を除けます。dict.fromkeys()は最初の出現順を保つため、その結果をリストに変換するだけです。
+
+手動でやるなら、seen set を使ってループしながら未出現の要素だけ追加していく方法もあります。dict.fromkeys()のほうが簡潔で高速です。

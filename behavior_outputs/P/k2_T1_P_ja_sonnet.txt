@@ -1,0 +1,6 @@
+list(dict.fromkeys(元のリスト))
+
+Python3.7+で順序保持・重複除去。dictのキーはハッシュ可能な要素のみ対応(文字列/数値/tuple等)。
+
+例:
+list(dict.fromkeys([3,1,2,1,3])) → [3,1,2]

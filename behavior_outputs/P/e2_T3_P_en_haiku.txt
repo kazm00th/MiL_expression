@@ -1,0 +1,12 @@
+In Python 3.7+, dicts preserve insertion order, so `list(dict.fromkeys(lst))` deduplicates while keeping order. For older Python or when keys aren't hashable, use:
+
+```python
+seen = set()
+result = []
+for x in lst:
+    if x not in seen:
+        seen.add(x)
+        result.append(x)
+```
+
+The dict method is fastest and most concise; the loop works with unhashable types (lists, dicts).

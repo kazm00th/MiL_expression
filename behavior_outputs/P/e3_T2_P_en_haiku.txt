@@ -1,0 +1,1 @@
+Cannot optimize function without code. User asked to speed up a function (Japanese: "この関数を速くして") but did not provide the function to optimize. Need: the function code, preferably in a specific language/file.

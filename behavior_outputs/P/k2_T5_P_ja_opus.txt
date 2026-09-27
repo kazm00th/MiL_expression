@@ -1,0 +1,1 @@
+No change: list(dict.fromkeys(xs)) doesn't use set and works on Python 3.7 and later, where dicts keep insertion order. The items must be hashable. If they aren't, use seen=[]; out=[x for x in xs if not (x in seen or seen.append(x))]. That is O(n²).

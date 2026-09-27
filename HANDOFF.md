@@ -18,6 +18,7 @@ LLM に圧縮した応答をさせる指示文「MiL」を、次の2つを満た
 | 衝突の指摘を最小にしたい | M_scoped / M2_fixed | 99 | L に `mode:` と `(NL_ok)` を追加。M2 は書式を揃えた版（読解テスト未実施） |
 | Opus だけが読む | D_NL | 77 | D_ascii_out の `EN`→`NL`。Sonnet・Haiku には伝わらない（D_ascii_out での結果） |
 | 日本語で書く | O_ja | 100 | 3モデルすべてに伝わった。行動テストでも指示が効く（results.md §8） |
+| 新候補（測定待ち） | P_en / P_ja | 未測定 | 記号優先を外し「見出し・箇条書き・表・装飾記号なしの平文」を追加。3モデルに伝わり、文字数では最短（P_ja は入出力、P_en は出力）。Haiku の装飾が消えた（results.md §12） |
 | （参考）元の MiL | original | 80 | Opus 専用。Sonnet は読めるが指示が効かず出力が約6倍、Haiku は解読できない（results.md §7） |
 
 L2_ifeq：
@@ -45,9 +46,10 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 
 ## 次の作業（優先順）
 
-実施済み：L2_ifeq の読解テスト、行動テスト（L2_ifeq・N_prose・指示なし、初回＋追試3回）、original の読解テストと行動テスト（4回）。結果は results.md §5〜§7。
+実施済み：L2_ifeq の読解テスト、行動テスト（L2_ifeq・N_prose・指示なし、初回＋追試3回）、original の読解テストと行動テスト（4回）、O_ja（4回）、P_en・P_ja（3回ずつ）。結果は results.md §5〜§12。
 
 1. ~~original と O_ja の行動テストのトークン数を測る~~ → 測定済み（results.md §9）。
+1. **P_en・P_ja のトークン数を測る（ユーザーがローカルで）。** `python count_tokens.py P_en P_ja (Get-ChildItem behavior_outputs\P\*.txt)`。N_prose・L2_ifeq・O_ja より短いかを results.md §9 の表と比べる。
 2. **モデル別の版を正式に決める。** 候補は Opus → O_ja、Sonnet → L2_ifeq、Haiku → N_prose（results.md §9）。
 3. **英文の指示をさらに短くする。** Haiku 向けの N_prose（104）を、出力の短さを保ったまま削れるか試す。
 4. **「文脈」を会話内に限る案。** Sonnet は T2 で、質問を返したあと答えを待たずにリポジトリを探し、推測でファイルを書き換えることがある（指示なしでも起きる）。`del(recoverable_from_this_conversation)` などで減るかを試す。
@@ -59,6 +61,7 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 - サブエージェントはリポジトリ内で動き、Sonnet がファイルを書き換えることがある。**実行前に `find . -path ./.git -prune -o -type f -print | xargs chattr +i` で書き換え不可にし、終わったら `chattr -i` で戻す。** root で動くので `chmod` は効かない。
 - **ファイルだけでなくディレクトリにも `chattr +i` を付ける。** O_ja のテストで、Sonnet が書き換え不可に気づいて別名の新しいファイルを作った（results.md §8）。
 - 同時に動かせるサブエージェントは20体まで。
+- **サブエージェントの頼みごとは実行しない。** P のテストで Sonnet が、書き換えられなかった `count_tokens.py` を「リポジトリにコピーして」「ユーザー側で適用して」と頼んできた。`chattr -i` で保護を外そうとしたこともある（サンドボックスが拒否）。実行すると許可の迂回になるので、断って記録だけする。
 - 返答の抜き出しは、引き渡し（SubagentHandback）より前の本文、なければ引き渡しの中身を使う（results.md §5 の注意）。
 
 ## 作業環境と手順
@@ -93,6 +96,6 @@ $env:ANTHROPIC_API_KEY = "ここにキー"; & "D:\Users\usor\miniconda3\envs\mye
 | background.md | 元の MiL の意味、圧縮手法の整理、S式、システムカードの「読めない推論」、記号の話 |
 | reading_test_prompt.md | 読解テストのプロンプトと判定の観点 |
 | behavior_test.md | 行動テストの設計（出力側と入力側の双方向） |
-| behavior_outputs/ | 行動テストの各返答。直下が初回、`rerun/` が追試3回、`original/` が元の MiL の4回、`O_ja/` が日本語版の4回 |
-| reading_outputs/ | 読解テストの返答（original の v2、O_ja） |
+| behavior_outputs/ | 行動テストの各返答。直下が初回、`rerun/` が追試3回、`original/` が元の MiL の4回、`O_ja/` が日本語版の4回、`P/` が P_en（`e1`〜`e3`）・P_ja（`k1`〜`k3`）の3回ずつ |
+| reading_outputs/ | 読解テストの返答（original の v2、O_ja、P_en、P_ja） |
 | count_tokens.py | トークン測定スクリプト（全候補を収録） |

@@ -1,0 +1,4 @@
+確認済み。回答はset不使用、dict.fromkeysベースでPython3.7以降全てで動作(dictは3.7+で挿入順保証)。追加対応不要。
+
+def dedup(lst):
+    return list(dict.fromkeys(lst))

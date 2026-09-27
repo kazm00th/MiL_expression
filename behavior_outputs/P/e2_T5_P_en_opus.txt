@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)). Uses no set and works on any Python 3.7 or later, where dicts keep insertion order. Items must be hashable.

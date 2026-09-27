@@ -1,0 +1,8 @@
+list(dict.fromkeys(lst))
+
+または
+
+seen=set()
+result=[x for x in lst if not (x in seen or seen.add(x))]
+
+前者推奨(3.7+、ハッシュ可能要素のみ)。

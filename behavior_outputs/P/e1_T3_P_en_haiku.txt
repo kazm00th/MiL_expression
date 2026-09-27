@@ -1,0 +1,18 @@
+For hashable items: `list(dict.fromkeys(items))` deduplicates while preserving insertion order (works in Python 3.7+).
+
+For non-hashable items or when you need seen tracking: iterate through the list and append items not yet in a set that tracks seen values.
+
+```python
+# Hashable items
+deduped = list(dict.fromkeys(items))
+
+# Non-hashable items
+seen = set()
+deduped = []
+for item in items:
+    if item not in seen:
+        seen.add(item)
+        deduped.append(item)
+```
+
+The `dict.fromkeys()` approach is fastest for hashable items since dict maintains insertion order as of Python 3.7.

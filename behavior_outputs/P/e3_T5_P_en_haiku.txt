@@ -1,0 +1,1 @@
+Python list dedup preserving order: For py≥3.7 use `list(dict.fromkeys(list))`. For earlier versions or unhashable items, iterate with a set: `seen=set(); [x for x in list if not (x in seen or seen.add(x))]` or explicit loop tracking seen items.

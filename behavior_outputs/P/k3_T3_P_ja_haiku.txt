@@ -1,0 +1,1 @@
+For Python 3.7+, use `list(dict.fromkeys(your_list))` - dicts preserve insertion order, so fromkeys() deduplicates while maintaining order in one pass. Alternative: build a set for tracking and iterate once with `[x for x in your_list if not (x in seen or seen.add(x))]` but it's less readable. The dict method is preferred for clarity and performance.

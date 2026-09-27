@@ -1,0 +1,1 @@
+Use `list(dict.fromkeys(my_list))` — dicts maintain insertion order since Python 3.7. If items aren't hashable, use a set with a secondary list: iterate the list, check if item in set, add to both if not seen before.

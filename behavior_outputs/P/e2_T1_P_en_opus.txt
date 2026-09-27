@@ -1,0 +1,3 @@
+`list(dict.fromkeys(xs))`
+
+これは Python 3.7 以降で動き、要素はハッシュ可能である必要があります。

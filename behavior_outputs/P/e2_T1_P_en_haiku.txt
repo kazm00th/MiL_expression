@@ -1,0 +1,1 @@
+`list(dict.fromkeys(lst))` preserves order and removes duplicates (Python 3.7+). Alternatively, iterate with a set to track seen items: `[x for seen in [set()] and x in lst if not (x in seen or seen.add(x))]`, though that's less readable. For older Python, use a set + list: iterate through lst, append to result only if not in a tracking set.

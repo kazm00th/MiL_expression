@@ -1,0 +1,3 @@
+Python 3.7以上なら `list(dict.fromkeys(your_list))` が最短。辞書は挿入順を保つため重複を除きながら順序が保たれる。
+
+古いバージョンなら `seen = set()` で追跡しながら `[x for x in lst if not (x in seen or seen.add(x))]` を使う。

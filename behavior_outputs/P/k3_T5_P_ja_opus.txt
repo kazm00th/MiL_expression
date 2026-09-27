@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs))　setは使わない。dictの挿入順はpy3.7以降の言語仕様で保証されるので∀py≥3.7で順序保持。要素はhashableであること。unhashableなら seen=[];[x for x in xs if not(x in seen or seen.append(x))]

@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs))　要素はhashableであること。unhashableなら seen=[];[x for x in xs if not(x in seen or seen.append(x))]
