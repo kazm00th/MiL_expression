@@ -20,7 +20,7 @@ LLM に圧縮した応答をさせる指示文「MiL」を、次の2つを満た
 | 衝突の指摘を最小にしたい | M_scoped / M2_fixed | 99 | L に `mode:` と `(NL_ok)` を追加。M2 は書式を揃えた版（読解テスト未実施） |
 | Opus だけが読む | D_NL | 77 | D_ascii_out の `EN`→`NL`。Sonnet・Haiku には伝わらない（D_ascii_out での結果） |
 | 日本語で書く | O_ja | 100 | 3モデルすべてに伝わった。行動テストでも指示が効く（results.md §8） |
-| 文字数を減らしたい | R1_ja | 未測定 | P_ja から `IF` 定義を削り言い回しを詰めた（79文字）。入出力の文字数で最少、P_ja より7%少ない（results.md §15） |
+| 文字数を減らしたい | R1_ja | 81 | P_ja から `IF` 定義を削り言い回しを詰めた（79文字）。入出力の文字数で最少、P_ja より7%少ない（results.md §15） |
 | （参考）元の MiL | original | 80 | Opus 専用。Sonnet は読めるが指示が効かず出力が約6倍、Haiku は解読できない（results.md §7） |
 
 L2_ifeq：
@@ -54,7 +54,7 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 1. ~~P_en・P_ja のトークン数を測る~~ → 測定済み。P_en が全体で最短（results.md §12）。
 2. ~~P_en をさらに短くする~~ → Q1_short・Q2_min を作って試験済み（results.md §13）。トークン数も測定済み。Q1_short を本命にした。Q2_min は入力込みでは最少だが、T4 で `@` を誤読するので非推奨。
    （旧メモ） 94トークン。`MiL mode:` の要否、`IF`・`@` の定義（入力側で使わないなら削れる）などを試す。Sonnet 向けに L2_ifeq の「コード1行で返す」傾向を取り込めるかも見る。
-3. ~~P_ja を Q1_short と同じ方針で短くする~~ → R1_ja・R2_ja を試験済み（results.md §15）。**トークン数を測る**：`count_tokens.py R1_ja R2_ja (Get-ChildItem behavior_outputs\R\*.txt)`。
+3. ~~P_ja を Q1_short と同じ方針で短くする~~ → R1_ja・R2_ja を試験済み（results.md §15）。トークン数も測定済み。文字数では R1_ja が最少、トークンでは Q1_short が最少のまま。
 4. **英文の指示をさらに短くする。** Haiku 向けの N_prose（104）を、出力の短さを保ったまま削れるか試す。
 4. **「文脈」を会話内に限る案。** Sonnet は T2 で、質問を返したあと答えを待たずにリポジトリを探し、推測でファイルを書き換えることがある（指示なしでも起きる）。`del(recoverable_from_this_conversation)` などで減るかを試す。
 5. **入力側で使う記号の定義。** T4 で `@` の定義が入力の読み取りに効いた。入力に `?problem` などを使うなら、その記号も指示文で定義する。
