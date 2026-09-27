@@ -1,0 +1,9 @@
+list(dict.fromkeys(lst))
+
+Dict preserves insertion order, dedups by key. Elements must be hashable.
+
+For unhashable elements, use a seen-list with manual check (O(n²)):
+result = []
+for x in lst:
+    if x not in result:
+        result.append(x)

@@ -1,0 +1,8 @@
+list(dict.fromkeys(lst))
+要素はハッシュ可能である必要がある。Python 3.7以降では、dictが挿入順を保つ。
+ハッシュ不可の場合:
+res = []
+for x in lst:
+    if x not in res:
+        res.append(x)
+これはO(n^2)。

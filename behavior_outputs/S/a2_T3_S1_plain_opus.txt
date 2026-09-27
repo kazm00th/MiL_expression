@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)) keeps the first occurrence of each item, in order (Python 3.7+). It only works if the items are hashable. If they aren't, use: seen=[]; [seen.append(x) or x for x in xs if x not in seen]. That version is O(n²).

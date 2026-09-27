@@ -1,0 +1,3 @@
+list(dict.fromkeys(lst))
+dictは挿入順を保持する(3.7以降)。要素はハッシュ可能である必要あり。
+ハッシュ不可(listなど)の場合: out=[]; [out.append(x) for x in lst if x not in out] ただしO(n^2)。

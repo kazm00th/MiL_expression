@@ -1,0 +1,5 @@
+Clarification: plain set(lst) must not be used for this — sets are unordered, so converting to a set and back loses original order.
+
+Correct approach for all Python >=3.7: list(dict.fromkeys(lst)). Dicts guarantee insertion-order preservation from 3.7 onward, so this dedups while keeping first-seen order, for hashable items.
+
+For unhashable items (no set/dict key possible): seen=[]; out=[x for x in lst if x not in seen and not seen.append(x)] — O(n²) but order-preserving without relying on hashing.

@@ -1,0 +1,1 @@
+dict.fromkeys(lst) preserves first-occurrence order (Python 3.7+); wrap in list(): list(dict.fromkeys(lst)). Needs hashable items. For unhashable items, use a seen-list with manual loop.

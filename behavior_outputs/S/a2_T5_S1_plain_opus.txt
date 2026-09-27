@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)) needs no set and keeps the order on Python 3.7+, because dicts keep insertion order. The items must be hashable. If they aren't, use seen=[]; [seen.append(x) or x for x in xs if x not in seen], which is O(n²) and also uses no set.

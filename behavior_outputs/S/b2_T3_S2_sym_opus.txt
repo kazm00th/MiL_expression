@@ -1,0 +1,2 @@
+list(dict.fromkeys(xs))
+Items must be hashable. If they aren't (lists, dicts), use a loop: seen=[]; [seen.append(x) for x in xs if x not in seen]. This is O(n^2).

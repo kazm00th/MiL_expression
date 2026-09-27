@@ -1,0 +1,7 @@
+list(dict.fromkeys(xs))
+要素はハッシュ可能である必要がある。Python 3.7以降は辞書が挿入順を保つので順序も保たれる。
+ハッシュ不可な要素（listなど）の場合:
+out=[]
+for x in xs:
+    if x not in out: out.append(x)
+（O(n^2)）

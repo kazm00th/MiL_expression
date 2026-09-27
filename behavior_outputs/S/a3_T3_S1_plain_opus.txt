@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)). Dicts keep insertion order in Python 3.7+. The items must be hashable.

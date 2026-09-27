@@ -1,0 +1,7 @@
+list(dict.fromkeys(lst))
+
+例:
+lst = [3,1,2,3,1]
+list(dict.fromkeys(lst)) # [3,1,2]
+
+Python3.7+で辞書の挿入順序が保証されるため動作。要素はhashable(list等unhashableは不可)である必要あり。

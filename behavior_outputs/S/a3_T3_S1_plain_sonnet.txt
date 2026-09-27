@@ -1,0 +1,1 @@
+dict.fromkeys(lst) preserves first-seen order since Python 3.7; wrap in list(): list(dict.fromkeys(lst)). For unhashable items, use a seen list/set with manual loop: seen=set(); out=[x for x in lst if not (x in seen or seen.add(x))].

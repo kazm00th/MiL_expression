@@ -1,0 +1,5 @@
+It already follows both: no set, and dict order is guaranteed in 3.7+.
+list(dict.fromkeys(xs))
+Items must be hashable. If they aren't:
+seen=[];out=[x for x in xs if not (x in seen or seen.append(x))]
+This version is O(n^2).

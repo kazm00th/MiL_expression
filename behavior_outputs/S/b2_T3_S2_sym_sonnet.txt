@@ -1,0 +1,3 @@
+list(dict.fromkeys(lst))
+
+dict preserves insertion order (3.7+), fromkeys dedups. For unhashable items use a seen-list with manual loop instead.

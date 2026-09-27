@@ -1,0 +1,1 @@
+Unchanged. list(dict.fromkeys(xs)) uses no set, and dicts keep insertion order in Python 3.7 and later. The fallback for unhashable items uses a list, not a set.

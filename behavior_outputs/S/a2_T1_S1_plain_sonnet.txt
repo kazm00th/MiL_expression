@@ -1,0 +1,6 @@
+dict.fromkeys(lst)をlist()で囲むのが定番: list(dict.fromkeys(lst))。Python3.7+はdictの挿入順が保証されるため順序が保たれる。要素はhashable限定。setは順序を保たないので不可。
+
+自前ループでも書ける:
+seen=set(); result=[x for x in lst if not (x in seen or seen.add(x))]
+
+hashableでない要素(リストなど)を含む場合はseenをlistにして`if x not in seen`で判定(O(n^2)だが型を問わない)。

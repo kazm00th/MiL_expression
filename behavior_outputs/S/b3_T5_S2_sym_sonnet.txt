@@ -1,0 +1,1 @@
+Addendum: dict.fromkeys(lst) order-preservation requires Python >=3.7 (dict insertion order guarantee). Not set(lst) — sets are unordered.

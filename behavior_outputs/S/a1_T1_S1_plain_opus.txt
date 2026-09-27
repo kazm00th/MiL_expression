@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs))。要素がハッシュ可能であること、Python 3.7以上（dictが挿入順を保つ）が条件。

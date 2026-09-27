@@ -1,0 +1,1 @@
+Confirmed: dict.fromkeys avoids set, valid for py>=3.7 (ordered dicts). No change needed.

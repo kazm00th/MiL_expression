@@ -1,0 +1,1 @@
+Confirmed: the given solution already satisfies this — list(dict.fromkeys(lst)) does not use set() (sets don't preserve order) and dict ordering is guaranteed for all Python ≥3.7, so it works correctly across that entire range.

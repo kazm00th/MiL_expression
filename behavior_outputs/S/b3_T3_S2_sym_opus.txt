@@ -1,0 +1,5 @@
+list(dict.fromkeys(xs))
+This works because dicts keep insertion order (Python 3.7+). Items must be hashable.
+If items are unhashable, like lists:
+seen=[];out=[x for x in xs if not (x in seen or seen.append(x))]
+This version is O(n^2).

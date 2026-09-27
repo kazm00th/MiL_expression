@@ -1,0 +1,6 @@
+list(dict.fromkeys(xs))
+Items must be hashable. Dicts keep insertion order in Python 3.7 and later.
+For unhashable items, use this, which is O(n^2):
+out=[]
+for x in xs:
+    if x not in out: out.append(x)

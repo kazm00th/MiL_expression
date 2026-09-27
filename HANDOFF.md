@@ -55,6 +55,7 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 2. ~~P_en をさらに短くする~~ → Q1_short・Q2_min を作って試験済み（results.md §13）。トークン数も測定済み。Q1_short を本命にした。Q2_min は入力込みでは最少だが、T4 で `@` を誤読するので非推奨。
    （旧メモ） 94トークン。`MiL mode:` の要否、`IF`・`@` の定義（入力側で使わないなら削れる）などを試す。Sonnet 向けに L2_ifeq の「コード1行で返す」傾向を取り込めるかも見る。
 3. ~~P_ja を Q1_short と同じ方針で短くする~~ → R1_ja・R2_ja を試験済み（results.md §15）。トークン数も測定済み。文字数では R1_ja が最少、トークンでは Q1_short が最少のまま。
+4. **Opus・Sonnet 向けの記号寄りの版 S1_plain・S2_sym のトークン数を測る**（results.md §16、試験済み）：`count_tokens.py S1_plain S2_sym (Get-ChildItem behavior_outputs\S\*.txt)`。文字数では P_en・Q1_short より返答が長かった。
 4. **記号の多い指示文が「明確さを強制」するかを確かめる。** 作者の @AM09_21 氏は「トークン削減には使えないが、明確さを強制できる」と述べている。実験案は [clarity_experiment.md](clarity_experiment.md)（未実施）。まず課題1つで小さく試す。
 4. **英文の指示をさらに短くする。** Haiku 向けの N_prose（104）を、出力の短さを保ったまま削れるか試す。
 4. **「文脈」を会話内に限る案。** Sonnet は T2 で、質問を返したあと答えを待たずにリポジトリを探し、推測でファイルを書き換えることがある（指示なしでも起きる）。`del(recoverable_from_this_conversation)` などで減るかを試す。
@@ -103,6 +104,6 @@ $env:ANTHROPIC_API_KEY = "ここにキー"; & "D:\Users\usor\miniconda3\envs\mye
 | background.md | 元の MiL の意味、圧縮手法の整理、S式、システムカードの「読めない推論」、記号の話 |
 | reading_test_prompt.md | 読解テストのプロンプトと判定の観点 |
 | behavior_test.md | 行動テストの設計（出力側と入力側の双方向） |
-| behavior_outputs/ | 行動テストの各返答。直下が初回、`rerun/` が追試3回、`original/` が元の MiL の4回、`O_ja/` が日本語版の4回、`P/` が P_en（`e1`〜`e3`）・P_ja（`k1`〜`k3`）の3回ずつ、`Q/` が Q1_short（`q1`〜`q3`）・Q2_min（`w1`〜`w3`）、`R/` が R1_ja（`r1`〜`r3`）・R2_ja（`s1`〜`s3`）の3回ずつ |
+| behavior_outputs/ | 行動テストの各返答。直下が初回、`rerun/` が追試3回、`original/` が元の MiL の4回、`O_ja/` が日本語版の4回、`P/` が P_en（`e1`〜`e3`）・P_ja（`k1`〜`k3`）の3回ずつ、`Q/` が Q1_short（`q1`〜`q3`）・Q2_min（`w1`〜`w3`）、`R/` が R1_ja（`r1`〜`r3`）・R2_ja（`s1`〜`s3`）の3回ずつ、`S/` が S1_plain（`a1`〜`a3`）・S2_sym（`b1`〜`b3`）の Opus・Sonnet 3回ずつ |
 | reading_outputs/ | 読解テストの返答（original の v2、O_ja、P_en、P_ja、Q1_short、Q2_min、R1_ja、R2_ja） |
 | count_tokens.py | トークン測定スクリプト（全候補を収録） |

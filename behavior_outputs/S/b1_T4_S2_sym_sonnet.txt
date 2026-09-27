@@ -1,0 +1,1 @@
+Which external reference does f point to? No file/content was provided, so I can't identify what to optimize.

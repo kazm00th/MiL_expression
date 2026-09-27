@@ -1,0 +1,6 @@
+list(dict.fromkeys(lst))
+
+Or manual:
+seen=set(); out=[x for x in lst if not (x in seen or seen.add(x))]
+
+First needs hashable items; dict.fromkeys preserves insertion order (Python 3.7+).
