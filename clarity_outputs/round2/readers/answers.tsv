@@ -1,0 +1,63 @@
+reader_file	writer	reader_model	score	wrong
+R00	memo	opus	10	
+R00	memo	sonnet	10	
+R01	d3_W_C_clarity_opus	opus	10	
+R01	d3_W_C_clarity_opus	sonnet	10	
+R02	d2_W_original_opus	opus	9	1:不明
+R02	d2_W_original_opus	sonnet	9	1:不明
+R03	d3_W_none_opus	opus	10	
+R03	d3_W_none_opus	sonnet	10	
+R04	d3_W_original_sonnet	opus	10	
+R04	d3_W_original_sonnet	sonnet	10	
+R05	d1_W_none_opus	opus	10	
+R05	d1_W_none_opus	sonnet	10	
+R06	d1_W_C_clarity_sonnet	opus	10	
+R06	d1_W_C_clarity_sonnet	sonnet	10	
+R07	d2_W_L2_ifeq_sonnet	opus	10	
+R07	d2_W_L2_ifeq_sonnet	sonnet	10	
+R08	d3_W_C_clarity_sonnet	opus	9	6:不明
+R08	d3_W_C_clarity_sonnet	sonnet	9	6:不明
+R09	d2_W_original_sonnet	opus	10	
+R09	d2_W_original_sonnet	sonnet	10	
+R10	d1_W_original_opus	opus	9	1:不明
+R10	d1_W_original_opus	sonnet	9	1:不明
+R11	d2_W_none_opus	opus	10	
+R11	d2_W_none_opus	sonnet	10	
+R12	d2_W_none_sonnet	opus	9	6:不明
+R12	d2_W_none_sonnet	sonnet	9	6:不明
+R13	d1_W_C_clarity_opus	opus	10	
+R13	d1_W_C_clarity_opus	sonnet	10	
+R14	d3_W_L2_ifeq_opus	opus	10	
+R14	d3_W_L2_ifeq_opus	sonnet	10	
+R15	d1_W_P_en_opus	opus	9	1:不明
+R15	d1_W_P_en_opus	sonnet	9	1:不明
+R16	d2_W_P_en_opus	opus	9	1:不明
+R16	d2_W_P_en_opus	sonnet	9	1:不明
+R17	d1_W_P_en_sonnet	opus	10	
+R17	d1_W_P_en_sonnet	sonnet	10	
+R18	d3_W_L2_ifeq_sonnet	opus	10	
+R18	d3_W_L2_ifeq_sonnet	sonnet	8	6:不明 7:不明
+R19	d1_W_original_sonnet	opus	10	
+R19	d1_W_original_sonnet	sonnet	10	
+R20	d3_W_P_en_sonnet	opus	10	
+R20	d3_W_P_en_sonnet	sonnet	10	
+R21	d2_W_C_clarity_sonnet	opus	9	7:不明
+R21	d2_W_C_clarity_sonnet	sonnet	9	7:不明
+R22	d2_W_L2_ifeq_opus	opus	10	
+R22	d2_W_L2_ifeq_opus	sonnet	10	
+R23	d3_W_none_sonnet	opus	10	
+R23	d3_W_none_sonnet	sonnet	9	7:不明
+R24	d3_W_P_en_opus	opus	10	
+R24	d3_W_P_en_opus	sonnet	10	
+R25	d1_W_L2_ifeq_opus	opus	10	
+R25	d1_W_L2_ifeq_opus	sonnet	10	
+R26	d1_W_L2_ifeq_sonnet	opus	10	
+R26	d1_W_L2_ifeq_sonnet	sonnet	10	
+R27	d2_W_C_clarity_opus	opus	9	7:不明
+R27	d2_W_C_clarity_opus	sonnet	10	
+R28	d2_W_P_en_sonnet	opus	9	5:不明
+R28	d2_W_P_en_sonnet	sonnet	10	
+R29	d1_W_none_sonnet	opus	9	6:600円
+R29	d1_W_none_sonnet	sonnet	9	6:600円
+R30	d3_W_original_opus	opus	10	
+R30	d3_W_original_opus	sonnet	10	
