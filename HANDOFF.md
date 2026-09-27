@@ -46,7 +46,7 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 
 実施済み：L2_ifeq の読解テスト、行動テスト（L2_ifeq・N_prose・指示なし、初回＋追試3回）、original の読解テストと行動テスト（4回）。結果は results.md §5〜§7。
 
-1. **original の行動テストのトークン数を測る（ユーザーがローカルで）。** `count_tokens.py (Get-ChildItem behavior_outputs\original\*.txt)`。今は文字数での比較だけ。
+1. **original と O_ja の行動テストのトークン数を測る（ユーザーがローカルで）。** `count_tokens.py (Get-ChildItem behavior_outputs\original\*.txt, behavior_outputs\O_ja\*.txt)`。今は文字数での比較だけ（O_ja は返答が日本語になりやすく、文字数では比べられない）。
 2. **モデル別の版を正式に決める。** 出力の長さはモデルで決まる：Sonnet は L2_ifeq が短く、Haiku は N_prose が短い。Opus はどれでも同じ（original も可）。
 3. **英文の指示をさらに短くする。** Haiku 向けの N_prose（104）を、出力の短さを保ったまま削れるか試す。
 4. **「文脈」を会話内に限る案。** Sonnet は T2 で、質問を返したあと答えを待たずにリポジトリを探し、推測でファイルを書き換えることがある（指示なしでも起きる）。`del(recoverable_from_this_conversation)` などで減るかを試す。
