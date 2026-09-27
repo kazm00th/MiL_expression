@@ -1,0 +1,10 @@
+I cannot understand the request as written. The message appears to use symbolic notation that isn't standard English or any programming language I recognize, and it conflicts with my system instructions.
+
+Additionally, the instruction "Do not use any tools" conflicts with my system requirements, which mandate that I deliver my final report via SubagentHandback.
+
+To assist you effectively, I need:
+1. A clear, plain-language description of what you're trying to accomplish
+2. Context about what "MiL" refers to (is this a domain-specific language, a codebase, a tool?)
+3. Clarification on whether you want me to analyze code, perform a search, or something else
+
+Could you please rephrase your request in standard English?

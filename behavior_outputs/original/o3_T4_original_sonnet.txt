@@ -1,0 +1,3 @@
+amb(f): f:=@, but @="ext" has no referent (no payload/source bound). ¬infer → qmin:
+
+f=? specify one of: {code snippet | text passage | logical expr | file/URL} to bind as @'s referent — then optimize(f) runs under R (sym>logic>abbr>alias>>>EN) + del(recoverable).

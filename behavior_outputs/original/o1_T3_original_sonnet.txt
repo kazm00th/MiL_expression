@@ -1,0 +1,6 @@
+list(dict.fromkeys(lst))
+
+dict insertion-order (py3.7+) + key-uniqueness ⇒ dedup∧keep_order in O(n). Needs hashable elems.
+
+unhashable (e.g. dicts/lists) → fallback:
+seen=[]; out=[x for x in lst if x not in seen and not seen.append(x)]  # O(n²)

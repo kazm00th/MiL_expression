@@ -1,0 +1,2 @@
+No set, works on every Python ≥3.7: `list(dict.fromkeys(xs))`
+Unhashable items: `[x for i,x in enumerate(xs) if x not in xs[:i]]` (O(n²))

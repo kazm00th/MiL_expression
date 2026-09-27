@@ -1,0 +1,7 @@
+list(dict.fromkeys(lst))
+
+∵ dict:insertion-order(py≥3.7) ∧ keys=unique ⇒ dedup∧order ∧ O(n)
+constraint: elems hashable
+
+else(unhashable): 
+seen=[]; [seen.append(x) or x for x in lst if x not in seen]  # O(n²)

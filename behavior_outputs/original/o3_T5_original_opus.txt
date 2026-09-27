@@ -1,0 +1,3 @@
+list(dict.fromkeys(xs))  # ¬set ✓; ∀py≥3.7: dict keeps insertion order → keep_order ✓; O(n); needs hashable
+
+IF unhashable: s=[]; for x in xs: if x not in s: s.append(x)  # O(n²)

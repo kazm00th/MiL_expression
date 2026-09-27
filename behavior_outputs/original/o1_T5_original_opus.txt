@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs))  # ¬set; dict order guaranteed ∀py≥3.7; req hashable

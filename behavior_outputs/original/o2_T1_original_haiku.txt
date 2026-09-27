@@ -1,0 +1,38 @@
+Pythonでリストの重複を順序を保ったまま除く方法をいくつか紹介します。
+
+**1. dict.fromkeys()を使う方法（推奨）**
+```python
+lst = [1, 2, 3, 2, 4, 1, 5]
+result = list(dict.fromkeys(lst))
+# [1, 2, 3, 4, 5]
+```
+Python 3.7以降、辞書は挿入順序を保持するため、この方法が最も簡潔で効率的です。
+
+**2. setを使う方法**
+```python
+lst = [1, 2, 3, 2, 4, 1, 5]
+seen = set()
+result = [x for x in lst if not (x in seen or seen.add(x))]
+# [1, 2, 3, 4, 5]
+```
+setに追加済みの要素をチェックしながら、新しい要素のみを保持します。
+
+**3. for-loopで明示的に処理する方法**
+```python
+lst = [1, 2, 3, 2, 4, 1, 5]
+seen = set()
+result = []
+for x in lst:
+    if x not in seen:
+        seen.add(x)
+        result.append(x)
+# [1, 2, 3, 4, 5]
+```
+最も読みやすく、わかりやすい方法です。
+
+**パフォーマンス比較:**
+- `dict.fromkeys()` - 最速で簡潔
+- setを使う方法 - 同等に高速
+- for-loop - わかりやすさ重視
+
+ほとんどの場合、**dict.fromkeys()** を使うのが最適です。

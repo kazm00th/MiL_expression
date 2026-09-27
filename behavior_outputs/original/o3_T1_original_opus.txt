@@ -1,0 +1,7 @@
+`list(dict.fromkeys(xs))`（Python 3.7以降。dictは挿入順を保持する。要素はhashableであること）
+
+要素がunhashableの場合:
+```python
+seen=[];r=[x for x in xs if x not in seen and not seen.append(x)]
+```
+計算量はO(n²)。

@@ -1,0 +1,10 @@
+`list(dict.fromkeys(xs))`
+dictの挿入順は3.7以降で保証。O(n)。要素はhashableであること。
+
+非hashable(list等)の場合:
+```python
+seen=[];r=[x for x in xs if not(x in seen or seen.append(x))]
+```
+O(n²)。hashableな代替キーがあるなら `seen=set()` を使い、キーを追加していけば O(n)。
+
+使わない: `list(set(xs))` は順序が保たれない。

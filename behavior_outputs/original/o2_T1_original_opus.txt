@@ -1,0 +1,6 @@
+`list(dict.fromkeys(xs))`  # py≥3.7: dictは挿入順を保持, O(n)
+
+要素がhashableでない場合（例: list）:
+```python
+seen=[];out=[x for x in xs if x not in seen and not seen.append(x)]  # O(n²)
+```

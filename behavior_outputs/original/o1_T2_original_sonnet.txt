@@ -1,0 +1,3 @@
+No function or code was included anywhere in this task — the message only contains a symbolic "reply protocol" spec and the Japanese request "make this function faster" (この関数を速くして), but no code snippet, file path, or reference to a specific function was attached or found in context. Per instruction, I did not run any tools (no filesystem search) to go hunting for it.
+
+There is nothing here to optimize. To proceed, the user needs to share the actual function (code snippet or a file path) they want sped up.

@@ -1,0 +1,42 @@
+Pythonでリストの重複を順序を保ったまま除く方法をお答えします。
+
+**最も簡潔な方法（Python 3.7以降）:**
+
+```python
+my_list = [1, 2, 2, 3, 1, 4, 3]
+result = list(dict.fromkeys(my_list))
+# 結果: [1, 2, 3, 4]
+```
+
+Python 3.7以降では`dict`が挿入順序を保持するため、`dict.fromkeys()`を使うのが最も効率的です。
+
+**その他の方法:**
+
+1. **ループとセットを使う方法:**
+```python
+seen = set()
+result = []
+for item in my_list:
+    if item not in seen:
+        seen.add(item)
+        result.append(item)
+```
+
+2. **リスト内包表記（ハッシュ不可の要素の場合）:**
+```python
+# タプルなどの場合
+my_list = [(1, 'a'), (2, 'b'), (1, 'a'), (3, 'c')]
+result = list(dict.fromkeys(my_list))
+```
+
+3. **Pandas を使う方法:**
+```python
+import pandas as pd
+result = pd.Series(my_list).drop_duplicates().tolist()
+```
+
+**推奨:**
+- 通常は `list(dict.fromkeys(my_list))` が最も読みやすく、高速です
+- ハッシュ不可な要素（リストなど）を含む場合は、ループ + セットの方法を使用してください
+
+SubagentHandback({message: "Pythonでリストの重複を順序を保ったまま除く方法について答えました。主な方法はdict.fromkeys()を使う方法で、Python 3.7以降であればこれが最も効率的かつ読みやすいです。"})

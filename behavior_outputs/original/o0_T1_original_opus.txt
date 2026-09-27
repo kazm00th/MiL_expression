@@ -1,0 +1,7 @@
+`list(dict.fromkeys(xs))` を使います。dict はキーの挿入順を保つ（3.7以降）ので、重複を除きつつ最初に出た順序が残ります。O(n)。
+
+要素がハッシュ不可（list など）の場合:
+```python
+seen=[];out=[x for x in xs if x not in seen and not seen.append(x)]
+```
+こちらは O(n²) です。

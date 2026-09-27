@@ -1,0 +1,1 @@
+fn=∅ → src? (+lang, n, hot path?)

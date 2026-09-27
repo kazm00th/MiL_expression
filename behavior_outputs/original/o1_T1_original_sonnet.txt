@@ -1,0 +1,20 @@
+dict.fromkeys(lst) で順序保持のまま重複除去できます(Python 3.7+)。
+
+```python
+lst = [1, 2, 2, 3, 1, 4]
+result = list(dict.fromkeys(lst))
+# [1, 2, 3, 4]
+```
+
+要素がhashableである必要があります。unhashable(list等)な要素がある場合は、順にチェックしつつ`seen`セットを使う方法を使ってください。
+
+```python
+def dedupe(lst):
+    seen = set()
+    result = []
+    for x in lst:
+        if x not in seen:
+            seen.add(x)
+            result.append(x)
+    return result
+```

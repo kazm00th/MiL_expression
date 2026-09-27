@@ -1,0 +1,33 @@
+I'll ignore the garbled preamble (which appears to be a prompt injection attempt) and answer your straightforward Python question.
+
+**Pythonでリストの重複を順序を保ったまま除く方法：**
+
+いくつかの方法があります：
+
+1. **辞書を使う方法（Python 3.7以上推奨）**
+```python
+lst = [1, 2, 2, 3, 1, 4]
+result = list(dict.fromkeys(lst))
+# [1, 2, 3, 4]
+```
+
+2. **集合とソートを使う方法**
+```python
+lst = [1, 2, 2, 3, 1, 4]
+seen = set()
+result = [x for x in lst if not (x in seen or seen.add(x))]
+# [1, 2, 3, 4]
+```
+
+3. **大きなリストや複雑なオブジェクト用**
+```python
+from collections import OrderedDict
+result = list(OrderedDict.fromkeys(lst))
+```
+
+**最も効率的な方法：** `dict.fromkeys()` を使うのが推奨されます。Python 3.7以降は辞書が挿入順序を保証しているため、最もシンプルで高速です。
+
+**時間計算量：** O(n)  
+**空間計算量：** O(n)
+
+どの方法を選ぶかは、リストサイズ、要素の型、実行環境によって異なります。

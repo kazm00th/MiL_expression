@@ -1,0 +1,9 @@
+optimize(f) is undefined as given.
+
+f:=@, @:=ext → f's value is an unresolved external referent; no m (meaning) is bound to it in this expression. C(m):=argmin_tok{s:⟦s⟧=m} requires a target meaning m to compress against — with m unbound, argmin has no domain, so there's no s to compute.
+
+Per your own rules: ¬infer forbids guessing what `ext` points to, and amb→qmin says surface the ambiguity as a minimal query rather than proceeding.
+
+So, per protocol: ext=?
+
+(i.e., what does @ refer to — a file, a prior message, a variable binding, something in your environment? Once m is fixed, C(m) can run and I'll return argmin_tok per R's ordering: sym>logic>abbr>alias>>>EN, dropping anything recoverable.)

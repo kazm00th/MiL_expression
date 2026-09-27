@@ -1,0 +1,3 @@
+✓ already compliant: list(dict.fromkeys(lst)) — no set; relies on dict order-preservation (guaranteed py≥3.7 spec, cpython since 3.6)
+
+fallback(unhashable, also ¬set): seen=[]; [seen.append(x) or x for x in lst if x not in seen]

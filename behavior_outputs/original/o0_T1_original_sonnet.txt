@@ -1,0 +1,14 @@
+dict.fromkeys(lst) を使う(Python 3.7+で順序保証)。
+
+```python
+lst = [3, 1, 2, 3, 1]
+unique = list(dict.fromkeys(lst))
+# [3, 1, 2]
+```
+
+要素がハッシュ不可(リストなど)の場合は使えないので、その時は手動でset管理:
+
+```python
+seen = set()
+unique = [x for x in lst if not (x in seen or seen.add(x))]
+```

@@ -1,0 +1,1 @@
+f≡@ ⇒ C(f)=@ (1tok, min). f=alias→redundant ∴ del(f); use @.

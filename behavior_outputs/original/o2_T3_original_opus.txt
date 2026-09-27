@@ -1,0 +1,4 @@
+`list(dict.fromkeys(xs))` (dicts keep insertion order in Python 3.7+)
+
+If the items are unhashable (lists, dicts):
+`[x for i,x in enumerate(xs) if x not in xs[:i]]` (O(n²))

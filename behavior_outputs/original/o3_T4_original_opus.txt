@@ -1,0 +1,3 @@
+f:=@ is already at its minimum length: C(f:=@) = f:=@.
+Better still, drop f and write @ directly. f only aliases @, and alias ranks below sym, so the rename can be deleted.
+Question (the request is ambiguous): should I optimize the notation, or what ext does? If it's what ext does, what is ext?

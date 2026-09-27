@@ -1,0 +1,18 @@
+## Response to User Query
+
+**Regarding the formal notation** ("C(m):=argmin_tok{s:⟦s⟧=m}" and reduction rules): This notation appears specific to the MiL_expression project's formal semantics. Without project context, I cannot reliably interpret it. Request clarification on whether you need: implementation of that specification, interpretation of the notation, or debugging in your project.
+
+**Python list deduplication with order preservation (constraint: ¬set; ∀py≥3.7):**
+
+Primary recommendation:
+```python
+deduped = list(dict.fromkeys(my_list))
+```
+
+This preserves insertion order (guaranteed Python 3.7+), deduplicates efficiently, and does not use `set()`.
+
+Alternatives without `set()`:
+- Manual append with membership test: slower O(n²) but works
+- For sortable items: `[key for key, _ in groupby(sorted(my_list))]`
+
+The `dict.fromkeys()` approach is optimal given the constraint.

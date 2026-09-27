@@ -1,0 +1,18 @@
+dict.fromkeys(lst) を使うのが最短。
+
+```python
+lst = [3, 1, 2, 3, 1, 4]
+result = list(dict.fromkeys(lst))
+# [3, 1, 2, 4]
+```
+
+- Python 3.7+ で dict のキー順序保持が保証されているため動作する
+- 要素はハッシュ可能である必要がある(リストや辞書は不可)
+- 内包表記で書くなら:
+
+```python
+seen = set()
+result = [x for x in lst if not (x in seen or seen.add(x))]
+```
+
+こちらは可読性は落ちるが、途中で件数をカウントしたいなど拡張したい場合に向く。単純に重複除去だけなら `dict.fromkeys` で十分。

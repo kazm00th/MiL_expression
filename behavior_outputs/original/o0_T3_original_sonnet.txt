@@ -1,0 +1,3 @@
+list(dict.fromkeys(lst))
+
+alt: seen=set(); [x for x in lst if not(x in seen or seen.add(x))]

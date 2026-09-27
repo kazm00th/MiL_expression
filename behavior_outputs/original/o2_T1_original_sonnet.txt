@@ -1,0 +1,29 @@
+Pythonでリストの重複を順序を保ったまま除く代表的な方法:
+
+1. dict.fromkeys を使う（Python 3.7+推奨、最も簡潔）
+```python
+lst = [3, 1, 2, 3, 2, 1]
+result = list(dict.fromkeys(lst))
+# [3, 1, 2]
+```
+
+2. 手動でset管理しながらループ
+```python
+seen = set()
+result = []
+for x in lst:
+    if x not in seen:
+        seen.add(x)
+        result.append(x)
+```
+
+3. ワンライナー（内包表記、やや非効率だがO(n^2)注意）
+```python
+result = []
+[result.append(x) for x in lst if x not in result]
+```
+
+補足:
+- 要素がハッシュ化可能（hashable）である必要がある（dict.fromkeys/set利用のため）。リストなど非hashableな要素にはこの方法は使えない。
+- 方法1が最も簡潔でPythonic。方法2は明示的で分かりやすく、大きいリストでも高速（O(n)）。
+- リストがすでにイテレータの場合は先にlist()で実体化するか、方法2をジェネレータ的に使う。

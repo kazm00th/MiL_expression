@@ -1,0 +1,2 @@
+OK: ¬set used. `list(dict.fromkeys(xs))` ∀py≥3.7 (dict insertion order guaranteed).
+IF unhashable: `s=[];[s.append(x) for x in xs if x not in s]`

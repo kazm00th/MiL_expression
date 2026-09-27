@@ -1,0 +1,1 @@
+C(f)=@ (already min: 1 tok); ⟦@⟧=?→¬opt
