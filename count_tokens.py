@@ -42,6 +42,9 @@ VERSIONS = {
     # --- 第2回: 装飾禁止・記号優先なし（results.md §10 の分析から） ---
     "P_en":        "MiL mode: answer in the fewest tokens that keep the same meaning. Write plain text: no headings, lists, tables, or decorative symbols. Omit anything recoverable from context. IF means condition; @ means external reference. If something is ambiguous, don't guess; ask one short question.",
     "P_ja":        "MiLモード：意味を変えずに最少トークンで答える。見出し・箇条書き・表・装飾記号は使わず平文で書く。文脈から復元できるものは省く。IFは条件、@は外部参照。曖昧なら推測せず、短い質問を1つする。",
+    # --- 第3回: P_en を短くする（IF の定義を削る／名前と記号の定義も削る） ---
+    "Q1_short":    "MiL mode: answer in the fewest tokens that keep the meaning. Plain text only: no headings, lists, tables, or decorative symbols. Omit what context makes clear. @ means external reference. If ambiguous, don't guess; ask one short question.",
+    "Q2_min":      "Answer in the fewest tokens that keep the meaning. Plain text only: no headings, lists, tables, or decoration. Omit what context makes clear. If ambiguous, ask one short question instead of guessing.",
 }
 
 
