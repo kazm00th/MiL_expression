@@ -1,0 +1,3 @@
+`list(dict.fromkeys(xs))`
+∵dict keeps insertion order (py≥3.7) ∧ keys unique
+IF unhashable elems → `seen=[];[x for x in xs if x not in seen and not seen.append(x)]` (O(n²))

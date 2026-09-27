@@ -1,0 +1,13 @@
+```python
+list(dict.fromkeys(lst))
+```
+
+最も簡潔。Python 3.7+で辞書の順序が保証される。
+
+別方法（hashableでない場合）:
+```python
+seen = set()
+[x for x in lst if not (x in seen or seen.add(x))]
+```
+
+`dict.fromkeys()` = dict キー（重複なし）→ リスト、順序保持。`O(n)` 高速。

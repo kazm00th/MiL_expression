@@ -1,0 +1,9 @@
+`list(dict.fromkeys(lst))` — dicts maintain insertion order (3.7+)
+
+Alt: set∧manual order track via loop/seen:
+```python
+seen = set()
+[x for x in lst if not(x in seen or seen.add(x))]
+```
+
+Fastest for large data: `dict.fromkeys()`

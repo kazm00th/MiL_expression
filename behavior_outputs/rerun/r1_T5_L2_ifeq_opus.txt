@@ -1,0 +1,3 @@
+✓ already ¬set ∧ py≥3.7-safe:
+`list(dict.fromkeys(xs))` ∵ dict keys unique ∧ insertion order guaranteed ∀py≥3.7
+IF elems unhashable → `seen=[];[x for x in xs if x not in seen and not seen.append(x)]` (O(n²), ¬set)

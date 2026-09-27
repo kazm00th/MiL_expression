@@ -1,0 +1,3 @@
+✓ already ¬set; ∀py≥3.7:
+`list(dict.fromkeys(xs))` (dict keeps insertion order; items hashable)
+IF ¬hashable: `seen=[];[seen.append(x) for x in xs if x not in seen]` O(n²)

@@ -1,0 +1,4 @@
+list(dict.fromkeys(lst))
+
+例: `list(dict.fromkeys([3,1,2,1,3]))` → `[3,1,2]`
+Python3.7+, dictの挿入順保持を利用。O(n)。

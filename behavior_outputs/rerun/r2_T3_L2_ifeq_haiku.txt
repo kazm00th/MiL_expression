@@ -1,0 +1,6 @@
+I need to parse your query first. You're asking: "How to deduplicate a Python list while keeping order?"
+
+Is your primary question about:
+1. **Best method** (simplest code)?
+2. **Performance comparison** (all approaches)?
+3. **Specific constraints** (hashable items, immutable sequences, etc.)?

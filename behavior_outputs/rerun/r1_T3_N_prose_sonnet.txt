@@ -1,0 +1,6 @@
+dict.fromkeys(lst) → list()
+
+py:
+res=list(dict.fromkeys(lst))
+
+O(n),ins-order preserved.

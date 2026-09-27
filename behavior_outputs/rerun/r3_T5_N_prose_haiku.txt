@@ -1,0 +1,5 @@
+Python list dedup w/ order preservation for py≥3.7:
+
+`list(dict.fromkeys(lst))`  or  `[*dict.fromkeys(lst)]`
+
+Mechanism: Dict keys are unique; insertion order guaranteed in 3.7+. Convert back to list for result. O(n) time, O(n) space. Avoids explicit set usage—dict-native dedup is superior & most readable.

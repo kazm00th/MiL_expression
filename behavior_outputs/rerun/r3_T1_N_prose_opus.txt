@@ -1,0 +1,12 @@
+```python
+list(dict.fromkeys(xs))
+```
+- 前提: 要素がハッシュ可能で、Python 3.7以降（dictが挿入順を保持）
+- 計算量: O(n)
+
+IF 要素がハッシュ不可（例: list）:
+```python
+seen = []
+[x for x in xs if not (x in seen or seen.append(x))]
+```
+- 計算量: O(n²)

@@ -1,0 +1,18 @@
+```python
+# Most concise (Python 3.7+):
+list(dict.fromkeys(lst))
+
+# Alternative (manual):
+seen = set()
+[x for x in lst if not (x in seen or seen.add(x))]
+
+# Generic (works w/ unhashable):
+seen = set()
+result = []
+for x in lst:
+    if x not in seen:
+        seen.add(x)
+        result.append(x)
+```
+
+**dict.fromkeys()** ← recommended (dicts preserve insertion order since 3.7)

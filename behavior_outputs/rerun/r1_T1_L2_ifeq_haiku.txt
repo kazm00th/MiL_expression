@@ -1,0 +1,19 @@
+**Pythonでリスト重複除去（順序保持）:**
+
+```python
+# 最速 (3.7+)
+list(dict.fromkeys(lst))
+
+# 汎用
+seen = set()
+[x for x in lst IF x not in seen && not seen.add(x)]
+```
+
+**方法比較:**
+| 方法 | 時間 | 空間 | 文字数 |
+|------|------|------|--------|
+| `dict.fromkeys()` | O(n) | O(n) | ◎最短 |
+| seen set | O(n) | O(n) | 長い |
+| ソート後重複除去 | O(n log n) | - | 遅い |
+
+**推奨:** `dict.fromkeys()` 最速・最短

@@ -1,0 +1,1 @@
+list(dict.fromkeys(lst))  # no set; relies on dict order, guaranteed py>=3.7

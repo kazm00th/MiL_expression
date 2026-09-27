@@ -1,0 +1,11 @@
+**Clarification on coordinator message: ¬set;∀py≥3.7**
+
+The recommended solution avoids set-based deduplication:
+
+```python
+list(dict.fromkeys(lst))  # No set dependency, O(n), all Python ≥3.7
+```
+
+This works universally across **all Python ≥3.7** without relying on set operations. Dict maintains insertion order natively.
+
+The alternative (list comprehension + set) should be disregarded—dict.fromkeys is the canonical approach for deduplicating while preserving order across all supported Python versions.

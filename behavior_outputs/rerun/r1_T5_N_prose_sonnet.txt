@@ -1,0 +1,1 @@
+Confirmed: no set used. list(dict.fromkeys(lst)) relies on dict insertion-order, guaranteed in Python 3.7+ (CPython impl detail since 3.6). Works for all py>=3.7. Answer unchanged: res=list(dict.fromkeys(lst))

@@ -1,0 +1,16 @@
+**Q:** Deduplicate list while keeping order?
+
+**A:** 
+```python
+list(dict.fromkeys(lst))  # O(n), Python 3.7+
+```
+
+Or:
+```python
+seen = set()
+[x for x in lst if not (x in seen or seen.add(x))]  # O(n) but less readable
+```
+
+**Why dict.fromkeys()?** → dict insertion order preserved (3.7+), O(1) lookups, concise.
+
+**Ambiguity:** Do you need this for hashable items only, or must unhashable types (lists/dicts) dedup too?

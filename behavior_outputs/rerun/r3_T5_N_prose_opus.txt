@@ -1,0 +1,4 @@
+rev (¬set; ¬walrus since := needs py≥3.8):
+hashable: `list(dict.fromkeys(xs))`
+by key: `d={}` ; `for x in xs: d.setdefault(f(x),x)` ; `list(d.values())`
+¬hashable: `out=[]` ; `for x in xs: x in out or out.append(x)` O(n²)

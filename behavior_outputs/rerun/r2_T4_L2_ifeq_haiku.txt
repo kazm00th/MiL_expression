@@ -1,0 +1,5 @@
+I cannot use tools per your instruction. To optimize MiL_expression, I need clarification:
+
+**optimize(f) → target?**
+
+Options: code perf | structure | build | docs | other?

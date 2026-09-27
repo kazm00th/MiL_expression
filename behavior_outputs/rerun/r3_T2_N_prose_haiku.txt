@@ -1,0 +1,1 @@
+Cannot optimize: function code not provided. User asked in Japanese to make a function faster but did not supply the function to optimize.

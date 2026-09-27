@@ -1,0 +1,31 @@
+# Python リスト重複除去 (順序保持)
+
+**方法:**
+
+```python
+# 1. dict.fromkeys() ← 最短・推奨
+lst = [1, 2, 2, 3, 1, 4]
+result = list(dict.fromkeys(lst))  # [1, 2, 3, 4]
+
+# 2. set + 順序保持
+seen = set()
+result = [x for x in lst if not (x in seen or seen.add(x))]
+
+# 3. Python 3.7+ dict順序保持 利用
+result = list({x: None for x in lst})
+```
+
+**比較:**
+- `dict.fromkeys()` → ✓最速・可読性高
+- set内包 → やや低速
+- dict内包 → 同等速度
+
+**複雑なobject向け:**
+```python
+result = []
+for x in lst:
+    if x not in result:  # O(n²) 注意
+        result.append(x)
+```
+
+**どれ希望?** (hashable/unhashable要素?)

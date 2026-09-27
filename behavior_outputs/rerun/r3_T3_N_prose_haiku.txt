@@ -1,0 +1,3 @@
+`list(dict.fromkeys(lst))`
+
+Dict keys dedupe; insertion-order preservation guaranteed Python 3.7+. Alternatively: `[*dict.fromkeys(lst)]` (same logic, unpacking syntax).

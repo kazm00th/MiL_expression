@@ -1,0 +1,26 @@
+**Hashable elements:**
+```python
+list(dict.fromkeys(lst))  # O(n), Python 3.7+
+```
+
+**Unhashable or manual:**
+```python
+seen = set()
+[x for x in lst if not (x in seen or seen.add(x))]  # O(n) via side-effect trick
+```
+
+**Generic (iterables):**
+```python
+from itertools import groupby
+[k for k, _ in groupby(sorted(enumerate(lst), key=lambda x: x[1]), key=lambda x: x[1])]
+```
+
+**Simplest universal:**
+```python
+result = []
+for x in lst:
+    if x not in result:
+        result.append(x)  # O(n²) but works everything
+```
+
+Recommendation: `dict.fromkeys()` if hashable; else manual loop.

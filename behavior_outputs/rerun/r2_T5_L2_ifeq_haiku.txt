@@ -1,0 +1,8 @@
+**Python list dedup + order (¬set; ∀py≥3.7):**
+
+`list(dict.fromkeys(lst))` — O(n), Python 3.7+, no set needed
+
+For non-hashable items:
+`[x for i,x in enumerate(lst) if lst.index(x)==i]` — O(n²)
+
+Rationale: dict insertion order guaranteed since 3.7; set-based dedup obsolete.

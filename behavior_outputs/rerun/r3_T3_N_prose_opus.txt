@@ -1,0 +1,3 @@
+hashable: `list(dict.fromkeys(xs))` (py≥3.7; dict keeps insertion order)
+¬hashable: `seen=[]; out=[x for x in xs if x not in seen and not seen.append(x)]` O(n²)
+by key: `seen=set(); out=[x for x in xs if (k:=f(x)) not in seen and not seen.add(k)]`

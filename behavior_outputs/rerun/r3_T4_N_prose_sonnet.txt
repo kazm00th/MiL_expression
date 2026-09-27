@@ -1,0 +1,1 @@
+f=@ is ambiguous — no referent given. What does @ point to?

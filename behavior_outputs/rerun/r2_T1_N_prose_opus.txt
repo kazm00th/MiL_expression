@@ -1,0 +1,6 @@
+```python
+list(dict.fromkeys(xs))
+```
+- dictはPy3.7+で挿入順を保持し、キーは一意 → O(n)
+- 要素がhashableであること。unhashable（list等）の場合 → `out=[];[out.append(x) for x in xs if x not in out]`（O(n²)）
+- 等価判定: `1 == 1.0 == True` → 最初に出た1つだけ残る

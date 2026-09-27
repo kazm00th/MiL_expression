@@ -1,0 +1,7 @@
+**Python list deduplication (preserve order) — Python ≥3.7:**
+
+```python
+list(dict.fromkeys(lst))
+```
+
+Dict insertion order guaranteed in 3.7+. Set-based alternatives unnecessary.

@@ -1,0 +1,2 @@
+`list(dict.fromkeys(xs))` (py≥3.7: dict keeps insertion order; items must be hashable)
+IF unhashable: `seen=[];[seen.append(x) for x in xs if x not in seen]` O(n²)

@@ -1,0 +1,11 @@
+```python
+list(dict.fromkeys(lst))  # O(n), 3.7+ (insert order preserved)
+```
+
+OR explicit:
+```python
+seen = set()
+[x for x in lst if not (x in seen or seen.add(x))]  # O(n), all versions
+```
+
+Which context (hashable items, Python version, performance critical)?

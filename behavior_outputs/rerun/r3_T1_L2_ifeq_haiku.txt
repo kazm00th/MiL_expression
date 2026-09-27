@@ -1,0 +1,14 @@
+```python
+# 最短 (Python 3.7+)
+list(dict.fromkeys(lst))
+
+# 別方法
+[x for x in lst if not (x in seen or seen.add(x))]  # seen = set()初期化必須
+
+# 古い版
+result = []
+for x in lst:
+    if x not in result: result.append(x)
+```
+
+**dict.fromkeys()** が最効率（O(n)、順序保持）

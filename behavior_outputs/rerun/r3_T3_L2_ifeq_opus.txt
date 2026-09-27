@@ -1,0 +1,6 @@
+`list(dict.fromkeys(xs))`
+∵ dict keeps insertion order (py≥3.7) and keys are unique, so later dups are dropped.
+Needs hashable elems. IF elems unhashable (e.g. lists or dicts):
+```py
+out=[];[out.append(x) for x in xs if x not in out]  # O(n²)
+```

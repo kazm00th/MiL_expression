@@ -1,0 +1,1 @@
+Unable to proceed. User requested function optimization ("この関数を速くして" - speed up this function) but no function code was provided. Cannot use tools per instructions. Need function source code to analyze and optimize.

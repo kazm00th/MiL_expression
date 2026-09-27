@@ -1,0 +1,8 @@
+`list(dict.fromkeys(xs))`
+∵ py≥3.7: dict keys keep insertion order; O(n)
+
+IF 要素がunhashable (list, dict など):
+```python
+seen=[]; r=[x for x in xs if x not in seen and not seen.append(x)]
+```
+O(n²)

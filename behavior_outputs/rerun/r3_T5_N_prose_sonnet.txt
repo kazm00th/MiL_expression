@@ -1,0 +1,1 @@
+list(dict.fromkeys(lst)) — no set used; relies on dict insertion-order guarantee (py≥3.7).

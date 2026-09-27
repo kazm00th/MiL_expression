@@ -1,0 +1,11 @@
+`list(dict.fromkeys(xs))`  // dict keeps insertion order (py≥3.7), O(n)
+
+IF items unhashable (e.g. lists or dicts):
+```py
+out=[]
+for x in xs:
+    if x not in out: out.append(x)
+```
+// O(n²)
+
+NOT `list(set(xs))`  // loses order

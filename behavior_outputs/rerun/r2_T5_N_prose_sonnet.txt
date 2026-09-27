@@ -1,0 +1,1 @@
+list dedup, order-preserved, py≥3.7: `list(dict.fromkeys(lst))`. Not set-based (set has no order); relies on dict preserving insertion order (guaranteed py3.7+). O(n).

@@ -1,0 +1,7 @@
+User requested Python list deduplication guidance with minimal token style. Provided direct answer with multiple approaches.
+
+Coordinator correction: For Python ≥3.7, exclude set() recommendation (loses order). 
+
+Final guidance: Use dict.fromkeys(lst) for Python 3.7+ — O(n), preserves insertion order, idiomatic. Alternative: list comprehension with seen set tracking. For unhashable types: double-loop approach (O(n²)).
+
+Task complete.

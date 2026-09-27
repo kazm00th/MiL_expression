@@ -1,0 +1,7 @@
+I need clarification: which function? No code provided in message. Please share:
+- File path @ project root or
+- Code snippet
+
+Then I can optimize.
+
+(Or IF you want me to search the codebase for a specific function → provide function name/context)

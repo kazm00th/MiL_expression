@@ -1,0 +1,9 @@
+`list(dict.fromkeys(xs))`  // O(n)
+
+IF unhashable:
+```py
+out=[]
+for x in xs:
+    if x not in out: out.append(x)
+```
+// O(n²)

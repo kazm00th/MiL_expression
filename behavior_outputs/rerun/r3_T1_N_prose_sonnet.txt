@@ -1,0 +1,5 @@
+dict.fromkeys(lst) → list
+
+例: list(dict.fromkeys(lst))
+IF 要素hashable。順序=初出順、O(n)。
+alt: set()は順序不保持→不可。

@@ -1,0 +1,5 @@
+Need function code. Provide:
+- Lang?
+- Code to optimize?
+
+Or paste the function.

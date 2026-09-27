@@ -1,0 +1,16 @@
+## Python List Deduplication (Keep Order)
+
+**Primary method (all Python ≥3.7):**
+```python
+list(dict.fromkeys(lst))  # O(n)
+```
+
+**Fallback (unhashable elements):**
+```python
+result = []
+for x in lst:
+    if x not in result:
+        result.append(x)  # O(n²)
+```
+
+`dict.fromkeys()` is the standard approach for all Python ≥3.7 versions — it preserves insertion order and is optimal for hashable elements. Use the manual loop only when elements cannot be hashed.
