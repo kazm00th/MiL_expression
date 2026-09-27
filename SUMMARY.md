@@ -148,6 +148,7 @@ T1〜T5 × 3回の合計（1モデルあたり15返答）。
 - **モデルが決まっているなら**：Opus は O_ja、Sonnet は L2_ifeq、Haiku は N_prose がいちばん短い。
 - **original は全体で N_prose の約2.6倍。** Opus 以外には向かない。
 - 詳細は results.md §9。
+- **差の原因**（results.md §10）：original では Sonnet・Haiku が指示を使えず、解読できない旨の説明や普通の丁寧な説明を書いた。Haiku は L2_ifeq・O_ja を読むと見出しや箇条書きを付けて長くなる。Opus は L2_ifeq で `∵`・`∧` などトークンのかさむ記号を多用する。「記号を優先せよ」は短縮につながっていない。
 
 ### 5.2 入力側（MiL 風の入力を読めるか）
 
