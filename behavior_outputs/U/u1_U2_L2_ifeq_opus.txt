@@ -1,0 +1,28 @@
+前提: 30人, Web, 1台
+結論: 現状→SQLite(WAL)で足りる。下の条件に1つでも当たる→PG
+
+観点:
+1. 同時書込
+ - SQLite: 書込は1本ずつ(直列)。打刻が始業時刻に集中しても1件数ms、WAL+busy_timeout設定→30人ならほぼ問題なし
+ - IF 書込の長いtxや一括処理がある → PG
+2. 構成・拡張
+ - app+DBが同一host → SQLite可
+ - IF app複数台/DB別host/コンテナを再作成する前提 → PG
+ - SQLiteファイルをNFS等のネットワーク共有に置く → ✗
+3. 運用負荷
+ - SQLite: ファイル1個。backup = `.backup` or litestream。保守ほぼ不要
+ - PG: プロセス管理, version up, 認証, vacuum, 監視 → 担当者のスキルが必要
+4. 可用性・復旧
+ - IF PITR(任意時点への復旧)/replica/厳しいRPOが必要 → PG
+ - 日次backupで足りる → SQLite
+5. 他システム連携
+ - IF 給与/BI/他toolからDBを直接参照・複数app共有 → PG
+6. データ整合・監査
+ - SQLite: 型が緩い(STRICT tableで緩和可)
+ - IF 厳格な制約/権限分離/監査log(労基法上の記録保存) → PGが有利
+7. 移行コスト
+ - ORM経由+SQLite固有の機能を使わない → 後からPGへ移行するのは容易 → 「まずSQLite」はリスク低
+
+判断:
+ - 2,4,5,6のどれにも当たらない → SQLite
+ - どれかに当たる/近い将来当たる → 最初からPG
