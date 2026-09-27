@@ -394,3 +394,96 @@ Opus は original・L2_ifeq・P_en で 500〜700字、none・C_clarity で 2400�
 2. Haiku の書き手で読み手の点を下げたのは、記号ではなく本文の誤り・書き漏れ（600円、ゴールドの上限）と、決めずに残した確認点だった。
 3. 条件の差は Opus・Sonnet の書き手のときより大きい（79〜88/90）が、差を作ったのは C_clarity の1回の誤りで、指示文の記号の有無とは結びついていない。
 
+## 16. 3回目：送る文をすべて MiL にした場合と自然言語の場合（Opus と Sonnet）
+
+状態：実施中。2026-09-27 作成。
+
+書き手に送る文（注意書き・指示文・依頼文・メモ）をすべて MiL にした場合と、すべて自然言語にした場合で、返答の明確さを比べる。§15 までの課題をそのまま MiL に置き換えると比較が崩れるので、次のように組む。
+
+| 比較を崩す要因 | 対策 |
+|---|---|
+| メモを MiL に訳すとき、訳す人が曖昧な点を解いてしまう | 曖昧な点を残した MiL 版と英語版のメモを作り、本番の前に確かめる（下の「事前の確認」） |
+| 言語の違い（MiL は英語寄り） | 英語の自然言語の条件を置き、「MiL か英語か」と「英語か日本語か」を分ける |
+| 宛先が人（レジ担当者）だと MiL で書くのを避ける | 宛先を「会計を処理する別のエージェント」にする |
+| 読み手が MiL を読めるかが混ざる | 読み手の問いは全条件で §12 の10問（日本語）に固定する |
+| 天井効果（元のメモで読み手が満点） | 読み手の正答に加えて、書き手の返答を判定役に読ませ、曖昧な点を「本文で決めたか」「確認点に挙げたか」と本文の誤りを数える |
+| Haiku は元の MiL を解読できない | Opus と Sonnet だけで行う。指示文の MiL は L2_ifeq |
+
+### 条件（書き手、各 Opus・Sonnet × 3回 = 36体）
+
+| 条件 | 指示文 | 注意書き・依頼文・メモ |
+|---|---|---|
+| MM（すべて MiL） | L2_ifeq | MiL |
+| ME | L2_ifeq | 英語 |
+| EM | P_en | MiL |
+| EE（すべて英語） | P_en | 英語 |
+| EJ | P_en | 日本語 |
+| NJ | なし | 日本語 |
+
+送る文の形は §12 と同じ（注意書き、空行、`rply` ＋指示文、依頼文、空行、メモ）。§12 までは注意書きを英語（`Do not use any tools. Reply directly.`）に固定していたが、今回は本文と同じ形式にそろえる。NJ は `rply` の行を付けない。
+
+注意書き：
+
+```
+MiL：¬tools;reply directly
+英語：Do not use any tools. Reply directly.
+日本語：ツールを使わず、直接返答して。
+```
+
+依頼文：
+
+```
+MiL：task:=memo→discount_rules;reader:=checkout_agent;IF questions→write all rules anyway,questions at end
+英語：Turn the following store manager's memo into discount rules for another agent that processes checkouts. Even if you have questions, write all the rules first and put the questions at the end.
+日本語：次の店長メモを、会計を処理する別のエージェントが読む割引ルールにまとめて。確認したい点があっても、ルールはすべて書いたうえで末尾に書いて。
+```
+
+MiL のメモ（日本語のメモは §12 と同じ）：
+
+```
+memo(store_mgr):=winter_campaign;
+period:=2026/12/1~2027/2/28;¬period→member_disc only;
+member_disc:=gold 10%,silver 5%,general none;
+period∧regular_total≥¥10k→+5%,≥¥20k→+8%,¬(5%∧8%);sale∉total;judge:=pre_discount amount;
+period∧birth_month∧≥silver→+3%;
+%disc total≤15%;gold∧birth_month→≤18%;
+sale→¬%disc;
+coupon_¥500:¬with %disc→use better;usable in+out of period;usable on sale(−¥500 from regular+sale total);1/checkout;
+shipping:delivery only;regular_total after %disc≥¥5k→free,else ¥600;gold→always free;
+period→points:=1%×paid(excl shipping);coupon used→no points;
+amounts:tax_excl;<¥1→round down
+```
+
+英語のメモ：
+
+```
+Winter campaign (store manager's memo)
+- Period: 2026/12/1 to 2027/2/28. Outside the period, only the member discount applies.
+- Member discount: Gold 10%, Silver 5%, General none.
+- During the period, if the total of regular items is 10,000 yen or more, an additional 5%; if 20,000 yen or more, an additional 8% (5% and 8% do not stack). Sale items are not counted in the total. Judge by the amount before discounts.
+- During the period, Silver and above get an additional 3% in their birth month.
+- % discounts are capped at 15% in total, but at 18% for Gold in their birth month.
+- % discounts cannot be used on sale items.
+- The 500-yen coupon cannot be used together with % discounts; apply whichever is the better deal. The coupon can also be used outside the period and on sale items (it is subtracted from the total of regular and sale items). One per checkout.
+- Shipping is charged only for delivery. Free if the total of regular items after % discounts is 5,000 yen or more; otherwise 600 yen. Gold always gets free shipping.
+- During the period, give points worth 1% of the amount paid (excluding shipping). Checkouts that use a coupon get no points.
+- All amounts are before tax. Round down fractions of a yen.
+```
+
+注意書き＋依頼文＋メモのトークン数は、`count_tokens.py` の `body_C3_mil`・`body_C3_en`・`body_C3_ja` で測る。
+
+### 事前の確認（本番の前）
+
+1. **情報がそろっているか。** MiL と英語のメモを、読み手（Opus・Sonnet）に直接読ませて §12 の10問に答えさせる。日本語のメモ（§13 の R00、両モデルとも10/10）と同じ答えになるかを見る。
+2. **曖昧さが残っているか。** 3つのメモを Opus・Sonnet に各2回読ませ、「このメモだけでは決まらないこと」を挙げさせる。MiL 版で消えた論点がないかを手で比べる。
+
+### 測るもの
+
+- 読み手の正答（Opus・Sonnet が各返答を読む。72体）と、外れのうち「不明」の数
+- 判定役（Opus、条件を伏せて返答を1つずつ読む。36体）の判定：
+  - 答えに関わる3つの論点（A：%割引は足し算か、B：一般客にも購入額の+5%・+8%が付くか、C：期間外の送料）を、本文で決めたか・確認点に挙げたか
+  - 確認点の数
+  - 本文の誤り（メモと食い違うルール）
+- 返答の文字数と書き方（MiL の記法か、英語か、日本語か）。トークン数はユーザーが測る
+- 返答は `clarity_outputs/round3/`
+
