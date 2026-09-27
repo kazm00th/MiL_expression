@@ -1,0 +1,1 @@
+`list(dict.fromkeys(lst))` preserves insertion order in Python 3.7+. For unhashable items, iterate with a set to track seen values.

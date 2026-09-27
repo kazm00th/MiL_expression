@@ -1,0 +1,5 @@
+dict.fromkeys preserves insertion order (Python 3.7+): `list(dict.fromkeys(my_list))`
+
+Alternatively, track seen items with a set loop if you need earlier Python versions or hashability isn't guaranteed.
+
+For unhashable items, use a manual loop comparing against the result list, though that's O(n²).

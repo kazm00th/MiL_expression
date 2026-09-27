@@ -1,0 +1,1 @@
+In Maple, f:=@ is a syntax error because @ (composition) needs operands, so there is nothing to optimize. What should f be?

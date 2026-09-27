@@ -1,0 +1,14 @@
+In Python 3.7+, the simplest way is `list(dict.fromkeys(original_list))` — this removes duplicates while preserving insertion order since dicts maintain order.
+
+For older Python or if you need more control, use a loop with a set:
+
+```python
+seen = set()
+result = []
+for item in original_list:
+    if item not in seen:
+        seen.add(item)
+        result.append(item)
+```
+
+For unhashable items (like nested lists), use a loop without a set and check `if item not in result`.

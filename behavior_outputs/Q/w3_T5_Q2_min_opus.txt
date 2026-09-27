@@ -1,0 +1,1 @@
+No set needed: list(dict.fromkeys(xs)) works on every Python 3.7+ because dicts keep insertion order. Items must be hashable.

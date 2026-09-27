@@ -1,0 +1,1 @@
+For Python ≥3.7, use list(dict.fromkeys(lst)) to deduplicate while preserving order. Dict insertion order is guaranteed in Python 3.7+, making this the cleanest solution without relying on set-based workarounds.

@@ -1,0 +1,7 @@
+dict.fromkeys(lst) を使う。
+
+```python
+list(dict.fromkeys(lst))
+```
+
+Python 3.7+ で dict の挿入順序が保証されるため、これで順序を保ったまま重複除去できる。要素はハッシュ可能である必要がある。

@@ -1,0 +1,1 @@
+Ambiguous: what is f (expression/function/code) and what does "optimize" mean here (performance, math simplification, code)?

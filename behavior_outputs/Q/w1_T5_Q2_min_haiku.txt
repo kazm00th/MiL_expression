@@ -1,0 +1,1 @@
+To deduplicate a Python list while keeping order: use `list(dict.fromkeys(my_list))`. This is the standard approach for Python 3.7+, where dict insertion order is guaranteed. Coordinator clarified to avoid set-based alternatives and rely on the dict.fromkeys() method as the primary solution for Python 3.7 and later versions.

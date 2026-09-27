@@ -51,7 +51,8 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 
 1. ~~original と O_ja の行動テストのトークン数を測る~~ → 測定済み（results.md §9）。
 1. ~~P_en・P_ja のトークン数を測る~~ → 測定済み。P_en が全体で最短（results.md §12）。
-2. **P_en をさらに短くする。** 94トークン。`MiL mode:` の要否、`IF`・`@` の定義（入力側で使わないなら削れる）などを試す。Sonnet 向けに L2_ifeq の「コード1行で返す」傾向を取り込めるかも見る。
+2. ~~P_en をさらに短くする~~ → Q1_short・Q2_min を作って試験済み（results.md §13）。**トークン数を測る**：`count_tokens.py Q1_short Q2_min (Get-ChildItem behavior_outputs\Q\*.txt)`。Q1_short が有望、Q2_min は削りすぎ。
+   （旧メモ） 94トークン。`MiL mode:` の要否、`IF`・`@` の定義（入力側で使わないなら削れる）などを試す。Sonnet 向けに L2_ifeq の「コード1行で返す」傾向を取り込めるかも見る。
 3. **英文の指示をさらに短くする。** Haiku 向けの N_prose（104）を、出力の短さを保ったまま削れるか試す。
 4. **「文脈」を会話内に限る案。** Sonnet は T2 で、質問を返したあと答えを待たずにリポジトリを探し、推測でファイルを書き換えることがある（指示なしでも起きる）。`del(recoverable_from_this_conversation)` などで減るかを試す。
 5. **入力側で使う記号の定義。** T4 で `@` の定義が入力の読み取りに効いた。入力に `?problem` などを使うなら、その記号も指示文で定義する。
@@ -97,6 +98,6 @@ $env:ANTHROPIC_API_KEY = "ここにキー"; & "D:\Users\usor\miniconda3\envs\mye
 | background.md | 元の MiL の意味、圧縮手法の整理、S式、システムカードの「読めない推論」、記号の話 |
 | reading_test_prompt.md | 読解テストのプロンプトと判定の観点 |
 | behavior_test.md | 行動テストの設計（出力側と入力側の双方向） |
-| behavior_outputs/ | 行動テストの各返答。直下が初回、`rerun/` が追試3回、`original/` が元の MiL の4回、`O_ja/` が日本語版の4回、`P/` が P_en（`e1`〜`e3`）・P_ja（`k1`〜`k3`）の3回ずつ |
-| reading_outputs/ | 読解テストの返答（original の v2、O_ja、P_en、P_ja） |
+| behavior_outputs/ | 行動テストの各返答。直下が初回、`rerun/` が追試3回、`original/` が元の MiL の4回、`O_ja/` が日本語版の4回、`P/` が P_en（`e1`〜`e3`）・P_ja（`k1`〜`k3`）の3回ずつ、`Q/` が Q1_short（`q1`〜`q3`）・Q2_min（`w1`〜`w3`）の3回ずつ |
+| reading_outputs/ | 読解テストの返答（original の v2、O_ja、P_en、P_ja、Q1_short、Q2_min） |
 | count_tokens.py | トークン測定スクリプト（全候補を収録） |

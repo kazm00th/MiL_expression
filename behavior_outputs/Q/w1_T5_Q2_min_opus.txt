@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)) meets both conditions: it doesn't use set, and dicts keep insertion order in every Python version from 3.7 on. It keeps the first occurrence of each item. Items must be hashable.

@@ -1,0 +1,15 @@
+dict.fromkeys()を使うのが最も簡潔です。
+
+```python
+result = list(dict.fromkeys(my_list))
+```
+
+Python 3.7以降ならこれで順序を保ったまま重複を除去できます。
+
+別の方法：seenというセットを使ってリスト内包表記で処理
+```python
+seen = set()
+result = [x for x in my_list if not (x in seen or seen.add(x))]
+```
+
+どちらの方法が必要ですか？

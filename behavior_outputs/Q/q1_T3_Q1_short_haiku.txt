@@ -1,0 +1,5 @@
+`dict.fromkeys(lst)` (Py 3.7+) or iterate w/ seen set: `[x for x in lst if not (x in seen or seen.add(x))]`.
+
+For unhashable items, track seen w/ list + index or use pandas `drop_duplicates(keep='first')`.
+
+Fastest w/ hashable: `dict.fromkeys()`. For readable code: `list(dict.fromkeys(lst))`.

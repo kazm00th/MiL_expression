@@ -1,0 +1,3 @@
+dict.fromkeys(リスト) を使う（Python 3.7+）。
+
+例: list(dict.fromkeys(lst))

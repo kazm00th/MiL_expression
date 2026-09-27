@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)) — keeps first occurrence order (dicts are ordered in 3.7+). Items must be hashable; if not, loop with a seen list.

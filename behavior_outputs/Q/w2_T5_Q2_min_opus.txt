@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)) already fits: it doesn't use set, and dicts keep insertion order on all of 3.7+. For unhashable items: out=[]; [out.append(x) for x in xs if x not in out]. That's O(n²).

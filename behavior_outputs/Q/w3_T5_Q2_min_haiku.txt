@@ -1,0 +1,15 @@
+Python list deduplication while preserving order:
+
+For Python 3.7+: list(dict.fromkeys(my_list)) — cleanest approach since dicts maintain insertion order.
+
+For all Python versions: Use a set to track seen values with manual loop:
+  seen = set()
+  result = []
+  for x in my_list:
+      if x not in seen:
+          seen.add(x)
+          result.append(x)
+
+For unhashable items: Use list tracking [x for x in my_list if x not in result and result.append(x) is None] but this is O(n²), so a custom hashable wrapper or data restructuring is preferable.
+
+The coordinator's note about version constraints has been addressed — solutions provided for both pre-3.7 and 3.7+ Python.

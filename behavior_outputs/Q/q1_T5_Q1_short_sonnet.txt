@@ -1,0 +1,1 @@
+list(dict.fromkeys(lst)) — dedups, keeps order, no set, works py3.7+

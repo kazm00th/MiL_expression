@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)). Items must be hashable, and it works on Python 3.7+.

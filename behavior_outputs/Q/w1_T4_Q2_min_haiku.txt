@@ -1,0 +1,1 @@
+What does `@` refer to, and what kind of optimization are you asking for—performance, readability, token count, or something else?

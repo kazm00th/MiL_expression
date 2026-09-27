@@ -1,0 +1,9 @@
+`list(dict.fromkeys(my_list))` が最も簡潔で効率的です。Python 3.7 以降、dict は挿入順序を保つため、重複キーを除外しながら順序を維持します。
+
+別方法として、set で見た要素を追跡する方法もあります：
+```python
+seen = set()
+result = [x for x in my_list if not (x in seen or seen.add(x))]
+```
+
+dict.fromkeys() の方がシンプルで読みやすいため推奨されます。

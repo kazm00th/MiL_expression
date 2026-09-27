@@ -1,0 +1,3 @@
+dict.fromkeys(lst) を使う（Python 3.7+で順序保持）:
+
+list(dict.fromkeys(lst))

@@ -1,0 +1,5 @@
+dict.fromkeys(lst) を使う。
+
+例: list(dict.fromkeys(lst))
+
+Python 3.7以降、dictは挿入順を保持するため、重複を除きつつ元の順序が保たれる。

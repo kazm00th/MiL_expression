@@ -1,0 +1,1 @@
+Which language is this, and what does @ stand for? In Maple, for example, f:=@ is a syntax error because @ is the composition operator and needs operands.

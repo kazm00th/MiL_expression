@@ -1,0 +1,10 @@
+Use `list(dict.fromkeys(my_list))`. Dicts preserve insertion order in Python 3.7+, so this deduplicates while maintaining order.
+
+Alternative if you need a set: create an empty set, iterate through the list, and append items not yet seen:
+
+```python
+seen = set()
+result = [x for x in my_list if not (x in seen or seen.add(x))]
+```
+
+The dict approach is faster and cleaner for most cases.

@@ -1,0 +1,3 @@
+dict.fromkeys(lst) → list(...)
+
+Or: seen=set(); [x for x in lst if not (x in seen or seen.add(x))]

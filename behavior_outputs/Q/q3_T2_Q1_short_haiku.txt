@@ -1,0 +1,3 @@
+どの関数ですか?コードまたはファイルパスを教えてください。
+
+(Which function? Please provide the code or file path.)

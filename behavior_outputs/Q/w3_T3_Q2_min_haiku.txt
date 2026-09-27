@@ -1,0 +1,1 @@
+Use dict.fromkeys(my_list) then convert back: list(dict.fromkeys(my_list)). Dicts preserve insertion order since Python 3.7, so keys are unique with original order intact. Alternative for unhashable items: use a set to track seen values with a list comprehension loop.

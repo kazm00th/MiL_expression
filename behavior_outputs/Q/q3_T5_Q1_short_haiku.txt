@@ -1,0 +1,5 @@
+Python list deduplication preserving order (Python 3.7+, without explicit set):
+
+Recommended: `list(dict.fromkeys(lst))` — uses dict insertion ordering, efficient O(n).
+
+Alternative: `[x for i, x in enumerate(lst) if lst.index(x) == i]` — uses only list methods, O(n²) but avoids set/dict.

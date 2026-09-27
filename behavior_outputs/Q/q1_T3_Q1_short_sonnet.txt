@@ -1,0 +1,1 @@
+dict.fromkeys(lst)→list, or {}.fromkeys(lst).keys()

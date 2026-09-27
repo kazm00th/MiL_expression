@@ -1,0 +1,29 @@
+Pythonで重複を順序を保ったまま除く最も簡潔な方法は、Python 3.7以降で`dict.fromkeys()`を使うことです。
+
+```python
+lst = [1, 2, 2, 3, 1, 4]
+result = list(dict.fromkeys(lst))
+# [1, 2, 3, 4]
+```
+
+辞書は挿入順序を保つため、このメソッドで重複が削除されながら元の順序が維持されます。
+
+別の方法としてセットとループも使えます。
+
+```python
+seen = set()
+result = [x for x in lst if not (x in seen or seen.add(x))]
+```
+
+またはシンプルなループ：
+
+```python
+seen = set()
+result = []
+for x in lst:
+    if x not in seen:
+        result.append(x)
+        seen.add(x)
+```
+
+`dict.fromkeys()`が最も読みやすく、実行速度も速いです。

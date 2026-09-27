@@ -1,0 +1,3 @@
+list(dict.fromkeys(lst))
+
+(order-preserving since py3.7 dicts; dropped the set-based variant per note)

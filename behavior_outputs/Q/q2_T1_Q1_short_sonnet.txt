@@ -1,0 +1,6 @@
+dict.fromkeys(lst) を使う。
+
+例:
+list(dict.fromkeys(lst))
+
+Python3.7+で辞書の順序が保証されるため、これが最も簡潔。setだと順序が保たれない。

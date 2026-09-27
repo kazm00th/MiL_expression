@@ -1,0 +1,5 @@
+dict.fromkeys(list) が最も簡単。Python 3.7以上で辞書が挿入順を保つため、重複を除きながら順序を保ちます。
+
+別法は seen = set() で追跡しながらループ処理するか、itertools.groupby を使う方法もあります。
+
+dict.fromkeys() が推奨される一般的解法です。

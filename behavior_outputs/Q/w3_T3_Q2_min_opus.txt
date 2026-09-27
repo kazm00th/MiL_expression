@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)). Elements must be hashable, and dicts keep insertion order from Python 3.7 on. For unhashable items, loop over the list with a seen collection and keep each item the first time it appears.

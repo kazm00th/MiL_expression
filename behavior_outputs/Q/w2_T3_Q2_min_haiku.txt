@@ -1,0 +1,1 @@
+`list(dict.fromkeys(lst))` deduplicates while keeping insertion order (works in Python 3.7+). Alternatively, use `seen = set()` in a loop: `[x for x in lst if not (x in seen or seen.add(x))]` for hashable items, or iterate with manual tracking for unhashable types.

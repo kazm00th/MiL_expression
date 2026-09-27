@@ -1,0 +1,1 @@
+For Python 3.7+, `list(dict.fromkeys(lst))` deduplicates while keeping insertion order without needing sets. For older Python versions, use a loop with manual set tracking.

@@ -1,0 +1,1 @@
+No change needed. list(dict.fromkeys(xs)) uses no set and works on Python 3.7 and later, because dicts keep insertion order. If the items aren't hashable, loop and append each x to out when x not in out, which is O(n²).

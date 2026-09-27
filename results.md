@@ -493,3 +493,50 @@ original と O_ja の返答をユーザーがローカルで測定した（生�
 5. **P_ja はトークンでは P_en に負ける。** 日本語の返答は1文字あたりのトークンが多い。それでも O_ja より出力は12%少ない（Sonnet を除き短くなった）。
 
 結論：**全モデル共通の本命を P_en に替える。** 指示文は N_prose より10トークン短く、出力は全版で最短。Sonnet だけを使うなら L2_ifeq がわずかに短い。文字数を減らしたいなら P_ja（入出力の文字数で最少）。
+
+## 13. P_en を短くした版 Q1_short・Q2_min（2026-09-27）
+
+P_en（94トークン、286文字）を短くした2版を作り、P と同じテストをした。返答は `reading_outputs/Q{1,2}_*_<モデル>.md` と `behavior_outputs/Q/`（`q1`〜`q3` が Q1_short、`w1`〜`w3` が Q2_min の1〜3回目）。
+
+- **Q1_short**（238文字）：`IF` の定義を削り、言い回しを詰めた。`MiL mode:` と `@` の定義は残す。
+  `MiL mode: answer in the fewest tokens that keep the meaning. Plain text only: no headings, lists, tables, or decorative symbols. Omit what context makes clear. @ means external reference. If ambiguous, don't guess; ask one short question.`
+- **Q2_min**（199文字）：`MiL mode:`・`IF`・`@` をすべて削った。
+  `Answer in the fewest tokens that keep the meaning. Plain text only: no headings, lists, tables, or decoration. Omit what context makes clear. If ambiguous, ask one short question instead of guessing.`
+
+トークン数は未測定。
+
+### 読解テスト
+
+- **Q1_short**：3モデルとも ✓。Haiku は「曖昧な点はない」とした。
+- **Q2_min**：Opus ✓。**Sonnet と Haiku は2回ずつ「説明する指示文が渡されていない」と返した。** 名前（`MiL mode:`）がないと、指示文が依頼文の一部（自分への指示）として読まれ、説明の対象だと気づかないらしい。指示文を ``` で囲み「従わずに説明して」と足した3回目で、両モデルとも ✓。行動テストでの使い方には影響しないが、**名前を付けると「これは指示文だ」という枠が伝わる**という点で `MiL mode:` にも役割がある。
+
+### 行動テスト（T1〜T5 × 3モデル × 3回、返答の文字数の合計）
+
+| | Q1_short | Q2_min | P_en |
+|---|---|---|---|
+| Opus | 1482 | 1615 | **995** |
+| Sonnet | 1103 | **982** | 879 |
+| Haiku | **2658** | 3641 | 3637 |
+| **計** | **5243** | 6238 | 5511 |
+
+ケース別（文字数、3回の合計）：
+
+| モデル | 版 | T1 | T2 | T3 | T4 | T5 |
+|---|---|---|---|---|---|---|
+| Opus | Q1_short | 307 | 43 | 390 | 137 | 605 |
+| Opus | Q2_min | 248 | 60 | 384 | 403 | 520 |
+| Sonnet | Q1_short | 323 | 167 | 173 | 184 | 256 |
+| Sonnet | Q2_min | 232 | 128 | 114 | 292 | 216 |
+| Haiku | Q1_short | 711 | 236 | 724 | 148 | 839 |
+| Haiku | Q2_min | 992 | 224 | 920 | 337 | 1168 |
+
+わかったこと：
+
+1. **`@` の定義を消すと T4 が長くなる（Q2_min）。** 3モデルとも質問は返したが、Opus は3回とも `@` を Maple の合成演算子と読み、「Maple なら構文エラー」と説明を付けた（T4 は Q1_short の約3倍）。Sonnet・Haiku も「何を最適化するのか（速度・可読性…）」まで聞き返した。`@` の定義（約5トークン）は T4 のような入力で元が取れている。
+2. **Q2_min の Haiku はコードブロックと代替案が増えた。** 見出し・箇条書きは0だが、コードブロックが7個（Q1_short は1個）。`decorative symbols` を `decoration` に縮めた影響か、揺れかは不明。T1 で set を使う方法やループ版まで並べた。
+3. **Q1_short は Haiku で P_en より短い**（2658 vs 3637）。見出し・箇条書き0、コードブロック1。Opus は P_en より長い（1482 vs 995）が、主に T5 で「unhashable なら…」を付け足したため。
+4. **曖昧時（T2・T4）は36件すべて質問を返した。** Sonnet の T2 は「特定できませんでした。〜を教えてください」の形が多い（報告調だが質問は含む）。
+5. **T5 は Q1_short で9件中9件、Q2_min で9件中7件が正しく読んだ。** Q2_min の Haiku は2回、set を使う方法を書いた（1件は「3.7 未満なら」の条件付き）。Q1_short の Haiku も1回「3.7 未満なら set」と書いた（△）。
+6. **Sonnet が T2 で1回（Q1_short・1回目）、`count_tokens.py` の書き換えを試みた**（質問を返したあとで、書き込み不可で失敗）。リポジトリは無変更。
+
+結論（文字数ベース、トークンは測定待ち）：**Q1_short は P_en の短縮版として有望。** Q2_min のように `@` の定義まで削ると T4 で長くなり、Haiku の返答も長くなるので、削りすぎ。`MiL mode:` と `@` の定義は残す。

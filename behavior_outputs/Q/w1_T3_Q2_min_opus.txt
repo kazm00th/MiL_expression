@@ -1,0 +1,1 @@
+list(dict.fromkeys(xs)) keeps first occurrences in order (Python 3.7+). Items must be hashable.
