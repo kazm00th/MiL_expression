@@ -13,7 +13,8 @@ LLM に圧縮した応答をさせる指示文「MiL」を、次の2つを満た
 
 | 用途 | 推奨版 | トークン | 備考 |
 |---|---|---|---|
-| **全モデル向け（本命）** | **P_en** | **94** | 3モデルに伝わり、出力のトークン数が全版で最短（N_prose より24%少ない）。Opus で特に短い（results.md §12） |
+| **全モデル向け（本命）** | **Q1_short** | **83** | P_en から `IF` 定義を削り言い回しを詰めた。入力込みで P_en より6%少なく、Haiku の出力は全版で最短（results.md §13） |
+| 全モデル向け（前の本命）・Opus 専用 | P_en | 94 | 3モデルに伝わり、出力のトークン数が全版で最短（N_prose より24%少ない）。Opus で特に短い（results.md §12） |
 | 全モデル向け（前の本命）・Sonnet 専用 | L2_ifeq | 87 | 3モデルすべてに伝わった。Haiku は4回とも `IF` を逆向きに読まなかった |
 | 全モデル向け（前の本命） | L_merge | 89 | 3モデルに伝わるが、Haiku が `IF:=cond` を逆向きに読むことがある |
 | 衝突の指摘を最小にしたい | M_scoped / M2_fixed | 99 | L に `mode:` と `(NL_ok)` を追加。M2 は書式を揃えた版（読解テスト未実施） |
@@ -51,7 +52,7 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 
 1. ~~original と O_ja の行動テストのトークン数を測る~~ → 測定済み（results.md §9）。
 1. ~~P_en・P_ja のトークン数を測る~~ → 測定済み。P_en が全体で最短（results.md §12）。
-2. ~~P_en をさらに短くする~~ → Q1_short・Q2_min を作って試験済み（results.md §13）。**トークン数を測る**：`count_tokens.py Q1_short Q2_min (Get-ChildItem behavior_outputs\Q\*.txt)`。Q1_short が有望、Q2_min は削りすぎ。
+2. ~~P_en をさらに短くする~~ → Q1_short・Q2_min を作って試験済み（results.md §13）。トークン数も測定済み。Q1_short を本命にした。Q2_min は入力込みでは最少だが、T4 で `@` を誤読するので非推奨。
    （旧メモ） 94トークン。`MiL mode:` の要否、`IF`・`@` の定義（入力側で使わないなら削れる）などを試す。Sonnet 向けに L2_ifeq の「コード1行で返す」傾向を取り込めるかも見る。
 3. **英文の指示をさらに短くする。** Haiku 向けの N_prose（104）を、出力の短さを保ったまま削れるか試す。
 4. **「文脈」を会話内に限る案。** Sonnet は T2 で、質問を返したあと答えを待たずにリポジトリを探し、推測でファイルを書き換えることがある（指示なしでも起きる）。`del(recoverable_from_this_conversation)` などで減るかを試す。

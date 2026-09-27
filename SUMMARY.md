@@ -17,11 +17,13 @@ MiL;C(m):=argmin_tok{s:⟦s⟧=m};R:=sym>logic>abbr>alias>>>EN;del(recoverable);
 
 ## 2. 結論
 
-- **全モデル向けの本命は P_en（94 トークン）。** 3モデルすべてに伝わり、出力のトークン数は全版で最短（3モデル合計 2454。N_prose 3226、L2_ifeq 3409）。§5.1f。
+- **全モデル向けの本命は Q1_short（83 トークン）。** 3モデルすべてに伝わり、入力込みのトークン数が P_en より6%少ない。Haiku の出力は全版で最短（§5.1g）。
 
   ```
-  MiL mode: answer in the fewest tokens that keep the same meaning. Write plain text: no headings, lists, tables, or decorative symbols. Omit anything recoverable from context. IF means condition; @ means external reference. If something is ambiguous, don't guess; ask one short question.
+  MiL mode: answer in the fewest tokens that keep the meaning. Plain text only: no headings, lists, tables, or decorative symbols. Omit what context makes clear. @ means external reference. If ambiguous, don't guess; ask one short question.
   ```
+
+- **その前の本命は P_en（94 トークン）。** 出力のトークン数は P_en が最短（3モデル合計 2454。Q1_short 2488、N_prose 3226）。Opus だけならいまも P_en が最短（§5.1f）。
 
 - **前の本命は L2_ifeq（87 トークン）。** 3モデルすべてに意図どおり伝わる。Sonnet だけならいまも最短。
 
@@ -50,7 +52,9 @@ count_tokens API（claude-opus-5-5 のトークナイザ）で測定。
 | 記号を多用した版 | 136 | — | 珍しい Unicode 記号（⊢ ⟦⟧ ≫ など）はトークンが多い |
 | N_prose（英文） | 104 | 全モデル | 比較対象 |
 | P_ja（日本語） | 95 | 全モデル | 装飾禁止版。文字数では最少 |
-| **P_en（英文）** | **94** | **全モデル** | **本命。装飾禁止・記号優先なし。出力が全版で最短** |
+| **Q1_short（英文）** | **83** | **全モデル** | **本命。P_en から `IF` 定義を削り言い回しを詰めた** |
+| P_en（英文） | 94 | 全モデル | 前の本命。装飾禁止・記号優先なし。出力が全版で最短 |
+| Q2_min（英文） | 69 | 全モデル（読解は囲みが必要） | `MiL mode:`・`@` も削る。T4 で `@` を誤読するので非推奨 |
 | O_ja（日本語） | 100 | 全モデル | 3モデルとも読めた。英文より4トークン少ない |
 | S式 | 98〜99 | — | 括弧と見出し語で増える |
 | L_merge | 89 | 全モデル | 前の本命。Haiku が `IF:=cond` を逆に読むことがある |
@@ -211,9 +215,18 @@ Q1_short は `IF` の定義を削って言い回しを詰めた版（238文字�
 
 返答の文字数（3回の合計）：Q1_short 5243、P_en 5511、Q2_min 6238。
 
-- **Q1_short は有望。** Haiku が P_en より短い（2658 vs 3637）。
+- **Q1_short を本命にする。** Haiku が P_en より短い（文字数 2658 vs 3637、トークン 1100 vs 1436）。
 - **Q2_min は削りすぎ。** `@` の定義がないと、Opus は T4 で `@` を Maple の演算子と読んで説明を付け、長くなった。Haiku もコードブロックと代替案が増えた。読解テストでは、名前（`MiL mode:`）がないため Sonnet・Haiku が指示文を説明対象と気づかないことがあった。
-- トークン数は測定待ち。
+出力のトークン数（3回の合計）：
+
+| | Q1_short | Q2_min | P_en |
+|---|---|---|---|
+| Opus | 734 | 730 | **502** |
+| Sonnet | 654 | 539 | **516** |
+| Haiku | **1100** | 1541 | 1436 |
+| **計** | 2488 | 2810 | **2454** |
+
+入力込み（指示文 × 12会話 × 3モデル ＋ 出力）：Q2_min 5294、Q1_short 5476、P_en 5838。Q2_min は最少だが T4 の誤読などがあるので、Q1_short を本命にする。
 
 ### 5.2 入力側（MiL 風の入力を読めるか）
 
@@ -288,8 +301,8 @@ T2（「この関数を速くして。」）で、Sonnet が「ツールを使�
 | 自然言語 | O_ja | 同じ内容の日本語文 | 100 | ✓（文ごと） | ✓（文ごと） | ✓（文ごと） | 4回 |
 | 自然言語 | **P_en** | N_prose から記号優先を外し、「見出し・箇条書き・表・装飾記号なしの平文」を追加 | 94 | ✓（文ごと） | ✓（文ごと） | ✓（文ごと、再試行） | 3回 |
 | 自然言語 | P_ja | P_en の日本語版 | 95 | ✓（文ごと） | ✓（文ごと） | ✓（文ごと） | 3回 |
-| 自然言語 | Q1_short | P_en の `IF` 定義を削り言い回しを詰める | 未測定 | ✓（文ごと） | ✓（文ごと） | ✓（文ごと） | 3回 |
-| 自然言語 | Q2_min | Q1_short から `MiL mode:` と `@` 定義も削る | 未測定 | ✓（文ごと） | ✓（```で囲んで3回目） | ✓（```で囲んで3回目） | 3回 |
+| 自然言語 | **Q1_short** | P_en の `IF` 定義を削り言い回しを詰める | 83 | ✓（文ごと） | ✓（文ごと） | ✓（文ごと） | 3回 |
+| 自然言語 | Q2_min | Q1_short から `MiL mode:` と `@` 定義も削る | 69 | ✓（文ごと） | ✓（```で囲んで3回目） | ✓（```で囲んで3回目） | 3回 |
 | 対照 | 指示なし | 指示文を付けない | — | — | — | — | 初回（T1〜T5）＋T2 の Sonnet を3回 |
 
 補足：
