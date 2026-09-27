@@ -29,7 +29,8 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 - 読み手のモデルが小さいほど、記号や数式風の定義を英単語に開く必要がある。そのぶんトークンが増える。
 - MiL 形式の節約は控えめ。同じ内容の英文（104）より 17 トークン（約16%）少ない程度。
 - **出力の長さは、指示文の形式よりモデルで決まる**（行動テスト、3回ずつの追試）。全体では L2_ifeq と N_prose はほぼ同じ（1返答あたり +4 トークン）。Sonnet は L2_ifeq のほうが短く（約 2/3）、Haiku は N_prose のほうが短い（L2_ifeq は約 1.3 倍）。初回の「英文のほうが 40% 短い」は再現しなかった。
-- **元の MiL（original）は Opus 専用。** Sonnet・Haiku に使うと出力がかえって長くなる（Sonnet 約6倍、Haiku 約3〜4倍）。
+- **元の MiL（original）は Opus 専用。** Sonnet・Haiku に使うと出力がかえって長くなる（出力トークンで Sonnet 約3〜5倍、Haiku 約3倍）。
+- **出力が最も短くなる版はモデルごとに違う**（results.md §9）：Opus は O_ja、Sonnet は L2_ifeq、Haiku は N_prose。全モデル共通で1つなら N_prose（出力の合計が最小）。
 - まとめは [SUMMARY.md](SUMMARY.md)、詳しい数値と各モデルの読みは [results.md](results.md)、経緯は [background.md](background.md)。
 
 ## L2_ifeq に残っている問題
@@ -46,8 +47,8 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 
 実施済み：L2_ifeq の読解テスト、行動テスト（L2_ifeq・N_prose・指示なし、初回＋追試3回）、original の読解テストと行動テスト（4回）。結果は results.md §5〜§7。
 
-1. **original と O_ja の行動テストのトークン数を測る（ユーザーがローカルで）。** `count_tokens.py (Get-ChildItem behavior_outputs\original\*.txt, behavior_outputs\O_ja\*.txt)`。今は文字数での比較だけ（O_ja は返答が日本語になりやすく、文字数では比べられない）。
-2. **モデル別の版を正式に決める。** 出力の長さはモデルで決まる：Sonnet は L2_ifeq が短く、Haiku は N_prose が短い。Opus はどれでも同じ（original も可）。
+1. ~~original と O_ja の行動テストのトークン数を測る~~ → 測定済み（results.md §9）。
+2. **モデル別の版を正式に決める。** 候補は Opus → O_ja、Sonnet → L2_ifeq、Haiku → N_prose（results.md §9）。
 3. **英文の指示をさらに短くする。** Haiku 向けの N_prose（104）を、出力の短さを保ったまま削れるか試す。
 4. **「文脈」を会話内に限る案。** Sonnet は T2 で、質問を返したあと答えを待たずにリポジトリを探し、推測でファイルを書き換えることがある（指示なしでも起きる）。`del(recoverable_from_this_conversation)` などで減るかを試す。
 5. **入力側で使う記号の定義。** T4 で `@` の定義が入力の読み取りに効いた。入力に `?problem` などを使うなら、その記号も指示文で定義する。

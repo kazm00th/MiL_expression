@@ -23,14 +23,14 @@ MiL;C(m):=argmin_tok{s:⟦s⟧=m};R:=sym>logic>abbr>alias>>>EN;del(recoverable);
   MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>natural_language;del(recoverable_from_context);IF=condition;@=external_ref;amb->no_guess,ask_1_short_q
   ```
 
-- **比較対象の英文版 N_prose（104 トークン）も、出力の短さはほぼ同じ。**
+- **比較対象の英文版 N_prose（104 トークン）は、出力まで含めると全モデル共通で最も短い**（§5.1d）。
 
   ```
   MiL mode: write output in the fewest tokens that keep the same meaning. Prefer symbols > logic notation > abbreviations > aliases; use natural language only as a last resort. Omit anything recoverable from context. IF means condition; @ means external reference. If something is ambiguous, don't guess; ask one short question.
   ```
 
 - **指示の効果は大きいが、指示文の形式（MiL 形式か英文か）の差は小さい。** 出力は指示なしの 1/5〜1/8 になる。L2_ifeq と N_prose の差は全体で約 6%。差の向きはモデルで逆になる。
-- **使い分けの目安：** Sonnet には L2_ifeq（出力が約 2/3）、Haiku には N_prose（L2_ifeq だと約 1.3 倍）、Opus はどちらでもよい。
+- **使い分けの目安：** Opus には O_ja、Sonnet には L2_ifeq、Haiku には N_prose（それぞれ出力が最も短い）。全モデル共通なら N_prose。元の MiL は Opus 以外には使わない。
 - **MiL 形式の節約は控えめ。** 指示文そのものは英文より 17 トークン（約 16%）短いだけ。
 
 ## 3. 指示文のトークン数
@@ -131,8 +131,23 @@ O_ja でも同じテストを4回した（文字数、3回分の合計）。
 
 - 読解テストは3モデルとも ✓。英文と同じく、自然言語で書けば Haiku にも伝わる。
 - 行動テストでも3モデルに指示が効いた。T4 は全回 `@` の参照先を質問した。
-- O_ja だと返答も日本語になりやすく、文字数では公平に比べられない。トークン数の測定待ち。
 - 詳細は results.md §8。
+
+### 5.1d 4版の出力トークン数
+
+T1〜T5 × 3回の合計（1モデルあたり15返答）。
+
+| | original | L2_ifeq | N_prose | O_ja |
+|---|---|---|---|---|
+| Opus | 1091 | 1079 | 1101 | **857** |
+| Sonnet | 2100 | **452** | 667 | 646 |
+| Haiku | 5110 | 1878 | **1458** | 2054 |
+| **計** | **8301** | 3409 | **3226** | 3557 |
+
+- **全モデル共通なら N_prose**（合計が最小）。
+- **モデルが決まっているなら**：Opus は O_ja、Sonnet は L2_ifeq、Haiku は N_prose がいちばん短い。
+- **original は全体で N_prose の約2.6倍。** Opus 以外には向かない。
+- 詳細は results.md §9。
 
 ### 5.2 入力側（MiL 風の入力を読めるか）
 
