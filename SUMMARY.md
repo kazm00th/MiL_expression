@@ -139,3 +139,44 @@ T2（「この関数を速くして。」）で、Sonnet が「ツールを使�
 2. Haiku 向けの英文版を、出力の短さを保ったまま短くする。
 3. 「文脈」を会話内に限る案（`del(recoverable_from_this_conversation)` など）で、Sonnet の推測による書き換えが減るかを試す。
 4. 入力に使う記号（`?problem` など）を指示文で定義する。
+
+## 8. 版とテストの一覧
+
+全23版と、比較用の「指示なし」。各版の文字列は `count_tokens.py` の `VERSIONS` にある。
+
+- **トークン測定**：指示文そのもののトークン数。全版で実施。
+- **読解テスト**：指示文だけを渡して意味を説明させる。✓＝意図どおり読めた、✗＝誤読した、未＝未実施、—＝対象外。v1/v2 はプロンプトの版（v2 は「項目同士の矛盾も指摘して」を追加）。
+- **行動テスト**：指示として使い、T1〜T5 に答えさせる（§5）。
+
+| 系統 | 版 | 元の版からの主な変更 | トークン | 読解 Opus | 読解 Sonnet | 読解 Haiku | 行動テスト |
+|---|---|---|---|---|---|---|---|
+| 元の記法 | **original**（A_original） | 元の MiL | 80 | ✓（v1） | 未 | 未 | — |
+| 元の記法 | A_NL | `EN`→`NL` | 80 | 未 | 未 | 未 | — |
+| 元の記法 | B_ascii | `⟦s⟧`→`[[s]]`、`¬`→`!`、`→`→`->` | 77 | — | — | — | — |
+| 元の記法 | C_out | `C(m)`→`out(m)` | 80 | — | — | — | — |
+| 元の記法 | D_ascii_out | B と C の両方 | 77 | ✓（v1） | ✗（v1） | ✗（v1） | — |
+| 元の記法 | D_NL | D の `EN`→`NL` | 77 | 未 | 未 | 未 | — |
+| 元の記法 | E_no_infer | D の `!infer`→`no infer`、`qmin`→`ask` | 76 | — | — | — | — |
+| 元の記法 | F_words | E の `del`→`drop`、`no infer`→`no guess` | 76 | — | — | — | — |
+| 書き換え | symbolic | 論理記号で書き直し（`⊢ ⊐ ≫ ↦` など） | 136 | — | — | — | — |
+| 書き換え | sexpr | S式で書き直し | 98 | — | — | — | — |
+| 書き換え | sexpr_ascii | sexpr の記号を ASCII に（`λ`→`lambda` など） | 99 | — | — | — | — |
+| 英単語に開く | G_explicit | D の後半を開く（`@:=external_ref;no_infer;amb->ask_1_short_q`） | 85 | 未 | ✓（v1） | ✗（v1） | — |
+| 英単語に開く | H_haiku | G の前半も開く（`out:=shortest_tokens_same_meaning`、`style_priority:`、`English_prose`、`del(recoverable_from_context)`） | 89 | 未 | ✓（v1） | ✓（v1） | — |
+| 英単語に開く | H_nl | H_haiku の `English_prose`→`natural_language` | 89 | ✓（v1） | ✓（v1） | ✓（v1） | — |
+| 英単語に開く | I_unamb | H_nl の `del(unambiguously_recoverable)` | 91 | ✓（v2） | ✓（v2） | ✓（v2） | — |
+| 英単語に開く | J_guess | I の `no_infer`→`no_guess_on_amb` | 96 | ✓（v2） | ✓（v2） | ✓（v2） | — |
+| 英単語に開く | K_guess_ctx | J の `del` を `recoverable_from_context` に戻す | 94 | ✓（v2） | ✓（v2） | ✓（v2） | — |
+| 英単語に開く | L_merge | K の「推測しない」を曖昧時ルールにまとめる（`amb->no_guess,ask_1_short_q`） | 89 | ✓（v2） | ✓（v2） | ✓（v2） | — |
+| 英単語に開く | **L2_ifeq** | L の `IF:=cond`→`IF=condition`、`@:=`→`@=` | 87 | ✓（v2） | ✓（v2） | ✓（v2、4回） | 初回＋追試3回 |
+| 英単語に開く | M_scoped | L に `mode:` と `(NL_ok)` を追加 | 99 | ✓（v2） | ✓（v2） | ✓（v2） | — |
+| 英単語に開く | M2_fixed | M の書式を揃える（`:=` と `=` に統一） | 99 | 未 | 未 | 未 | — |
+| 自然言語 | **N_prose** | 同じ内容の英文 | 104 | ✓（v2） | ✓（v2） | ✓（v2） | 初回＋追試3回 |
+| 自然言語 | O_ja | 同じ内容の日本語文 | 100 | 未 | 未 | 未 | — |
+| 対照 | 指示なし | 指示文を付けない | — | — | — | — | 初回（T1〜T5）＋T2 の Sonnet を3回 |
+
+補足：
+
+- 読解テストで ✓ でも、細かい誤読や曖昧さの指摘は付いていることがある（例：L_merge と M_scoped では Haiku が `IF:=cond` を逆向きに読んだ）。詳細は results.md §3。
+- 読解テストは、L2_ifeq の Haiku（4回）を除いて各1回ずつ。
+- 行動テストの「初回」は T1〜T5 × 3モデル × 1回。「追試3回」は同じものを3回（T2 の Sonnet がファイルを書き換えた件は §5.4）。
