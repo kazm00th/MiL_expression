@@ -39,6 +39,9 @@ VERSIONS = {
     "L2_ifeq":     "MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>natural_language;del(recoverable_from_context);IF=condition;@=external_ref;amb->no_guess,ask_1_short_q",
     "M2_fixed":    "mode:=MiL;out:=shortest_tokens_same_meaning;style_priority:=symbols>logic>abbr>alias>>>natural_language;del(recoverable_from_context);IF=condition;@=external_ref;amb->no_guess,ask_1_short_q(NL_ok)",
     "D_NL":        "MiL;out(m):=argmin_tok{s:[[s]]=m};R:=sym>logic>abbr>alias>>>NL;del(recoverable);IF:=cond;@:=ext;!infer;amb->qmin",
+    # --- 第2回: 装飾禁止・記号優先なし（results.md §10 の分析から） ---
+    "P_en":        "MiL mode: answer in the fewest tokens that keep the same meaning. Write plain text: no headings, lists, tables, or decorative symbols. Omit anything recoverable from context. IF means condition; @ means external reference. If something is ambiguous, don't guess; ask one short question.",
+    "P_ja":        "MiLモード：意味を変えずに最少トークンで答える。見出し・箇条書き・表・装飾記号は使わず平文で書く。文脈から復元できるものは省く。IFは条件、@は外部参照。曖昧なら推測せず、短い質問を1つする。",
 }
 
 
