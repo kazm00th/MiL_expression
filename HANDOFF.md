@@ -13,12 +13,13 @@ LLM に圧縮した応答をさせる指示文「MiL」を、次の2つを満た
 
 | 用途 | 推奨版 | トークン | 備考 |
 |---|---|---|---|
-| **全モデル向け（本命）** | **L2_ifeq** | **87** | 3モデルすべてに伝わった。Haiku は4回とも `IF` を逆向きに読まなかった |
+| **全モデル向け（本命）** | **P_en** | **94** | 3モデルに伝わり、出力のトークン数が全版で最短（N_prose より24%少ない）。Opus で特に短い（results.md §12） |
+| 全モデル向け（前の本命）・Sonnet 専用 | L2_ifeq | 87 | 3モデルすべてに伝わった。Haiku は4回とも `IF` を逆向きに読まなかった |
 | 全モデル向け（前の本命） | L_merge | 89 | 3モデルに伝わるが、Haiku が `IF:=cond` を逆向きに読むことがある |
 | 衝突の指摘を最小にしたい | M_scoped / M2_fixed | 99 | L に `mode:` と `(NL_ok)` を追加。M2 は書式を揃えた版（読解テスト未実施） |
 | Opus だけが読む | D_NL | 77 | D_ascii_out の `EN`→`NL`。Sonnet・Haiku には伝わらない（D_ascii_out での結果） |
 | 日本語で書く | O_ja | 100 | 3モデルすべてに伝わった。行動テストでも指示が効く（results.md §8） |
-| 新候補（測定待ち） | P_en / P_ja | 未測定 | 記号優先を外し「見出し・箇条書き・表・装飾記号なしの平文」を追加。3モデルに伝わり、文字数では最短（P_ja は入出力、P_en は出力）。Haiku の装飾が消えた（results.md §12） |
+| 文字数を減らしたい | P_ja | 95 | P_en の日本語版。入出力の文字数で最少（results.md §12） |
 | （参考）元の MiL | original | 80 | Opus 専用。Sonnet は読めるが指示が効かず出力が約6倍、Haiku は解読できない（results.md §7） |
 
 L2_ifeq：
@@ -49,8 +50,8 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 実施済み：L2_ifeq の読解テスト、行動テスト（L2_ifeq・N_prose・指示なし、初回＋追試3回）、original の読解テストと行動テスト（4回）、O_ja（4回）、P_en・P_ja（3回ずつ）。結果は results.md §5〜§12。
 
 1. ~~original と O_ja の行動テストのトークン数を測る~~ → 測定済み（results.md §9）。
-1. **P_en・P_ja のトークン数を測る（ユーザーがローカルで）。** `python count_tokens.py P_en P_ja (Get-ChildItem behavior_outputs\P\*.txt)`。N_prose・L2_ifeq・O_ja より短いかを results.md §9 の表と比べる。
-2. **モデル別の版を正式に決める。** 候補は Opus → O_ja、Sonnet → L2_ifeq、Haiku → N_prose（results.md §9）。
+1. ~~P_en・P_ja のトークン数を測る~~ → 測定済み。P_en が全体で最短（results.md §12）。
+2. **P_en をさらに短くする。** 94トークン。`MiL mode:` の要否、`IF`・`@` の定義（入力側で使わないなら削れる）などを試す。Sonnet 向けに L2_ifeq の「コード1行で返す」傾向を取り込めるかも見る。
 3. **英文の指示をさらに短くする。** Haiku 向けの N_prose（104）を、出力の短さを保ったまま削れるか試す。
 4. **「文脈」を会話内に限る案。** Sonnet は T2 で、質問を返したあと答えを待たずにリポジトリを探し、推測でファイルを書き換えることがある（指示なしでも起きる）。`del(recoverable_from_this_conversation)` などで減るかを試す。
 5. **入力側で使う記号の定義。** T4 で `@` の定義が入力の読み取りに効いた。入力に `?problem` などを使うなら、その記号も指示文で定義する。
