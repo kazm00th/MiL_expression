@@ -30,7 +30,7 @@ MiL;out:=shortest_tokens_same_meaning;style_priority:symbols>logic>abbr>alias>>>
 - MiL 形式の節約は控えめ。同じ内容の英文（104）より 17 トークン（約16%）少ない程度。
 - **出力の長さは、指示文の形式よりモデルで決まる**（行動テスト、3回ずつの追試）。全体では L2_ifeq と N_prose はほぼ同じ（1返答あたり +4 トークン）。Sonnet は L2_ifeq のほうが短く（約 2/3）、Haiku は N_prose のほうが短い（L2_ifeq は約 1.3 倍）。初回の「英文のほうが 40% 短い」は再現しなかった。
 - **元の MiL（original）は Opus 専用。** Sonnet・Haiku に使うと出力がかえって長くなる（出力トークンで Sonnet 約3〜5倍、Haiku 約3倍）。
-- **出力が最も短くなる版はモデルごとに違う**（results.md §9）：Opus は O_ja、Sonnet は L2_ifeq、Haiku は N_prose。全モデル共通で1つなら N_prose（出力の合計が最小）。
+- **出力が最も短くなる版はモデルごとに違う**（results.md §9）：Opus は O_ja、Sonnet は L2_ifeq、Haiku は N_prose。全モデル共通で1つなら N_prose（出力の合計が最小）。**文字数基準（入力＋出力）では O_ja が全モデルで最少**（results.md §11）。
 - まとめは [SUMMARY.md](SUMMARY.md)、詳しい数値と各モデルの読みは [results.md](results.md)、経緯は [background.md](background.md)。
 
 ## L2_ifeq に残っている問題
