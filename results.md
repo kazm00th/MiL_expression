@@ -889,7 +889,7 @@ prose_test.md の論点 a〜f に、多くの返答が挙げた g（「要約不
 
 ### わかったこと（文字数）
 
-1. **本文を MiL にすると、返答も MiL の記法になった（Opus・記号優先の版）。** Opus の original・L2_ifeq は U1m で `verdict:=direction✓∧claim_scope✗`、`summarize@use≠¬summarize` のような返答になり、作者のやり取りの例に近い。日本語本文（§17）や英語本文ではこうならなかった。**返答の記法を決めていたのは指示文より本文の書き方だった。** P_en の Opus は MiL 本文でも平文の英語で返した（記号1）。
+1. **本文を MiL にすると、返答も MiL の記法になった（Opus・記号優先の版）。** Opus の original・L2_ifeq は U1m で `verdict:=direction✓∧claim_scope✗`、`summarize@use≠¬summarize` のような返答になり、作者のやり取りの例に近い。日本語本文（§17）ではこうならなかった。英語本文でも L2_ifeq の Opus は U2e で記号を多く使った（54）が、U1e では少なかった（5）。**返答の記法には、指示文と同じくらい本文の書き方（とその言語）が効いていた。** P_en の Opus は MiL 本文でも平文の英語で返した（記号1）。
 2. **本文を MiL にすると、ほとんどの条件で返答が短くなった。** 英語本文と比べて、original は U1 で 7888 vs 14625、U2 で 4161 vs 8169。Sonnet の縮み方が大きい（U1 original 2967 vs 9010）。
 3. **ただし Sonnet は MiL の本文（U1m）を誤読した。** `?problem` を「この投稿の問題点は？」でなく「投稿が扱っている問題は何か」と読み、投稿の主張に沿って解説した返答が P_en で3回中3回。L2_ifeq では2回が確認の質問だけを返し（86・109字、1回は日本語）、1回は投稿の主張を前提に論じた。original の Sonnet は3回とも批評として読めた。Opus は全18返答が批評として読んだ（P_en の1回が末尾で「?problem は批評の依頼か」と確認）。**Sonnet の U1m が短いのは、誤読や質問で中身が減ったのも理由。**
 4. **U2m（条件が短い依頼）は誤読なし。** 全返答が SQLite と PostgreSQL の判断基準を答えた。Sonnet の U2m は117〜373字と特に短い。L2_ifeq の Sonnet の1回だけ PostgreSQL を勧めた（他は SQLite）。
