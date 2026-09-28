@@ -1,0 +1,16 @@
+U01	UNAWARE_NL_chuhai_sonnet.txt
+U02	UNAWARE_NL_phone_sonnet.txt
+U03	UNAWARE_NL_phone_opus.txt
+U04	UNAWARE_NL_chuhai_opus.txt
+U05	UNAWARE_MiL_chuhai_opus.txt
+U06	UNAWARE_MiL_phone_opus.txt
+U07	UNAWARE_MiL_phone_sonnet.txt
+U08	UNAWARE_MiL_chuhai_sonnet.txt
+A01	ALT_NL_in1_opus.txt
+A02	ALT_MiL_in1_sonnet.txt
+A03	ALT_NL_in2_sonnet.txt
+A04	ALT_MiL_in2_sonnet.txt
+A05	ALT_NL_in2_opus.txt
+A06	ALT_MiL_in1_opus.txt
+A07	ALT_MiL_in2_opus.txt
+A08	ALT_NL_in1_sonnet.txt
