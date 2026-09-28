@@ -1,0 +1,16 @@
+Z01	ACT_NL_phone_opus.txt
+Z02	ACT_MiL_phone_sonnet.txt
+Z03	ACT_MiL_chuhai_sonnet.txt
+Z04	ACT_MiL_chuhai_opus.txt
+Z05	ACT_NL_phone_sonnet.txt
+Z06	ACT_MiL_phone_opus.txt
+Z07	ACT_NL_chuhai_sonnet.txt
+Z08	ACT_NL_chuhai_opus.txt
+D01	DESC_NL_in1_opus.txt
+D02	DESC_NL_in2_opus.txt
+D03	DESC_NL_in1_sonnet.txt
+D04	DESC_MiL_in2_sonnet.txt
+D05	DESC_MiL_in2_opus.txt
+D06	DESC_NL_in2_sonnet.txt
+D07	DESC_MiL_in1_sonnet.txt
+D08	DESC_MiL_in1_opus.txt
