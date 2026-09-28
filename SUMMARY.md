@@ -1,6 +1,6 @@
 # MiL 指示文の実験：結果のまとめ
 
-2026-09-27 時点。詳しい数値は [results.md](results.md)（コードと散文の課題）と [clarity_experiment.md](clarity_experiment.md)（明確さの実験）、レポートは [REPORT.md](REPORT.md)、経緯は [background.md](background.md)、次の作業は [HANDOFF.md](HANDOFF.md)。
+2026-09-27 時点。詳しい数値は [results.md](results.md)（コードと散文の課題）と [clarity_experiment.md](clarity_experiment.md)（明確さの実験）、レポートは [REPORT.md](REPORT.md)（明確さの実験は [CLARITY_REPORT.md](CLARITY_REPORT.md)）、経緯は [background.md](background.md)、次の作業は [HANDOFF.md](HANDOFF.md)。
 
 ## 1. 何を調べたか
 

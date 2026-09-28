@@ -101,6 +101,7 @@ $env:ANTHROPIC_API_KEY = "ここにキー"; & "D:\Users\usor\miniconda3\envs\mye
 | SUMMARY.md | ここまでの実験結果のまとめ（最初に読むならこれ） |
 | REPORT.md | レポートの下書き |
 | prose_test.md | 散文の課題 U1・U2 の設計（実施済み、結果は results.md §17） |
+| CLARITY_REPORT.md | 明確さの実験のレポート（REPORT.md とは別扱い） |
 | clarity_experiment.md | 実験：記号の多い指示文は明確さを強制できるか（パイロット §10・§11、2回目 §12〜§15、3回目 §16・§17、実施済み） |
 | clarity_outputs/ | 明確さの実験の返答（`writers/`）と読み手の答え（`readers/`）。2回目は `round2/`、3回目は `round3/`（送った文 `prompts/`、判定役 `judges/`、事前の確認 `pre/` も） |
 | results.md | 全候補のトークン数、読解テストの結果、モデルごとの傾向 |
